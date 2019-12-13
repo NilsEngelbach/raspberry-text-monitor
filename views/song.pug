@@ -5,15 +5,20 @@ block content
     h1 #{song.meta.title}
 
     if nextSong
-        a(href='/' + nextSong.filename) NEXT: #{nextSong.name}
+        a#next(href='/' + nextSong.filename) NEXT: #{nextSong.name}
     if prevSong
-        a(href='/' + prevSong.filename) PREV: #{prevSong.name}
+        a#prev(href='/' + prevSong.filename) PREV: #{prevSong.name}
 
     div.lyrics !{song.htmlContent}
 
 
 block scripts
     script.
-        window.onload = function() {
-            console.log("loaded");
-        }
+        window.addEventListener("doublePress", function(e) {
+            if (e.detail.key.keyCode == #{keycodes.left}) {
+                location.href = document.getElementById('prev').getAttribute("href");
+            }
+            if (e.detail.key.keyCode == #{keycodes.right}) {
+                location.href = document.getElementById('next').getAttribute("href");
+            }
+         });
