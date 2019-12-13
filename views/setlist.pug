@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+  h1 Setlist #{setlist.name}
+  each song in setlist.songs
+    li 
+      a(href='/' + song.filename) #{song.name}
+
+
+block scripts
+  script.
+    window.onload = function() {
+      console.log("loaded");
+    }

@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  padding: 5px;
+  background-color: #111;
+  color: #eee;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #ccc;
+}
+
+h5 {
+  font-size: 0.65rem;
+  color: #aaa;
+  margin-bottom: 0.65rem;
+}
+
+.lyrics p {
+  margin: 20px 0;
+}

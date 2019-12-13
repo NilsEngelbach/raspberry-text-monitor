@@ -1,0 +1,19 @@
+extends layout.pug
+
+block content
+    h5 Setlist #{setlist.name}
+    h1 #{song.meta.title}
+
+    if nextSong
+        a(href='/' + nextSong.filename) NEXT: #{nextSong.name}
+    if prevSong
+        a(href='/' + prevSong.filename) PREV: #{prevSong.name}
+
+    div.lyrics !{song.htmlContent}
+
+
+block scripts
+    script.
+        window.onload = function() {
+            console.log("loaded");
+        }

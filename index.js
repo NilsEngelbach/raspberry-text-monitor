@@ -14,49 +14,83 @@ app.use(nocache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.set('views', './views');
+app.set('view engine', 'pug');
+
+app.use('/public', express.static('public'));
+
 const config = {
   port: 8080,
-  setlistsPath: `C:\\DEV\\rasberry-text-monitor\\test-setlist`
+  setlistsPath: `C:\\DEV\\rasberry-text-monitor\\test-setlist`,
+  keycodes: {
+    left: 37,
+    right: 39,
+    middle: 40
+  }
 };
 
-app.get("/", (req, res) => {
-  const setlistPath = path.normalize(config.setlistsPath + "\\setlist.json");
-  fs.readFile(setlistPath, "utf-8", (err, data) => {
-    if (err) {
-      if (err.code === "ENOENT") {
-        res.send("setlist.json not found");
-        return;
+function getSetlist() {
+  return new Promise((resolve, reject) => {
+    const setlistPath = path.normalize(config.setlistsPath + "\\setlist.json");
+    fs.readFile(setlistPath, "utf-8", (err, data) => {
+      if (err) {
+        console.error(err);
+        reject("setlist.json can not be opened");
       }
-      console.error(err);
-      res.send("There was an error reading the setlist.json");
-    }
-    res.send(data);
+      resolve(JSON.parse(data));
+    });
+  });
+}
+
+function getSong(filename) {
+  return new Promise((resolve, reject) => {
+    const songPath = path.normalize(config.setlistsPath + "\\" + filename);
+    fs.readFile(songPath, "utf-8", (err, data) => {
+      if (err) {
+        console.error(err);
+        reject(`${filename} can not be opened`);
+      }
+      const YAMLFrontMatter = /^---.*---/gs;
+      MetaConverter.makeHtml(data);
+      const meta = MetaConverter.getMetadata();
+      resolve({
+        meta: meta,
+        htmlContent: Converter.makeHtml(data.replace(YAMLFrontMatter, '').replace(/.+\r?\n/g,'$&<br>\r\n',))
+      });
+    });
+  });
+}
+
+function getSongInSetlist(filename, setlist, i) {
+  const index = setlist.songs.findIndex(x => x.filename == filename);
+  return setlist.songs[index + i];
+}
+
+app.get("/", (req, res) => {
+  getSetlist().then(setlist => {
+    res.render('setlist', {
+      setlist: setlist,
+      keycodes: config.keycodes
+    });
+  }).catch(error => {
+    res.send(error);
   });
 });
 
 app.get("/:filename", (req, res) => {
-  const songPath = path.normalize(config.setlistsPath + "\\" + req.params.filename);
-  fs.readFile(songPath, "utf-8", (err, data) => {
-    if (err) {
-      if (err.code === "ENOENT") {
-        res.send("song not found");
-        return;
-      }
-      console.error(err);
-      res.send("There was an error reading the song");
-    }
-
-    const YAMLFrontMatter = /^---.*---/gs;
-
-    dataWithoutFrontmatter = data.replace(YAMLFrontMatter, '').replace(/.+\r?\n/g,'$&<br>\r\n',);
- 
-    const html = Converter.makeHtml(dataWithoutFrontmatter);
-
-    MetaConverter.makeHtml(data);
-    const meta = MetaConverter.getMetadata();
-    console.log(meta);
-  
-    res.send(html);
+  Promise.all([
+    getSong(req.params.filename),
+    getSetlist()
+  ]).then(([song, setlist]) => {
+    res.render('song', {
+      song: song,
+      nextSong: getSongInSetlist(req.params.filename, setlist, 1),
+      prevSong: getSongInSetlist(req.params.filename, setlist, -1),
+      setlist: setlist,
+      keycodes: config.keycodes
+    });
+  }).catch(error => {
+    res.send(error);
   });
 });
 
