@@ -1,0 +1,13 @@
+{
+    "name": "Musikfest 2019",
+    "songs": [
+        {
+            "name": "Let me entertain you",
+            "filename": "let-me-entertain-you.md"
+        },
+        {
+            "name": "Summer of 69",
+            "filename": "summer-of-69.md"
+        }
+    ]
+}
