@@ -1,6 +1,3 @@
----
-title: Jump
----
 I get up, and nothin' gets me down
 You got it tough, I've seen the toughest around
 And I know, baby, just how you feel

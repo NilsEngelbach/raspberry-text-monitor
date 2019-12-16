@@ -1,7 +1,3 @@
----
-title: Hulapalu
----
-
 Hodi odi ohh di ho di eh
 Hodi odi ohh di ho di eh
 Hodi odi ohh di ho di eh

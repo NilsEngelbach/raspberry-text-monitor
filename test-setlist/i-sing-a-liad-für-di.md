@@ -1,7 +1,4 @@
----
-title: I sing a liad für di
----
-
+~refrain~
 I sing a liad für di
 Und daun frogst du mi
 Mogst mid mir daunzn gehn
@@ -9,6 +6,7 @@ I glaub i steh auf di
 I sing a liad für die
 Und kaun di sterndal seng
 I hob mi verknoid in di
+~refrain~
 
 I hob a engal gseng
 Über di strossn gehn
@@ -26,13 +24,15 @@ Bei da haund hots mi gschnappt
 Und i hobs ertappt
 Weils ka flügal hod wos klappt
 
-**I sing a liad für di
+~refrain~
+I sing a liad für di
 Und daun frogst du mi
 Mogst mid mir daunzn gehn
 I glaub i steh auf di
 I sing a liad für di
 Und kaun di sterndal seng
-I hob mi verknoid in di**
+I hob mi verknoid in di
+~refrain~
 
 Noch dem erstn hallo
 Hods mi ghobt sowiso
@@ -48,24 +48,30 @@ Hät i gwusst wos passiert
 Wär i ned so verwirrt
 Wenn so a engal ohne flügal fliagt
 
-**I sing a liad für di
+~refrain~
+I sing a liad für di
 Und daun frogst du mi
 Mogst mid mir daunzn gehn
 I glaub i steh auf di
 I sing a liad für di
 Und kaun di sterndal seng
-I hob mi verknoid in di**
+I hob mi verknoid in di
+~refrain~
 
+~bridge~
 Ah uh lalala a so a schena tog
 Uh lalala weil i a engal hob
 Uh lalala a so a schene nocht
 Da himml hod mir a engal brocht
+~bridge~
 
+~refrain~
 [2x]
-**I sing a liad für di
+I sing a liad für di
 Und daun frogst du mi
 Mogst mid mir daunzn gehn
 I glaub i steh auf di
 I sing a liad für di
 Und kaun di sterndal seng
-I hob mi verknoid in di**
+I hob mi verknoid in di
+~refrain~

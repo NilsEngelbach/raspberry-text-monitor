@@ -6,7 +6,6 @@
 }
 
 body {
-  padding: 5px;
   background-color: #111;
   color: #eee;
 }
@@ -22,6 +21,30 @@ h5 {
   margin-bottom: 0.65rem;
 }
 
-.lyrics p {
+#container {
+  padding: 5px;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+#lyrics p {
   margin: 20px 0;
+  line-height: 1.3;
+}
+
+.page {
+  border: 1px solid white;
+  padding: 5px;    
+}
+
+.refrain {
+  color: yellow;
+  font-weight: bold;
+}
+
+.bridge {
+  color: orange;
 }

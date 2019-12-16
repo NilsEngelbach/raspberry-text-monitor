@@ -7,8 +7,22 @@ const showdown = require("showdown"),
 
 const app = express();
 
-const Converter = new showdown.Converter();
-const MetaConverter = new showdown.Converter({metadata: true});
+showdown.extension('lyrics', function() {
+  return [
+    {
+        type: 'output',
+        regex: /~refrain~([^]+?)~refrain~/gi,
+        replace: '<span class="refrain">$1</span>'
+    },
+    {
+      type: 'output',
+      regex: /~bridge~([^]+?)~refrain~/gi,
+      replace: '<span class="bridge">$1</span>'
+    }
+  ]
+});
+
+const Converter = new showdown.Converter({extensions: ['lyrics']});
 
 app.use(nocache());
 app.use(bodyParser.json());
@@ -43,7 +57,7 @@ function getSetlist() {
   });
 }
 
-function getSong(filename) {
+function getLyrics(filename) {
   return new Promise((resolve, reject) => {
     const songPath = path.normalize(config.setlistsPath + "\\" + filename);
     fs.readFile(songPath, "utf-8", (err, data) => {
@@ -51,13 +65,7 @@ function getSong(filename) {
         console.error(err);
         reject(`${filename} can not be opened`);
       } else {
-        const YAMLFrontMatter = /^---.*---/gs;
-        MetaConverter.makeHtml(data);
-        const meta = MetaConverter.getMetadata();
-        resolve({
-          meta: meta,
-          htmlContent: Converter.makeHtml(data.replace(YAMLFrontMatter, '').replace(/.+\r?\n/g,'$&<br>\r\n',))
-        });
+        resolve(Converter.makeHtml(data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, '$&<br>\r\n')));
       }
     });
   });
@@ -81,11 +89,12 @@ app.get("/", (req, res) => {
 
 app.get("/:filename", (req, res) => {
   Promise.all([
-    getSong(req.params.filename),
+    getLyrics(req.params.filename),
     getSetlist()
-  ]).then(([song, setlist]) => {
+  ]).then(([lyrics, setlist]) => {
     res.render('song', {
-      song: song,
+      lyrics: lyrics,
+      song: getSongInSetlist(req.params.filename, setlist, 0),
       nextSong: getSongInSetlist(req.params.filename, setlist, 1),
       prevSong: getSongInSetlist(req.params.filename, setlist, -1),
       setlist: setlist,

@@ -1,24 +1,33 @@
 extends layout.pug
 
 block content
-    h5 Setlist #{setlist.name}
-    h1 #{song.meta.title}
+  h5 Setlist #{setlist.name}
+  h1 #{song.name}
 
-    if nextSong
-        a#next(href='/' + nextSong.filename) NEXT: #{nextSong.name}
-    if prevSong
-        a#prev(href='/' + prevSong.filename) PREV: #{prevSong.name}
+  if nextSong
+    a#next(href='/' + nextSong.filename) NEXT: #{nextSong.name}
+  if prevSong
+    a#prev(href='/' + prevSong.filename) PREV: #{prevSong.name}
 
-    div.lyrics !{song.htmlContent}
+  div#lyrics !{lyrics}
 
 
 block scripts
-    script.
-        window.addEventListener("doublePress", function(e) {
-            if (e.detail.key.keyCode == #{keycodes.left}) {
-                location.href = document.getElementById('prev').getAttribute("href");
-            }
-            if (e.detail.key.keyCode == #{keycodes.right}) {
-                location.href = document.getElementById('next').getAttribute("href");
-            }
-         });
+  script.
+    window.addEventListener("doublePress", function(e) {
+      if (e.detail.key.keyCode == #{keycodes.left}) {
+        location.href = document.getElementById('prev').getAttribute("href");
+      }
+      if (e.detail.key.keyCode == #{keycodes.right}) {
+        location.href = document.getElementById('next').getAttribute("href");
+      }
+    });
+    // Scroll lyrics with "single click"
+    window.addEventListener("keydown", function(e) {
+      if (e.keyCode == #{keycodes.left}) {
+        document.getElementById("container").scrollBy(0, -(window.innerHeight - 200));
+      }
+      if (e.keyCode == #{keycodes.right}) {
+        document.getElementById("container").scrollBy(0, window.innerHeight - 200);
+      }
+    });

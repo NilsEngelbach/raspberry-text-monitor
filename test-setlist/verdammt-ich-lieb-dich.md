@@ -1,6 +1,3 @@
----
-title: Verdammt ich lieb dich
----
 Ich ziehe durch die Straßen bis nach Mitternacht
 Ich hab das früher auch gern gemacht, dich brauch ich dafür nicht
 Ich sitze am Tresen und trinke noch'n Bier

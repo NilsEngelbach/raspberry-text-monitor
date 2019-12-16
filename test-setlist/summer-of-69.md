@@ -1,7 +1,3 @@
----
-title: Summer of 69
----
-
 I got my first real six-string
 Bought it at the five-and-dime
 Played it 'til my fingers bled

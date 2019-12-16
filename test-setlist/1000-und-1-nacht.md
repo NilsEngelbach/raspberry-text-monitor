@@ -1,6 +1,3 @@
----
-title: 1000 und 1 Nacht (Zoom!)
----
 Du wolltest dir bloß den Abend vertreiben
 Und nicht grad allein gehen und riefst bei mir an
 Wir waren nur Freunde und wollten's auch bleiben

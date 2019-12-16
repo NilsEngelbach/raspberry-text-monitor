@@ -1,7 +1,3 @@
----
-title: Let me entertain you
----
-
 Hell is gone and heaven's here
 There's nothing left for you to fear
 Shake your arse come over here
