@@ -21,7 +21,7 @@ app.use('/public', express.static('public'));
 
 const config = {
   port: 8080,
-  setlistsPath: `C:\\DEV\\rasberry-text-monitor\\test-setlist`,
+  setlistsPath: `C:\\DEV\\raspberry-text-monitor\\test-setlist`,
   keycodes: {
     left: 37,
     right: 39,
@@ -36,8 +36,9 @@ function getSetlist() {
       if (err) {
         console.error(err);
         reject("setlist.json can not be opened");
+      } else {
+        resolve(JSON.parse(data));
       }
-      resolve(JSON.parse(data));
     });
   });
 }
@@ -49,14 +50,15 @@ function getSong(filename) {
       if (err) {
         console.error(err);
         reject(`${filename} can not be opened`);
+      } else {
+        const YAMLFrontMatter = /^---.*---/gs;
+        MetaConverter.makeHtml(data);
+        const meta = MetaConverter.getMetadata();
+        resolve({
+          meta: meta,
+          htmlContent: Converter.makeHtml(data.replace(YAMLFrontMatter, '').replace(/.+\r?\n/g,'$&<br>\r\n',))
+        });
       }
-      const YAMLFrontMatter = /^---.*---/gs;
-      MetaConverter.makeHtml(data);
-      const meta = MetaConverter.getMetadata();
-      resolve({
-        meta: meta,
-        htmlContent: Converter.makeHtml(data.replace(YAMLFrontMatter, '').replace(/.+\r?\n/g,'$&<br>\r\n',))
-      });
     });
   });
 }
