@@ -11,13 +11,8 @@ showdown.extension('lyrics', function() {
   return [
     {
         type: 'output',
-        regex: /~refrain~([^]+?)~refrain~/gi,
-        replace: '<span class="refrain">$1</span>'
-    },
-    {
-      type: 'output',
-      regex: /~bridge~([^]+?)~refrain~/gi,
-      replace: '<span class="bridge">$1</span>'
+        regex: /~([\w]+)[^>]*~([^]+?)~\1~/gi,
+        replace: '<span class="$1">$2</span>'
     }
   ]
 });

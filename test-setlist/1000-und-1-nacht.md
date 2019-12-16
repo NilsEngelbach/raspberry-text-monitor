@@ -8,8 +8,10 @@ Deine Eltern sind mit meinen damals Kegeln gefahren
 Wir blieben zu Haus, du schliefst ein vorm Fernsehen
 Wir waren wie Geschwister in all den Jahren
 
+~refrain~
 Tausendmal berührt, tausendmal ist nix passiert
 Tausend und eine Nacht und es hat „Zoom“ gemacht
+~refrain~
 
 Erinnerst du dich, wir ha'm Indianer gespielt
 Und uns an Fasching in die Büsche versteckt
@@ -20,8 +22,10 @@ Als dass aus uns noch mal irgendwas wird
 Ich wusst' wie dein Haar riecht und die silberne Spange
 Hatt' ich doch schon tausendmal beim Tanzen berührt
 
+~refrain~
 Tausendmal berührt, tausendmal ist nix passiert
 Tausend und eine Nacht und es hat „Zoom“ gemacht
+~refrain~
 
 Oh, wie viele Nächte wusst' ich nicht, was gefehlt hat
 Wär' nie drauf gekommen, denn das warst ja du
@@ -33,6 +37,8 @@ Was war bloß passiert, wir wollten tanzen gehen
 Alles war so vertraut und jetzt ist alles neu
 Jetzt ist alles neu
 
+~refrain~
 [3x]
 Tausendmal berührt, tausendmal ist nix passiert
 Tausend und eine Nacht und es hat „Zoom“ gemacht
+~refrain~

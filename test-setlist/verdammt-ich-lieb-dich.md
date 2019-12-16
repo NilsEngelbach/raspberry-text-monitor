@@ -10,6 +10,7 @@ Und mach ihn an, lass meine Frau inn Ruh, er fragt nur Hast du 'n Stich?
 
 Und ich denke schon wieder nur an dich
 
+~refrain~
 [2x]
 Verdammt, ich lieb dich
 Ich lieb dich nicht
@@ -18,6 +19,7 @@ Ich brauch dich nicht
 Verdammt, ich will dich
 Ich will dich nicht
 Ich will dich nicht verlieren
+~refrain~
 
 So langsam fällt mir alles wieder ein
 Ich wollt doch nur ein bisschen freier sein, jetzt bin ich's Oder nicht?
@@ -31,6 +33,7 @@ Das ist es was ein Mann so braucht, doch niemand Niemand sagt, hör auf
 
 Und ich denke schon wieder nur an dich
 
+~refrain~
 [1x]
 Verdammt, ich lieb dich
 Ich lieb dich nicht
@@ -39,9 +42,11 @@ Ich brauch dich nicht
 Verdammt, ich will dich
 Ich will dich nicht
 Ich will dich nicht verlieren, oh
+~refrain~
 
 **Gitarrensolo**
 
+~refrain~
 [2x]
 Verdammt, ich lieb dich
 Ich lieb dich nicht
@@ -50,3 +55,4 @@ Ich brauch dich nicht
 Verdammt, ich will dich
 Ich will dich nicht
 Ich will dich nicht verlieren, oh
+~refrain~

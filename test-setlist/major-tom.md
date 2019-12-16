@@ -11,8 +11,10 @@ Jeder ist im Stress, doch Major Tom
 Macht einen Scherz
 Dann hebt er ab und
 
+~refrain~
 Völlig losgelöst Von der Erde
 Schwebt das Raumschiff Völlig schwerelos
+~refrain~
 
 Die Erdanziehungskraft ist überwunden
 Alles läuft perfekt, schon seit Stunden
@@ -27,8 +29,10 @@ Woll'n Sie das Projekt denn so zerstören?"
 Doch er kann nichts hör'n
 Er schwebt weiter
 
+~refrain~
 Völlig losgelöst Von der Erde
 Schwebt das Raumschiff Völlig schwerelos
+~refrain~
 
 Die Erde schimmert blau, sein letzter Funk kommt
 "Grüßt mir meine Frau", und er verstummt
@@ -39,6 +43,8 @@ Mich führt hier ein Licht durch das All
 Das kennt ihr noch nicht, ich komme bald
 Mir wird kalt
 
+~refrain~
 [3x]
 Völlig losgelöst Von der Erde
 Schwebt das Raumschiff Schwerelos
+~refrain~

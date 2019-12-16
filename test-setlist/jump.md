@@ -9,6 +9,7 @@ I ain't the worst that you've seen
 Ah, can't you see what I mean?
 Ah, might as well jump
 
+~refrain~
 (Jump)
 Might as well jump
 Go ahead an' jump (jump)
@@ -18,12 +19,14 @@ Who said that?
 Baby, how you been?
 You say you don't know
 You won't know until you begin
+~refrain~
 
 So can't ya see me standing here
 I got my back against the record machine
 I ain't the worst that you've seen
 Ah, can't you see what I mean?
 
+~refrain~
 Ah, might as well jump
 (Jump)
 Go ahead and jump
@@ -34,5 +37,6 @@ Might as well jump (jump)
 Go ahead and jump
 Get it in, jump (jump)
 Go ahead and jump
+~refrain~
 
 Jump [4x]
