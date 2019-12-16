@@ -1,4 +1,4 @@
-# Onstage Text Monitor build with Rasberry PI 4
+# Onstage Text Monitor build with Raspberry PI 4
 
 ## Hardware
 
