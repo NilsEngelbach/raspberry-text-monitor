@@ -23,10 +23,10 @@ app.use(nocache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-app.use("/public", express.static("public"));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
   port: 8080,
