@@ -30,7 +30,7 @@ app.use("/public", express.static("public"));
 
 const config = {
   port: 8080,
-  setlistsPath: path.join("test-setlist"),
+  setlistsPath: path.join(__dirname, "test-setlist"),
   keycodes: {
     left: 37,
     right: 39,
