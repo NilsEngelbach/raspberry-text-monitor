@@ -30,7 +30,7 @@ app.use("/public", express.static("public"));
 
 const config = {
   port: 8080,
-  setlistsPath: `C:\\DEV\\raspberry-text-monitor\\test-setlist`,
+  setlistsPath: `.\\test-setlist`,
   keycodes: {
     left: 37,
     right: 39,
