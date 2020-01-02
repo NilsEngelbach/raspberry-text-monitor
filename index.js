@@ -30,7 +30,7 @@ app.use("/public", express.static("public"));
 
 const config = {
   port: 8080,
-  setlistsPath: `.\\test-setlist`,
+  setlistsPath: path.join("test-setlist"),
   keycodes: {
     left: 37,
     right: 39,
@@ -40,7 +40,7 @@ const config = {
 
 function getSetlist() {
   return new Promise((resolve, reject) => {
-    const setlistPath = path.normalize(config.setlistsPath + "\\setlist.json");
+    const setlistPath = path.join(config.setlistsPath, "setlist.json");
     fs.readFile(setlistPath, "utf-8", (err, data) => {
       if (err) {
         console.error(err);
@@ -54,7 +54,7 @@ function getSetlist() {
 
 function getLyrics(filename) {
   return new Promise((resolve, reject) => {
-    const songPath = path.normalize(config.setlistsPath + "\\" + filename);
+    const songPath = path.join(config.setlistsPath, filename);
     fs.readFile(songPath, "utf-8", (err, data) => {
       if (err) {
         console.error(err);
