@@ -30,6 +30,16 @@ h5 {
   overflow: auto;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+#container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+#container {
+  -ms-overflow-style: none;
+}
+
 #lyrics p {
   margin: 20px 0;
   line-height: 1.3;
