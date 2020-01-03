@@ -1,33 +1,73 @@
 extends layout.pug
 
 block content
-  h5 Setlist #{setlist.name}
   h1 #{song.name}
-
-  if nextSong
-    a#next(href='/' + nextSong.filename) NEXT: #{nextSong.name}
-  if prevSong
-    a#prev(href='/' + prevSong.filename) PREV: #{prevSong.name}
 
   div#lyrics !{lyrics}
 
 
+block footer
+  #left.footer-buttons
+    button(onclick='scrollUp()') 
+      span.small 1x
+      span up
+    if prevSong
+      a.song-button#prev(href='/' + prevSong.filename)
+        span.small 2x
+        span #{prevSong.name}
+  #middle.footer-buttons
+    button(onclick='setlist()')
+      span.small 1x
+      span setlist
+  #right.footer-buttons
+    button(onclick='scrollDown()')
+      span.small 1x
+      span down
+    if nextSong
+      a.song-button#next(href='/' + nextSong.filename)
+        span.small 2x
+        span #{nextSong.name}
+
 block scripts
   script.
-    window.addEventListener("doublePress", function(e) {
-      if (e.detail.key.keyCode == #{keycodes.left}) {
-        location.href = document.getElementById('prev').getAttribute("href");
-      }
-      if (e.detail.key.keyCode == #{keycodes.right}) {
-        location.href = document.getElementById('next').getAttribute("href");
-      }
-    });
+    function setlist() {
+      location.href = "/?song=" + location.pathname.substring(1, location.pathname.length);
+    }
+
+    function prev() {
+      location.href = document.getElementById('prev').getAttribute("href");
+    }
+
+    function next() {
+      location.href = document.getElementById('next').getAttribute("href");
+    }
+
+    function scrollDown() {
+      document.getElementById("container").scrollBy(0, window.innerHeight - 200);
+    }
+
+    function scrollUp() {
+      document.getElementById("container").scrollBy(0, -(window.innerHeight - 200));
+    }
+
     // Scroll lyrics with "single click"
     window.addEventListener("keydown", function(e) {
       if (e.keyCode == #{keycodes.left}) {
-        document.getElementById("container").scrollBy(0, -(window.innerHeight - 200));
+        scrollUp();
+      }
+      if (e.keyCode == #{keycodes.middle}) {
+        setlist();
       }
       if (e.keyCode == #{keycodes.right}) {
-        document.getElementById("container").scrollBy(0, window.innerHeight - 200);
+        scrollDown();
+      }
+    });
+
+    window.addEventListener("doublePress", function(e) {
+      if (e.detail.key.keyCode == #{keycodes.left}) {
+        prev();
+      }
+      if (e.detail.key.keyCode == #{keycodes.right}) {
+        next();
       }
     });

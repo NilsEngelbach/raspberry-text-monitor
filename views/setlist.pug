@@ -1,14 +1,80 @@
 extends layout.pug
 
 block content
-  h1 Setlist #{setlist.name}
-  each song in setlist.songs
-    li 
-      a(href='/' + song.filename) #{song.name}
+  #setlist
+    h1 Setlist #{setlist.name}
+    each song in setlist.songs
+      li(data-song=song.filename)
+        a(href='/' + song.filename) #{song.name}
 
+block footer
+  #left.footer-buttons
+    button(onclick='prev()') 
+      span.small 1x
+      span up
+  #middle.footer-buttons
+    button(onclick='select()')
+      span.small 1x
+      span select
+  #right.footer-buttons
+    button(onclick='next()')
+      span.small 1x
+      span down
 
 block scripts
   script.
+    var choosenSongIndex = 0;
+    var totalSongsCount = #{setlist.songs.length};
     window.onload = function() {
-      console.log("loaded");
+      let urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.has('song')) {
+        let allSongs = document.querySelectorAll("#setlist li");
+        allSongs.forEach(function(song, i) {
+          if(song.getAttribute("data-song") == urlParams.get('song')) {
+            choosenSongIndex = i;
+          }
+        });
+      }
+      selectSong(choosenSongIndex);
     }
+
+    function selectSong(i) {
+      let allSongs = document.querySelectorAll("#setlist li");
+      allSongs.forEach(function(song) {
+        song.classList.remove("active");
+      });
+      allSongs[i].classList.add("active");
+      allSongs[i].scrollIntoView();
+    }
+
+    function next() {
+      choosenSongIndex++;
+      if (choosenSongIndex == totalSongsCount) {
+        choosenSongIndex = 0;
+      }
+      selectSong(choosenSongIndex);
+    }
+
+    function prev() {
+      choosenSongIndex--;
+      if (choosenSongIndex == -1) {
+        choosenSongIndex = totalSongsCount - 1;
+      }
+      selectSong(choosenSongIndex);
+    }
+
+    function select() {
+      document.querySelector("#setlist li.active a").click();
+    }
+
+    window.addEventListener("keydown", function(e) {
+      if (e.keyCode == #{keycodes.left}) {
+        prev();
+      }
+      if (e.keyCode == #{keycodes.middle}) {
+        select();
+      }
+      if (e.keyCode == #{keycodes.right}) {
+        next();
+      }
+    });

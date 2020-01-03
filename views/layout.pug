@@ -1,5 +1,5 @@
 doctype html
-html
+html(style='font-size:' + fontSize)
 
 head
   title Setlist
@@ -10,26 +10,29 @@ head
     #container
       block content
 
-      script.
-        let pressed;
-        let lastPressed;
-        let isDoublePress;
-        const timeOut = () => setTimeout(() => isDoublePress = false, 500);
-        const keyPress = key => {
-          pressed = key.keyCode;
-          if (isDoublePress && pressed === lastPressed) {
-            isDoublePress = false;
-            window.dispatchEvent(new CustomEvent("doublePress", {
-              detail: {
-                key: key
-              }
-            }));
-          } else {
-            isDoublePress = true;
-            timeOut();
-          }
-          lastPressed = pressed;
-        }
-        window.onkeyup = key => keyPress(key);
+    #footer
+      block footer
 
-      block scripts
+    script.
+      let pressed;
+      let lastPressed;
+      let isDoublePress;
+      const timeOut = () => setTimeout(() => isDoublePress = false, 500);
+      const keyPress = key => {
+        pressed = key.keyCode;
+        if (isDoublePress && pressed === lastPressed) {
+          isDoublePress = false;
+          window.dispatchEvent(new CustomEvent("doublePress", {
+            detail: {
+              key: key
+            }
+          }));
+        } else {
+          isDoublePress = true;
+          timeOut();
+        }
+        lastPressed = pressed;
+      }
+      window.onkeyup = key => keyPress(key);
+
+    block scripts
