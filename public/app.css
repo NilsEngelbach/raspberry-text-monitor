@@ -65,6 +65,7 @@ h5 {
   background-color: #444;
   border: none;
   color: white;
+  cursor: pointer;
 }
 
 #footer .small{
@@ -92,6 +93,7 @@ h5 {
   color: white;
   text-decoration: none;
   align-items: baseline;
+  cursor: pointer;
 }
 #footer .song-button span.song-name {
   text-overflow: ellipsis;
@@ -123,4 +125,5 @@ h5 {
 #setlist li a {
   color: white;
   text-decoration: none;
+  display: block;
 }
