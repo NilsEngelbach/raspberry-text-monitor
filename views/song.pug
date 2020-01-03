@@ -14,7 +14,7 @@ block footer
     if prevSong
       a.song-button#prev(href='/' + prevSong.filename)
         span.small 2x
-        span #{prevSong.name}
+        span.song-name #{prevSong.name}
   #middle.footer-buttons
     button(onclick='setlist()')
       span.small 1x
@@ -26,7 +26,7 @@ block footer
     if nextSong
       a.song-button#next(href='/' + nextSong.filename)
         span.small 2x
-        span #{nextSong.name}
+        span.song-name #{nextSong.name}
 
 block scripts
   script.

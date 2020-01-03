@@ -84,20 +84,21 @@ h5 {
 }
 
 #footer .song-button {
+  max-width: 250px;
   display: flex;
-  max-height: 60px;
-  overflow: hidden;
   font-size: 30px;
   padding: 5px 10px;
-  text-overflow: ellipsis;
   background-color: #444;
   color: white;
   text-decoration: none;
   align-items: baseline;
 }
-#footer .song-button span {
+#footer .song-button span.song-name {
   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
 #setlist {
   width: 100%;
   display: block;
