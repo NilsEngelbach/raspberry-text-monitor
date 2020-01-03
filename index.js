@@ -3,7 +3,10 @@ const showdown = require("showdown"),
   express = require("express"),
   nocache = require("nocache"),
   fs = require("fs"),
+  dotenv = require('dotenv'),
   path = require("path");
+
+dotenv.config({path: path.join(__dirname, ".env")});
 
 const app = express();
 
@@ -19,7 +22,7 @@ showdown.extension("lyrics", function() {
 
 const Converter = new showdown.Converter({ extensions: ["lyrics"] });
 
-app.use(nocache());
+// app.use(nocache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -29,12 +32,13 @@ app.set("view engine", "pug");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
-  port: 8080,
-  setlistsPath: path.join(__dirname, "test-setlist"),
+  fontSize: "36px",
+  port: process.env.PORT || 8080,
+  setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "test-setlist"),
   keycodes: {
-    left: 37,
-    right: 39,
-    middle: 40
+    left: process.env.KEYCODE_LEFT || 37,
+    middle: process.env.KEYCODE_MIDDLE || 40,
+    right: process.env.KEYCODE_RIGHT || 39,
   }
 };
 
@@ -80,7 +84,8 @@ app.get("/", (req, res) => {
     .then(setlist => {
       res.render("setlist", {
         setlist: setlist,
-        keycodes: config.keycodes
+        keycodes: config.keycodes,
+        fontSize: config.fontSize
       });
     })
     .catch(error => {
@@ -97,7 +102,8 @@ app.get("/:filename", (req, res) => {
         nextSong: getSongInSetlist(req.params.filename, setlist, 1),
         prevSong: getSongInSetlist(req.params.filename, setlist, -1),
         setlist: setlist,
-        keycodes: config.keycodes
+        keycodes: config.keycodes,
+        fontSize: config.fontSize
       });
     })
     .catch(error => {
