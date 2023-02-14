@@ -9,23 +9,26 @@ block content
 block footer
   #left.footer-buttons
     button(onclick='scrollUp()') 
-      span.small 1x
-      span up
+      span.small 1
+      span.small x
+      span UP
     if prevSong
       a.song-button#prev(href='/' + prevSong.filename)
-        span.small 2x
+        span.small 2
+        span.small x
         span.song-name #{prevSong.name}
   #middle.footer-buttons
     button(onclick='setlist()')
-      span.small 1x
-      span setlist
+      span MENU
   #right.footer-buttons
     button(onclick='scrollDown()')
-      span.small 1x
-      span down
+      span.small 1
+      span.small x
+      span DOWN
     if nextSong
       a.song-button#next(href='/' + nextSong.filename)
-        span.small 2x
+        span.small 2
+        span.small x
         span.song-name #{nextSong.name}
 
 block scripts
@@ -35,11 +38,15 @@ block scripts
     }
 
     function prev() {
-      location.href = document.getElementById('prev').getAttribute("href");
+      if (document.getElementById('prev')) {
+        location.href = document.getElementById('prev').getAttribute("href");
+      }
     }
 
     function next() {
-      location.href = document.getElementById('next').getAttribute("href");
+      if (document.getElementById('next')) {
+        location.href = document.getElementById('next').getAttribute("href");
+      }
     }
 
     function scrollDown() {

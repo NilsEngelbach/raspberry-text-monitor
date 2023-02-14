@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
   #setlist
-    h1 Setlist #{setlist.name}
+    h1 #{setlist.name}
     each song in setlist.songs
       li(data-song=song.filename)
         a(href='/' + song.filename) #{song.name}
@@ -10,16 +10,13 @@ block content
 block footer
   #left.footer-buttons
     button(onclick='prev()') 
-      span.small 1x
-      span up
+      span UP
   #middle.footer-buttons
     button(onclick='select()')
-      span.small 1x
-      span select
+      span SELECT
   #right.footer-buttons
     button(onclick='next()')
-      span.small 1x
-      span down
+      span DOWN
 
 block scripts
   script.
