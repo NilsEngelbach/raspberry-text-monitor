@@ -22,9 +22,9 @@ Step on my blue suede shoes
 Well, you can do anything
 But lay off of my blue suede shoes
 
-~refrain~
-Zwischenspiel
-~/refrain~
+~bridge~
+**Zwischenspiel**
+~/bridge~
 
 Well, you can burn my house
 Steal my car

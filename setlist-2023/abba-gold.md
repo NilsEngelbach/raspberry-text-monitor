@@ -1,6 +1,6 @@
-~refrain~
-Dancing Queen
-~/refrain~
+~bridge~
+**Dancing Queen**
+~/bridge~
 
 You can dance, you can jive
 Having the time of your life, ooh
@@ -29,9 +29,9 @@ Dig in the Dancing Queen
 
 
 
-~refrain~
-Mamma Mia
-~/refrain~
+~bridge~
+**Mamma Mia**
+~/bridge~
 
 I′ve been cheated by you since I don't know when
 So I made up my mind, it must come to an end
@@ -54,9 +54,9 @@ My, my, I could never let you go
 
 
 
-~refrain~
-Fernando
-~/refrain~
+~bridge~
+**Fernando**
+~/bridge~
 
 Can you hear the drums, Fernando?
 I remember long ago another starry night like this
@@ -77,9 +77,9 @@ I would, my friend, Fernando
 
 
 
-~refrain~
-The winner takes it all
-~/refrain~
+~bridge~
+**The winner takes it all**
+~/bridge~
 
 So the winner takes it all
 And the loser has to fall

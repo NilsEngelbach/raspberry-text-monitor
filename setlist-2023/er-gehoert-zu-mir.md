@@ -25,9 +25,9 @@ Steht es in den Sternen? (uuh)
 Was die Zukunft bringt (uuh)
 Oder muss ich lernen, dass alles zerrinnt?
 
-~refrain~
-Zwischenspiel
-~/refrain~
+~bridge~
+**Zwischenspiel**
+~/bridge~
 
 Nein, ich hab es ihm nie leicht gemacht
 Na na na na na na

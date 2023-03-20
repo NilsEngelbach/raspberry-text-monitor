@@ -8,10 +8,12 @@ Wo der weiße Kondor so einsam zieht
 Wie ein Gruß an die Sonne
 Erklingt ihr altes Lied
 
+~refrain~
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre, oh, oh
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre
+~/refrain~
 
 Wenn die Arbeit getan
 Der Abendfrieden nur kennt
@@ -23,16 +25,20 @@ Wie schnell ein Glück oft vergeht
 Und aus tausend Herzen
 Erklingt es wie ein Gebet
 
+~refrain~
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre, oh, oh
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre
-
-~refrain~
-Tonartwechsel
 ~/refrain~
 
+~bridge~
+_Tonartwechsel_
+~/bridge~
+
+~refrain~
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre, oh, oh
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre
+~/refrain~

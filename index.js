@@ -47,14 +47,18 @@ app.set("view engine", "pug");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
-  fontSize: "30px",
+  fontSize: process.env.FONT_SIZE || "30px",
   port: process.env.PORT || 8080,
   setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
   keycodes: {
     left: process.env.KEYCODE_LEFT || 37,
     middle: process.env.KEYCODE_MIDDLE || 40,
     right: process.env.KEYCODE_RIGHT || 39,
-  }
+  },
+  css:
+    `--highlight-color: ${process.env.HIGHLIGHT_COLOR || 'yellow'};`+
+    `--refrain-color: ${process.env.REFRAIN_COLOR || 'yellow'};`+
+    `--bridge-color: ${process.env.BRIDGE_COLOR || 'orange'};`
 };
 
 function getSetlist() {
@@ -100,7 +104,8 @@ app.get("/", (req, res) => {
       res.render("setlist", {
         setlist: setlist,
         keycodes: config.keycodes,
-        fontSize: config.fontSize
+        fontSize: config.fontSize,
+        css: config.css
       });
     })
     .catch(error => {
@@ -118,7 +123,8 @@ app.get("/:filename", (req, res) => {
         prevSong: getSongInSetlist(req.params.filename, setlist, -1),
         setlist: setlist,
         keycodes: config.keycodes,
-        fontSize: config.fontSize
+        fontSize: config.fontSize,
+        css: config.css
       });
     })
     .catch(error => {
@@ -127,5 +133,5 @@ app.get("/:filename", (req, res) => {
 });
 
 app.listen(config.port, () => {
-  console.log("Server is up and running on port numner " + config.port);
+  console.log("Server is up and running on port " + config.port);
 });

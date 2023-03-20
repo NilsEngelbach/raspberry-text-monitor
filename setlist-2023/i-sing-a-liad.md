@@ -6,7 +6,7 @@ I glaub, i steh auf di
 I sing a Liad für die
 Und kaun di Sterndal seng
 I hob mi verknoid in di
-~refrain~
+~/refrain~
 
 I hob a Engal gseng
 Über di Stroßn gehn
@@ -26,7 +26,7 @@ Weils ka Flügal hod, des klappt
 
 ~refrain~
 Refrain
-~refrain~
+~/refrain~
 
 Noch dem erstn hallo
 Host mi ghobt sowieso
@@ -47,9 +47,11 @@ Wenn so a Engal ohne Flügal fliagt
 
 ~refrain~
 Refrain
-~refrain~
+~/refrain~
 
-Zwischenspiel
+~bridge~
+**Zwischenspiel**
+~/bridge~
 
 Ah-uh-lalala a so a schena tog
 Uh-lalala weil i a Engal hob
@@ -58,4 +60,4 @@ Da Himml hod mir a Engal brocht
 
 ~refrain~
 [2x] Refrain
-~refrain~
+~/refrain~

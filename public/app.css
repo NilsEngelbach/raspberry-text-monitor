@@ -58,11 +58,11 @@ h5 {
 }
 
 .refrain {
-  color: yellow;
+  color: var(--refrain-color);
 }
 
 .bridge {
-  color: orange;
+  color: var(--bridge-color);
 }
 
 #footer {
@@ -146,12 +146,12 @@ h5 {
 }
 
 #setlist li.active {
-  border: 2px solid yellow;
-  color: yellow;
+  border: 2px solid var(--highlight-color);
+  color: var(--highlight-color);
 }
 
 #setlist li.active a {
-  color: yellow;
+  color: var(--highlight-color);
 }
 
 #setlist li a {
