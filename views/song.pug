@@ -3,7 +3,7 @@ extends layout.pug
 block content
   h1 #{song.name}
 
-  div#lyrics !{lyrics}
+  div#lyrics(class=(flex ? 'flex' : '' )) !{lyrics}
 
 
 block footer

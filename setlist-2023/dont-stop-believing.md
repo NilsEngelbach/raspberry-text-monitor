@@ -1,3 +1,6 @@
+---
+flex: true
+---
 ##left##Just a small town girl
 Livin' in a lonely world
 She took the midnight train going anywhere

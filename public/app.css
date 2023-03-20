@@ -42,7 +42,7 @@ h5 {
 }
 
 
-#lyrics:has(div.left) {
+#lyrics.flex {
   display: flex;
   gap: 0.5rem;
 }

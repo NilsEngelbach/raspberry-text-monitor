@@ -1,3 +1,6 @@
+---
+flex: true
+---
 ##left##Sie hieß Cordula Grün
 Ich hab' sie tanzen geseh'n
 Dann hab' ich sie noch gefragt

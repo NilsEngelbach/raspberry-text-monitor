@@ -35,7 +35,7 @@ showdown.extension("lyrics", function() {
   ];
 });
 
-const Converter = new showdown.Converter({ extensions: ["lyrics"] });
+const Converter = new showdown.Converter({ extensions: ["lyrics"], metadata: true });
 
 // app.use(nocache());
 app.use(bodyParser.json());
@@ -93,6 +93,22 @@ function getLyrics(filename) {
   });
 }
 
+function getMetadata(filename) {
+  return new Promise((resolve, reject) => {
+    const songPath = path.join(config.setlistsPath, filename);
+    fs.readFile(songPath, "utf-8", (err, data) => {
+      if (err) {
+        console.error(err);
+        reject(`${filename} can not be opened`);
+      } else {
+        resolve(
+          Converter.getMetadata()
+        );
+      }
+    });
+  });
+}
+
 function getSongInSetlist(filename, setlist, i) {
   const index = setlist.songs.findIndex(x => x.filename == filename);
   return setlist.songs[index + i];
@@ -114,8 +130,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:filename", (req, res) => {
-  Promise.all([getLyrics(req.params.filename), getSetlist()])
-    .then(([lyrics, setlist]) => {
+  Promise.all([getLyrics(req.params.filename), getMetadata(req.params.filename), getSetlist()])
+    .then(([lyrics, metadata, setlist]) => {
       res.render("song", {
         lyrics: lyrics,
         song: getSongInSetlist(req.params.filename, setlist, 0),
@@ -124,6 +140,7 @@ app.get("/:filename", (req, res) => {
         setlist: setlist,
         keycodes: config.keycodes,
         fontSize: config.fontSize,
+        flex: metadata.flex || false,
         css: config.css
       });
     })
