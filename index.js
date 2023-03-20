@@ -47,7 +47,6 @@ app.set("view engine", "pug");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
-  fontSize: process.env.FONT_SIZE || "30px",
   port: process.env.PORT || 8080,
   setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
   keycodes: {
@@ -58,7 +57,8 @@ const config = {
   css:
     `--highlight-color: ${process.env.HIGHLIGHT_COLOR || 'yellow'};`+
     `--refrain-color: ${process.env.REFRAIN_COLOR || 'yellow'};`+
-    `--bridge-color: ${process.env.BRIDGE_COLOR || 'orange'};`
+    `--bridge-color: ${process.env.BRIDGE_COLOR || 'orange'};`+
+    `--font-size: ${process.env.FONT_SIZE || "30px"};`
 };
 
 function getSetlist() {
