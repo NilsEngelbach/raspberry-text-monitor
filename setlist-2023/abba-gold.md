@@ -6,6 +6,7 @@ You can dance, you can jive
 Having the time of your life, ooh
 See that girl, watch that scene
 Dig in the Dancing Queen
+
 Friday night and the lights are low
 Looking out for a place to go
 Where they play the right music, getting in the swing
@@ -22,6 +23,7 @@ You are the Dancing Queen
 Young and sweet, only seventeen
 Dancing Queen
 Feel the beat from the tambourine, oh yeah
+
 You can dance, you can jive
 Having the time of your life, ooh
 See that girl, watch that scene
@@ -64,10 +66,12 @@ In the firelight, Fernando
 You were humming to yourself and softly strumming your guitar
 I could hear the distant drums
 And sounds of bugle calls were coming from afar
+
 There was something in the air that night
 The stars were bright, Fernando
 They were shining there for you and me
 For liberty, Fernando
+
 Though we never thought that we could lose
 There's no regret
 If I had to do the same again
