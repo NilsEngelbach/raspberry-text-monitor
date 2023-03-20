@@ -34,7 +34,7 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 const config = {
   fontSize: "36px",
   port: process.env.PORT || 8080,
-  setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "test-setlist"),
+  setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
   keycodes: {
     left: process.env.KEYCODE_LEFT || 37,
     middle: process.env.KEYCODE_MIDDLE || 40,
