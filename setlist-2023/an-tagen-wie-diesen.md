@@ -16,7 +16,7 @@ Wo die Anderen warten, um mit uns zu starten und abzugehen
 An Tagen wie diesen wünscht man sich Unendlichkeit
 An Tagen wie diesen haben wir noch ewig Zeit
 Wünsch ich mir Unendlichkeit
-~refrain~
+~/refrain~
 
 Das hier ist ewig, ewig für heute
 Wir stehen nicht still für eine ganze Nacht
@@ -30,17 +30,18 @@ An Tagen wie diesen wünscht man sich Unendlichkeit
 An Tagen wie diesen haben wir noch ewig Zeit
 In dieser Nacht der Nächte, die uns so viel verspricht
 Erleben wir das Beste, kein Ende ist in Sicht
+~/refrain~
 
-kein Ende in Sicht
-kein Ende in Sicht
-~refrain~
+Kein Ende in Sicht
+Kein Ende in Sicht
 
 ~refrain~
 An Tagen wie diesen wünscht man sich Unendlichkeit
 An Tagen wie diesen haben wir noch ewig Zeit
 In dieser Nacht der Nächte, die uns so viel verspricht
 Erleben wir das Beste, kein Ende ist in Sicht
+~/refrain~
 
 Erleben wir das Beste und kein Ende ist in Sicht
-kein Ende in Sicht
-~refrain~
+Kein Ende in Sicht
+

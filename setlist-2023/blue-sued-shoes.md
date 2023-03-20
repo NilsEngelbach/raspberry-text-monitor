@@ -8,7 +8,7 @@ But don't you
 Step on my blue suede shoes
 Well, you can do anything
 But lay off of my blue suede shoes
-~refrain~
+~/refrain~
 
 Well, you can knock me down
 Step in my face
@@ -24,7 +24,7 @@ But lay off of my blue suede shoes
 
 ~refrain~
 Zwischenspiel
-~refrain~
+~/refrain~
 
 Well, you can burn my house
 Steal my car
@@ -39,7 +39,7 @@ And don't you
 Step on my blue suede shoes
 Well, you can do anything
 But lay off of my blue suede shoes
-~refrain~
+~/refrain~
 
 Well, it's blue, blue blue, suede shoes
 Blue, blue, blue suede shoes
@@ -58,7 +58,7 @@ But don't you
 Step on my blue suede shoes
 Well, you can do anything
 But lay off of my blue suede shoes
-~refrain~
+~/refrain~
 
 Well, it's blue, blue blue, suede shoes
 Blue, blue, blue suede shoes
@@ -68,4 +68,4 @@ Baby, blue, blue, blue suede shoes
 ~refrain~
 Well, you can do anything
 But lay off of my blue suede shoes
-~refrain~
+~/refrain~

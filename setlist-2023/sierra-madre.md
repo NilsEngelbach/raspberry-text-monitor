@@ -30,7 +30,7 @@ Sierra, Sierra Madre
 
 ~refrain~
 Tonartwechsel
-~refrain~
+~/refrain~
 
 Sierra, Sierra Madre del Sur
 Sierra, Sierra Madre, oh, oh

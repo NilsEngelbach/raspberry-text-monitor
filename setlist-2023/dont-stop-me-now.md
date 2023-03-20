@@ -29,7 +29,7 @@ If you wanna have a good time just give me a call
 (Don′t stop me now)
 Yes, I'm havin' a good time
 I don′t want to stop at all
-~refrain~
+~/refrain~
 
 Yeah, I′m a rocket ship on my way to Mars
 On a collision course
@@ -45,7 +45,7 @@ I′m burnin' through the sky, yeah
 That′s why they call me Mister Fahrenheit
 I'm travelling at the speed of light
 I wanna make a supersonic woman of you
-~refrain~
+~/refrain~
 
 (Don′t stop me, don't stop me, don't stop me)
 hey, hey, hey
@@ -74,7 +74,7 @@ Just give me a call
 (Don′t stop me now)
 Yes, I'm havin' a good time
 I don′t want to stop at all
-~refrain~
+~/refrain~
 
 La-da-da-da-dah
 Da-da-da-ha

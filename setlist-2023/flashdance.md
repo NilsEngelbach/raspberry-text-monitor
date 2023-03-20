@@ -23,7 +23,7 @@ Take your passion
 And make it happen
 Pictures come alive
 You can dance right through your life
-~refrain~
+~/refrain~
 
 Now I hear the music
 Close my eyes
@@ -57,5 +57,6 @@ What a feeling (I am music now)
 Being′s believing (I am rhythm now)
 Pictures come alive
 You can dance right through your life
-~refrain~
+~/refrain~
+
 What a feeling

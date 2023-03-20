@@ -1,4 +1,4 @@
-Sie hieß Cordula Grün
+##left##Sie hieß Cordula Grün
 Ich hab' sie tanzen geseh'n
 Dann hab' ich sie noch gefragt
 Ob sie morgen mit mir
@@ -20,6 +20,7 @@ Mit Refrain, mimimi
 Sie mag Tanzmusik
 
 ~refrain~
+[Refrain]
 Cordula Grün, Cordula Grün, Cordula Grün
 Ich hab' dich, ich hab' dich, ich hab' dich
 Cordula Grün, du bist so schwer zu versteh'n
@@ -27,9 +28,10 @@ Cordula Grün, ich würd' dich gern wiederseh'n
 Cordula Grün
 Ich hab' dich, ich hab' dich, ich hab' dich
 Ich hab' dich tanzen geseh'n
-~refrain~
+~/refrain~
+##/left##
 
-Mir war's am nächsten Tag klar
+##right##Mir war's am nächsten Tag klar
 Ich will jetzt nur Cordula
 Ich bin und bleib' Optimist
 Selbst wenn sie mir verschwieg
@@ -51,12 +53,9 @@ Fing auch an, mich zu dreh'n
 Denn sie tanzt so schön
 
 ~refrain~
-Cordula Grün, Cordula Grün, Cordula Grün
-Ich hab' dich, ich hab' dich, ich hab' dich
-Cordula Grün, du bist so schwer zu versteh'n
-Cordula Grün, ich würd' dich gern wiederseh'n
-Cordula Grün
-Ich hab' dich, ich hab' dich, ich hab' dich
-~refrain~
+[Refrain]
+Cordula Grün, ...
+~/refrain~
 
 [4x] Ich hab' dich tanzen geseh'n
+##/right##

@@ -40,7 +40,14 @@ h5 {
   -ms-overflow-style: none;
 }
 
-#lyrics p {
+
+#lyrics:has(div.left) {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#lyrics p, #lyrics span.paragraph {
+  display: block;
   margin: 20px 0;
   line-height: 1.3;
 }
@@ -52,7 +59,6 @@ h5 {
 
 .refrain {
   color: yellow;
-  font-weight: bold;
 }
 
 .bridge {

@@ -16,7 +16,7 @@ Völlig losgelöst
 Von der Erde
 Schwebt das Raumschiff
 Völlig schwerelos
-~refrain~
+~/refrain~
 
 Die Erdanziehungskraft ist überwunden
 Alles läuft perfekt, schon seit Stunden
@@ -32,11 +32,8 @@ Doch er kann nichts hör'n
 
 ~refrain~
 Er schwebt weiter
-Völlig losgelöst
-Von der Erde
-Schwebt das Raumschiff
-Völlig schwerelos
-~refrain~
+[Refrain] Völlig lösgelöst...
+~/refrain~
 
 Die Erde schimmert blau, sein letzter Funk kommt
 "Grüßt mir meine Frau", und er verstummt
@@ -47,17 +44,6 @@ Mich führt hier ein Licht durch das All
 Das kennt ihr noch nicht, ich komme bald
 Mir wird kalt
 
-Völlig losgelöst
-Von der Erde
-Schwebt das Raumschiff
-Schwerelos
-
-Völlig losgelöst
-Von der Erde
-Schwebt das Raumschiff
-Schwerelos
-
-Völlig losgelöst
-Von der Erde
-Schwebt das Raumschiff
-Völlig schwerelos
+~refrain~
+[3x Refrain] Völlig lösgelöst...
+~/refrain~

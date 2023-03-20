@@ -27,7 +27,7 @@ Oder muss ich lernen, dass alles zerrinnt?
 
 ~refrain~
 Zwischenspiel
-~refrain~
+~/refrain~
 
 Nein, ich hab es ihm nie leicht gemacht
 Na na na na na na

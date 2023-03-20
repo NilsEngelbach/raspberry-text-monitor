@@ -1,4 +1,4 @@
-Just a small town girl
+##left##Just a small town girl
 Livin' in a lonely world
 She took the midnight train going anywhere
 
@@ -36,7 +36,9 @@ Their shadows searching in the night
 Streetlights, people
 Living just to find emotion
 Hiding somewhere in the night
+##/left##
 
+##right##
 ~refrain~
 Don't stop believin'
 Hold on to the feelin'
@@ -49,6 +51,7 @@ Streetlights, people
 Don't stop believin'
 Hold on to the feelin'
 Streetlights, people
+
 Don't stop believin'
 Hold on to the feelin'
 Streetlights, people
@@ -56,5 +59,7 @@ Streetlights, people
 Don't stop believin'
 Hold on to the feelin'
 Streetlights, people
+
 Don't stop
-~refrain~
+~/refrain~
+##right##

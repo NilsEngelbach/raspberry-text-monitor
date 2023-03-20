@@ -2,64 +2,40 @@
     "name": "Musikfest 2023",
     "songs": [
         {
-            "name": "An Tagen wie diesen",
-            "filename": "an-tagen-wie-diesen.md"
-        },
-        {
-            "name": "Auf uns",
-            "filename": "auf-uns.md"
-        },
-        {
-            "name": "Blue sued shoes",
-            "filename": "blue-sued-shoes.md"
-        },
-        {
-            "name": "Celebration",
-            "filename": "celebration.md"
+            "name": "Let me entertain you",
+            "filename": "let-me-entertain-you.md"
         },
         {
             "name": "Cordula Grün",
             "filename": "cordula-grün.md"
         },
         {
-            "name": "Don't stop believin'",
-            "filename": "dont-stop-believing.md"
-        },
-        {
-            "name": "Don't stop me now",
-            "filename": "dont-stop-me-now.md"
-        },
-        {
-            "name": "Eighties Flashback",
-            "filename": "eighties-flashback.md"
+            "name": "ABBA Gold",
+            "filename": "abba-gold.md"
         },
         {
             "name": "Er gehört zu mir",
             "filename": "er-gehoert-zu-mir.md"
         },
         {
-            "name": "Flashdance",
-            "filename": "flashdance.md"
+            "name": "Major Tom",
+            "filename": "major-tom.md"
         },
         {
-            "name": "Happy",
-            "filename": "happy.md"
+            "name": "Celebration",
+            "filename": "celebration.md"
         },
         {
-            "name": "Hulapalu",
-            "filename": "hulapalu.md"
-        },
-        {
-            "name": "I sing a liad für di",
-            "filename": "i-sing-a-liad.md"
+            "name": "Don't stop believin'",
+            "filename": "dont-stop-believing.md"
         },
         {
             "name": "I will survive",
             "filename": "i-will-survive.md"
         },
         {
-            "name": "Major Tom",
-            "filename": "major-tom.md"
+            "name": "An Tagen wie diesen",
+            "filename": "an-tagen-wie-diesen.md"
         },
         {
             "name": "Sierra Madre",

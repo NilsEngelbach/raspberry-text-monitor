@@ -14,9 +14,24 @@ showdown.extension("lyrics", function() {
   return [
     {
       type: "output",
-      regex: /~([\w]+)[^>]*~([^]+?)~\1~/gi,
-      replace: '<span class="$1">$2</span>'
-    }
+      regex: /~([\w]+)[^>]*~([^]+?)~\/\1~/gi,
+      replace: '<div class="$1" markdown="1">$2</div>'
+    },
+    {
+      type: "lang",
+      regex: /##\/([\w]+)[^>]*##/gi,
+      replace: '</div>'
+    },
+    {
+      type: "lang",
+      regex: /##([\w]+)[^>]*##/gi,
+      replace: '<div class="$1" markdown="1">'
+    },
+    // {
+    //   type: "output",
+    //   regex: /<p>([^]+?)<\/p>/gi,
+    //   replace: '<span class="paragraph">$1</span>'
+    // },
   ];
 });
 
@@ -32,7 +47,7 @@ app.set("view engine", "pug");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
-  fontSize: "36px",
+  fontSize: "30px",
   port: process.env.PORT || 8080,
   setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
   keycodes: {

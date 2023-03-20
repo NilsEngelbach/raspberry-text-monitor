@@ -20,7 +20,7 @@ Der immer bleibt
 Ein Hoch auf uns, uns
 Auf jetzt und ewig
 Auf einen Tag Unendlichkeit
-~refrain~
+~/refrain~
 
 Wir haben Flügel, schwör'n uns ewige Treue
 Vergolden uns diesen Tag (one love)
@@ -29,7 +29,7 @@ Vom ersten Schritt bis ins Grab
 
 ~refrain~
 [REFRAIN]
-~refrain~
+~/refrain~
 
 Ein Feuerwerk aus Endorphinen
 Ein Feuerwerk zieht durch die Nacht
@@ -39,7 +39,7 @@ Unsterblich macht
 
 ~refrain~
 [REFRAIN]
-~refrain~
+~/refrain~
 
 Ein Hoch auf uns
 Ein Feuerwerk aus Endorphinen
