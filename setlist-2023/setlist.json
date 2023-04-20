@@ -2,6 +2,10 @@
     "name": "Musikfest 2023",
     "songs": [
         {
+            "name": "Celebration",
+            "filename": "celebration.md"
+        },
+        {
             "name": "Let me entertain you",
             "filename": "let-me-entertain-you.md"
         },
@@ -10,48 +14,60 @@
             "filename": "take-on-me.md"
         },
         {
-            "name": "Valerie",
-            "filename": "valerie.md"
-        },
-        {
-            "name": "Cordula Grün",
-            "filename": "cordula-grün.md"
-        },
-        {
-            "name": "ABBA Gold",
-            "filename": "abba-gold.md"
+            "name": "1000 Mal berührt",
+            "filename": "1000-mal-berührt.md"
         },
         {
             "name": "Er gehört zu mir",
             "filename": "er-gehoert-zu-mir.md"
         },
         {
-            "name": "Atemlos",
-            "filename": "atemlos.md"
+            "name": "Cordula Grün",
+            "filename": "cordula-grün.md"
         },
         {
-            "name": "Major Tom",
-            "filename": "major-tom.md"
+            "name": "Valerie",
+            "filename": "valerie.md"
+        },
+        {
+            "name": "Skandal im Sperrbezirk",
+            "filename": "skandal.md"
+        },
+        {
+            "name": "ABBA Gold",
+            "filename": "abba-gold.md"
+        },
+        {
+            "name": "Ich will keine Schokolade",
+            "filename": "ich-will-keine-schokolade.md"
+        },
+        {
+            "name": "Atemlos",
+            "filename": "atemlos.md"
         },
         {
             "name": "Walking on sunshine",
             "filename": "walking-on-sunshine.md"
         },
         {
-            "name": "Celebration",
-            "filename": "celebration.md"
-        },
-        {
-            "name": "Don't stop believin'",
-            "filename": "dont-stop-believing.md"
+            "name": "I love rock n roll",
+            "filename": "i-love-rock-n-roll.md"
         },
         {
             "name": "I will survive",
             "filename": "i-will-survive.md"
         },
         {
+            "name": "Major Tom",
+            "filename": "major-tom.md"
+        },
+        {
             "name": "An Tagen wie diesen",
             "filename": "an-tagen-wie-diesen.md"
+        },
+        {
+            "name": "Don't stop believin'",
+            "filename": "dont-stop-believing.md"
         },
         {
             "name": "Sierra Madre",
