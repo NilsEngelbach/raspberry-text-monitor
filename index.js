@@ -3,29 +3,29 @@ const showdown = require("showdown"),
   express = require("express"),
   nocache = require("nocache"),
   fs = require("fs"),
-  dotenv = require('dotenv'),
+  dotenv = require("dotenv"),
   path = require("path");
 
-dotenv.config({path: path.join(__dirname, ".env")});
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 const app = express();
 
-showdown.extension("lyrics", function() {
+showdown.extension("lyrics", function () {
   return [
     {
       type: "output",
       regex: /~([\w]+)[^>]*~([^]+?)~\/\1~/gi,
-      replace: '<div class="$1" markdown="1">$2</div>'
+      replace: '<div class="$1" markdown="1">$2</div>',
     },
     {
       type: "lang",
       regex: /##\/([\w]+)[^>]*##/gi,
-      replace: '</div>'
+      replace: "</div>",
     },
     {
       type: "lang",
       regex: /##([\w]+)[^>]*##/gi,
-      replace: '<div class="$1" markdown="1">'
+      replace: '<div class="$1" markdown="1">',
     },
     // {
     //   type: "output",
@@ -35,7 +35,10 @@ showdown.extension("lyrics", function() {
   ];
 });
 
-const Converter = new showdown.Converter({ extensions: ["lyrics"], metadata: true });
+const Converter = new showdown.Converter({
+  extensions: ["lyrics"],
+  metadata: true,
+});
 
 // app.use(nocache());
 app.use(bodyParser.json());
@@ -48,17 +51,18 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
   port: process.env.PORT || 8080,
-  setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
+  setlistsPath:
+    process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
   keycodes: {
     left: process.env.KEYCODE_LEFT || 37,
     middle: process.env.KEYCODE_MIDDLE || 40,
     right: process.env.KEYCODE_RIGHT || 39,
   },
   css:
-    `--highlight-color: ${process.env.HIGHLIGHT_COLOR || 'yellow'};`+
-    `--refrain-color: ${process.env.REFRAIN_COLOR || 'yellow'};`+
-    `--bridge-color: ${process.env.BRIDGE_COLOR || 'orange'};`+
-    `--font-size: ${process.env.FONT_SIZE || "30px"};`
+    `--highlight-color: ${process.env.HIGHLIGHT_COLOR || "yellow"};` +
+    `--refrain-color: ${process.env.REFRAIN_COLOR || "yellow"};` +
+    `--bridge-color: ${process.env.BRIDGE_COLOR || "orange"};` +
+    `--font-size: ${process.env.FONT_SIZE || "30px"};`,
 };
 
 function getSetlist() {
@@ -101,50 +105,54 @@ function getMetadata(filename) {
         console.error(err);
         reject(`${filename} can not be opened`);
       } else {
-        resolve(
-          Converter.getMetadata()
-        );
+        resolve(Converter.getMetadata());
       }
     });
   });
 }
 
 function getSongInSetlist(filename, setlist, i) {
-  const index = setlist.songs.findIndex(x => x.filename == filename);
+  const index = setlist.songs.findIndex((x) => x.filename == filename);
   return setlist.songs[index + i];
 }
 
 app.get("/", (req, res) => {
   getSetlist()
-    .then(setlist => {
+    .then((setlist) => {
       res.render("setlist", {
         setlist: setlist,
         keycodes: config.keycodes,
         fontSize: config.fontSize,
-        css: config.css
+        css: config.css,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       res.send(error);
     });
 });
 
 app.get("/:filename", (req, res) => {
-  Promise.all([getLyrics(req.params.filename), getMetadata(req.params.filename), getSetlist()])
-    .then(([lyrics, metadata, setlist]) => {
-      res.render("song", {
-        lyrics: lyrics,
-        song: getSongInSetlist(req.params.filename, setlist, 0),
-        nextSong: getSongInSetlist(req.params.filename, setlist, 1),
-        prevSong: getSongInSetlist(req.params.filename, setlist, -1),
-        setlist: setlist,
-        keycodes: config.keycodes,
-        fontSize: config.fontSize,
-        flex: metadata.flex || false,
-        css: config.css
-      });
+  Promise.all([getLyrics(req.params.filename), getSetlist()])
+    .then(([lyrics, setlist]) => {
+      getMetadata(req.params.filename)
+        .then((metadata) => {
+          res.render("song", {
+            lyrics: lyrics,
+            song: getSongInSetlist(req.params.filename, setlist, 0),
+            nextSong: getSongInSetlist(req.params.filename, setlist, 1),
+            prevSong: getSongInSetlist(req.params.filename, setlist, -1),
+            setlist: setlist,
+            keycodes: config.keycodes,
+            fontSize: config.fontSize,
+            flex: metadata.flex === "true",
+            css: config.css,
+          });
+        })
+        .catch((error) => {
+          res.send(error);
+        });
     })
-    .catch(error => {
+    .catch((error) => {
       res.send(error);
     });
 });
