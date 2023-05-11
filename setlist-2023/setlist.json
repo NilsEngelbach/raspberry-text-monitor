@@ -22,6 +22,14 @@
             "filename": "er-gehoert-zu-mir.md"
         },
         {
+            "name": "Schwieberdinger Bier",
+            "filename": "schwieberdinger-bier.md"
+        },
+        {
+            "name": "Wir trinken noch ein Bier",
+            "filename": "wir-trinken-noch-ein-bier.md"
+        },
+        {
             "name": "Cordula Grün",
             "filename": "cordula-grün.md"
         },
@@ -46,8 +54,28 @@
             "filename": "atemlos.md"
         },
         {
+            "name": "Knallrotes Gummiboot",
+            "filename": "knallrotes-gummiboot.md"
+        },
+        {
             "name": "Whats up",
             "filename": "whats-up.md"
+        },
+        {
+            "name": "The lions sleeps tonight",
+            "filename": "the-lion-sleeps-tonight.md"
+        },
+        {
+            "name": "Ohne dich",
+            "filename": "ohne-dich.md"
+        },
+        {
+            "name": "I will survive",
+            "filename": "i-will-survive.md"
+        },
+        {
+            "name": "Major Tom",
+            "filename": "major-tom.md"
         },
         {
             "name": "Walking on sunshine",
@@ -58,12 +86,8 @@
             "filename": "i-love-rock-n-roll.md"
         },
         {
-            "name": "I will survive",
-            "filename": "i-will-survive.md"
-        },
-        {
-            "name": "Major Tom",
-            "filename": "major-tom.md"
+            "name": "BON JOVI ROCK MIX",
+            "filename": "bon-jovi-rock-mix.md"
         },
         {
             "name": "An Tagen wie diesen",
@@ -76,6 +100,10 @@
         {
             "name": "Sierra Madre",
             "filename": "sierra-madre.md"
+        },
+        {
+            "name": "Angels",
+            "filename": "angels.md"
         }
     ]
 }

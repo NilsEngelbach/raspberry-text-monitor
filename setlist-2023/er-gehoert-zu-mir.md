@@ -1,6 +1,8 @@
+~refrain~
 Er gehört zu mir
 Wie mein Name an der Tür
 Und ich weiß, er bleibt hier
+~/refrain~
 
 Nie vergess ich unsern ersten Tag
 Na na na na na na
@@ -12,9 +14,11 @@ Die nie mehr vergeht (uuh)
 Oder wird die Liebe
 Vom Winde verweht?
 
+~refrain~
 Er gehört zu mir
 Wie mein Name an der Tür
 Und ich weiß, er bleibt hier
+~/refrain~
 
 Alles fangen wir gemeinsam an
 Na na na na na na
@@ -41,7 +45,9 @@ Oder wird die Liebe vom Winde verweht?
 Er gehört zu mir, für immer zu mir
 Er gehört zu mir, für immer zu mir
 
+~refrain~
 Er gehört zu mir
 Wie mein Name an der Tür
 Und ich weiß, er bleibt hier
 Er gehört zu mir
+~/refrain~
