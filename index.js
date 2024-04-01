@@ -52,7 +52,7 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 const config = {
   port: process.env.PORT || 8080,
   setlistsPath:
-    process.env.SETLIST_PATH || path.join(__dirname, "setlist-2023"),
+    process.env.SETLIST_PATH || path.join(__dirname, "setlist-2024"),
   keycodes: {
     left: process.env.KEYCODE_LEFT || 37,
     middle: process.env.KEYCODE_MIDDLE || 40,
