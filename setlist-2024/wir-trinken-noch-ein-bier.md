@@ -28,12 +28,12 @@ wir lassen uns nicht vertreiben:
 wir gehn erst morgens nach Haus!
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~
 
 (Marschtempo)
 UND JETZT ALLE!
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~

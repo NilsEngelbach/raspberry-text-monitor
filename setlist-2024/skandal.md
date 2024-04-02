@@ -26,7 +26,7 @@ Weil jeder, den die Sehnsucht quält
 Ganz einfach Rosis Nummer wählt
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~/refrain~
 
 Ja, Rosi hat ein Telefon

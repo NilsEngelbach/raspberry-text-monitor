@@ -25,7 +25,7 @@ Und i hobs ertappt
 Weils ka Flügal hod, des klappt
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~/refrain~
 
 Noch dem erstn hallo
@@ -46,7 +46,7 @@ Wär i ned so verwirrt
 Wenn so a Engal ohne Flügal fliagt
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~/refrain~
 
 ~bridge~
@@ -59,5 +59,5 @@ Uh-lalala a so a schene Nocht
 Da Himml hod mir a Engal brocht
 
 ~refrain~
-[2x] Refrain
+[2x] [REFRAIN]
 ~/refrain~

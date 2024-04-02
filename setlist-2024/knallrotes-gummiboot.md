@@ -15,7 +15,7 @@ Das Boot ist eine Konstruktion
 Die kippt beim Küssen um
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~
 
 Wir haben kein Segel und keinen Motor
@@ -24,7 +24,7 @@ Wir schaukeln mit Liebe und sehr viel Humor
 Ins große Glück hinein
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~
 
 Johnny ist mutig und stolz wie Lord Nelson
@@ -37,12 +37,12 @@ Die Fahrradpumpe ist im Boot
 Und er, er pumpt es auf
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~
 
 La-la-la-la la-la-la-la-la la-la-la-la-la-la la-la-la-la
 La-la-la-la la-la-la-la-la la-la-la-la-la-la la-la-la-la-la
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~

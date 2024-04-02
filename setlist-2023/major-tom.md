@@ -32,7 +32,7 @@ doch er kann nichts hör'n
 er schwebt weiter
 
 ~refrain~
-1x REFRAIN
+[REFRAIN]
 ~/refrain~
 
 Unten trauern noch die Egoisten
@@ -42,5 +42,5 @@ das kennt ihr noch nicht, ich komme bald
 mir wird kalt
 
 ~refrain~
-3x REFRAIN
+[3x] [REFRAIN]
 ~/refrain~

@@ -24,7 +24,7 @@ Ich wusst' wie dein Haar riecht und die silberne Spange
 Hatt' ich doch schon tausendmal beim Tanzen berührt
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~/refrain~
 
 Oh, wie viele Nächte wusst' ich nicht, was gefehlt hat
@@ -38,5 +38,5 @@ Alles war so vertraut und jetzt ist alles neu
 Jetzt ist alles neu
 
 ~refrain~
-[3x] Refrain
+[3x] [REFRAIN]
 ~/refrain~

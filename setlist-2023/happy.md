@@ -21,7 +21,7 @@ Yeah, no offense to you don't waste your time
 Here's why
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~refrain~
 
 (Happy) bring me down
@@ -36,7 +36,7 @@ Can't nothing bring me down
 I said
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~refrain~
 
 (Happy) bring me down
@@ -46,5 +46,5 @@ Can't nothing (happy) bring me down
 I said
 
 ~refrain~
-[3x] Refrain
+[3x] [REFRAIN]
 ~refrain~

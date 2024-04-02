@@ -33,7 +33,7 @@ And as the feeling grows She brings flesh to my bones
 And when love is dead – I’m loving angels instead.
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~
 
 ~bridge~
@@ -41,5 +41,5 @@ Zwischenspiel
 ~/bridge~
 
 ~refrain~
-REFRAIN
+[REFRAIN]
 ~/refrain~

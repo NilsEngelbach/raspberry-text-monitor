@@ -39,7 +39,7 @@ Spürst du den Rhythmus? Dann steig mit ein
 Das kann unsere Reise sein
 
 ~refrain~
-1x REFRAIN
+[REFRAIN]
 ~/refrain~
 
 Verlangsamt sich der Puls der Nacht, doch mein
@@ -55,5 +55,5 @@ Herzbeben
 ~/bridge~
 
 ~refrain~
-1x REFRAIN
+[REFRAIN]
 ~/refrain~

@@ -34,7 +34,7 @@ Und ich gebe offen zu
 Das, was ich will, bist du
 
 ~refrain~
-[2x] REFRAIN
+[2x] [REFRAIN]
 
-[3x] REFRAIN
+[3x] [REFRAIN]
 ~refrain~

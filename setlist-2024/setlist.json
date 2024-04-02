@@ -22,8 +22,16 @@
             "filename": "bon-jovi-rock-mix.md"
         },
         {
+            "name": "Bumsbar",
+            "filename": "bumsbar.md"
+        },
+        {
             "name": "Celebration",
             "filename": "celebration.md"
+        },
+        {
+            "name": "Delfin",
+            "filename": "delfin.md"
         },
         {
             "name": "The lions sleeps tonight",
@@ -58,6 +66,10 @@
             "filename": "knallrotes-gummiboot.md"
         },
         {
+            "name": "Kompliment",
+            "filename": "kompliment.md"
+        },
+        {
             "name": "Let me entertain you",
             "filename": "let-me-entertain-you.md"
         },
@@ -66,8 +78,16 @@
             "filename": "major-tom.md"
         },
         {
+            "name": "Narcotic",
+            "filename": "narcotic.md"
+        },
+        {
             "name": "Ohne dich",
             "filename": "ohne-dich.md"
+        },
+        {
+            "name": "Pur Hit Mix",
+            "filename": "pur-hit-mix.md"
         },
         {
             "name": "Schwieberdinger Bier",
@@ -92,6 +112,10 @@
         {
             "name": "Wir trinken noch ein Bier",
             "filename": "wir-trinken-noch-ein-bier.md"
+        },
+        {
+            "name": "Y.M.C.A",
+            "filename": "ymca.md"
         }
     ]
 }

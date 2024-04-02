@@ -26,7 +26,7 @@ Da hat's mich plötzlich fortgerissen
 Ich schrie: "Ich will das Zeug nicht mehr"
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~/refrain~
 
 Ich kaufte Sonntag auf dem Rummel
@@ -40,5 +40,5 @@ Den schmiss ich wütend in die Menge
 Und schrie den Losverkäufer an
 
 ~refrain~
-Refrain
+[REFRAIN]
 ~/refrain~

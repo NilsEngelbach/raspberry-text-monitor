@@ -23,7 +23,7 @@ Mit Refrain, mimimi
 Sie mag Tanzmusik
 
 ~refrain~
-[Refrain]
+[REFRAIN]
 Cordula Grün, Cordula Grün, Cordula Grün
 Ich hab' dich, ich hab' dich, ich hab' dich
 Cordula Grün, du bist so schwer zu versteh'n
@@ -56,7 +56,7 @@ Fing auch an, mich zu dreh'n
 Denn sie tanzt so schön
 
 ~refrain~
-[Refrain]
+[REFRAIN]
 Cordula Grün, ...
 ~/refrain~
 
