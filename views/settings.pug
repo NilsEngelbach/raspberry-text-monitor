@@ -5,7 +5,7 @@ block content
     h1 Settings
     h3 #{error}
 
-  form(role='form' method='POST')#select-setlist
+  form(role='form', method='POST', id='select-setlist')
     each setlist, index in setlists
       div
         input(type='radio', name='setlist', value=index, id=index)
