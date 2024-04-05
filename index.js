@@ -78,13 +78,13 @@ async function getSetlists() {
 
   let drives = await drivelist.list();
 
-  drives.forEach(async (drive) => {
+  for (const drive of drives) {
     if (drive.isSystem == false) {
       // console.log(drive);
       let files = await glob(`${drive.mountpoints[0].path}/**/setlist.json`)
       files.forEach(f => setlists.push(f));
     }
-  });
+  }
 
   console.log(setlists);
 }
