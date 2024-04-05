@@ -56,7 +56,6 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
   port: process.env.PORT || 8080,
-  setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2024"),
   keycodes: {
     left: process.env.KEYCODE_LEFT || 37,
     middle: process.env.KEYCODE_MIDDLE || 40,
@@ -69,22 +68,25 @@ const config = {
     `--font-size: ${process.env.FONT_SIZE || "30px"};`,
 };
 
-function getSetlists() {
-  console.log("load setlists");
-  glob(`${__dirname}/**/setlist.json`, { ignore: 'node_modules/**' })
-    .then((files)=> console.log(files));
+async function getSetlists() {
+  console.log("Load Setlists");
 
-  drivelist.list().then((drives) => {
-    drives.forEach((drive) => {
-      if (drive.isSystem == false) {
-        console.log(drive);
-        glob(`${drive.mountpoints[0].path}/**/setlist.json`, { posix: true, })
-          .then((files)=> console.log(files));
-      }
-    });
-  })
+  let setlists = [];
 
+  let files = await glob(`${__dirname}/**/setlist.json`, { ignore: 'node_modules/**' });
+  files.forEach(f => setlists.push(f));
 
+  let drives = await drivelist.list();
+
+  drives.forEach(async (drive) => {
+    if (drive.isSystem == false) {
+      // console.log(drive);
+      let files = await glob(`${drive.mountpoints[0].path}/**/setlist.json`)
+      files.forEach(f => setlists.push(f));
+    }
+  });
+
+  console.log(setlists);
 }
 
 
