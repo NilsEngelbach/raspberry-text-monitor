@@ -4,9 +4,14 @@ const showdown = require("showdown"),
   nocache = require("nocache"),
   fs = require("fs"),
   dotenv = require("dotenv"),
-  path = require("path");
+  path = require("path"),
+  storage = require('node-persist'),
+  { glob } = require('glob'),
+  drivelist = require('drivelist');
 
 dotenv.config({ path: path.join(__dirname, ".env") });
+
+storage.init();
 
 const app = express();
 
@@ -40,7 +45,7 @@ const Converter = new showdown.Converter({
   metadata: true,
 });
 
-// app.use(nocache());
+app.use(nocache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -51,8 +56,7 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 const config = {
   port: process.env.PORT || 8080,
-  setlistsPath:
-    process.env.SETLIST_PATH || path.join(__dirname, "setlist-2024"),
+  setlistsPath: process.env.SETLIST_PATH || path.join(__dirname, "setlist-2024"),
   keycodes: {
     left: process.env.KEYCODE_LEFT || 37,
     middle: process.env.KEYCODE_MIDDLE || 40,
@@ -64,6 +68,25 @@ const config = {
     `--bridge-color: ${process.env.BRIDGE_COLOR || "orange"};` +
     `--font-size: ${process.env.FONT_SIZE || "30px"};`,
 };
+
+function getSetlists() {
+  console.log("load setlists");
+  glob(`${__dirname}/**/setlist.json`, { ignore: 'node_modules/**' })
+    .then((files)=> console.log(files));
+
+  drivelist.list().then((drives) => {
+    drives.forEach((drive) => {
+      if (drive.isSystem == false) {
+        console.log(drive);
+        glob(`${drive.mountpoints[0].path}/**/setlist.json`, { posix: true, })
+          .then((files)=> console.log(files));
+      }
+    });
+  })
+
+
+}
+
 
 function getSetlist() {
   return new Promise((resolve, reject) => {
@@ -131,6 +154,12 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/settings", (req, res) => {
+  res.render("settings", {
+    keycodes: config.keycodes,
+  });
+});
+
 app.get("/:filename", (req, res) => {
   Promise.all([getLyrics(req.params.filename), getSetlist()])
     .then(([lyrics, setlist]) => {
@@ -159,4 +188,5 @@ app.get("/:filename", (req, res) => {
 
 app.listen(config.port, () => {
   console.log("Server is up and running on port " + config.port);
+  getSetlists();
 });

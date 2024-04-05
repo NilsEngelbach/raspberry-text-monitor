@@ -96,13 +96,16 @@ h5 {
   font-weight: bold;
   margin-right: 2px;
 }
+
 .footer-buttons {
   display: inline-flex;
   flex-direction: column;
 }
+
 #left.footer-buttons {
   align-items: flex-start;
 }
+
 #right.footer-buttons {
   align-items: flex-end;
 }
@@ -122,6 +125,7 @@ h5 {
   flex-direction: row;
   align-items: center;
 }
+
 #footer .song-button span.song-name {
   text-overflow: ellipsis;
   white-space: nowrap;

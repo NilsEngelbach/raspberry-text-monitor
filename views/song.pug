@@ -57,24 +57,24 @@ block scripts
       document.getElementById("container").scrollBy(0, -(window.innerHeight / 2));
     }
 
-    // Scroll lyrics with "single click"
-    window.addEventListener("keydown", function(e) {
-      if (e.keyCode == #{keycodes.left}) {
+
+    addEventListener("single", (e) => {
+      if (e.detail.button == "left") {
         scrollUp();
       }
-      if (e.keyCode == #{keycodes.middle}) {
+      if (e.detail.button == "middle") {
         setlist();
       }
-      if (e.keyCode == #{keycodes.right}) {
+      if (e.detail.button == "right") {
         scrollDown();
       }
     });
 
-    window.addEventListener("doublePress", function(e) {
-      if (e.detail.key.keyCode == #{keycodes.left}) {
+    addEventListener("double", (e) => {
+      if (e.detail.button == "left") {
         prev();
       }
-      if (e.detail.key.keyCode == #{keycodes.right}) {
+      if (e.detail.button == "right") {
         next();
       }
     });

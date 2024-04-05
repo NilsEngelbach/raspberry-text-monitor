@@ -15,25 +15,56 @@ html(translate="no")
       block footer
 
     script.
-      let pressed;
-      let lastPressed;
-      let isDoublePress;
-      const timeOut = () => setTimeout(() => isDoublePress = false, 500);
-      const keyPress = key => {
-        pressed = key.keyCode;
-        if (isDoublePress && pressed === lastPressed) {
-          isDoublePress = false;
-          window.dispatchEvent(new CustomEvent("doublePress", {
-            detail: {
-              key: key
-            }
-          }));
-        } else {
-          isDoublePress = true;
-          timeOut();
+      const timeout = 225;
+
+      var left = 0;
+      var middle = 0;
+      var right = 0;
+
+      function keyEvents(event) {
+
+        console.log(event);
+
+        if (event.keyCode === #{keycodes.left}) {
+          left++
+          if (left >= 2) {
+            window.dispatchEvent(new CustomEvent("double", { detail: { button: "left" } }));
+            left = 0;
+            return;
+          }
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent("single", { detail: { button: "left" } }));
+            left = 0;
+          }, timeout);
         }
-        lastPressed = pressed;
+
+        if (event.keyCode === #{keycodes.middle}) {
+          middle++
+          if (middle >= 2) {
+            window.dispatchEvent(new CustomEvent("double", { detail: { button: "middle" } }));
+            middle = 0;
+            return;
+          }
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent("single", { detail: { button: "middle" } }));
+            middle = 0;
+          }, timeout);
+        }
+
+        if (event.keyCode === #{keycodes.right}) {
+          right++
+          if (right >= 2) {
+            window.dispatchEvent(new CustomEvent("double", { detail: { button: "right" } }));
+            right = 0;
+            return;
+          }
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent("single", { detail: { button: "right" } }));
+            right = 0;
+          }, timeout);
+        }
       }
-      window.onkeyup = key => keyPress(key);
+
+      document.addEventListener('keyup', keyEvents, true)
 
     block scripts

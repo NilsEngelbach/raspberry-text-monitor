@@ -1,0 +1,45 @@
+extends layout.pug
+
+block content
+  #setlist
+    h1 Settings
+
+block footer
+  #left.footer-buttons
+    button(onclick='prev()') 
+      span UP
+  #middle.footer-buttons
+    button(onclick='select()')
+      span SELECT
+    a.song-button#menu(href='/')
+        span.small 2
+        span.small x
+        span.small MENU
+  #right.footer-buttons
+    button(onclick='next()')
+      span DOWN
+
+block scripts
+  script.
+
+    function menu() {
+      document.querySelector("#middle.footer-buttons a.song-button#menu").click();
+    }
+
+    addEventListener("keydown", (e) => {
+      //- if (e.keyCode == #{keycodes.left}) {
+      //-   prev();
+      //- }
+      //- if (e.keyCode == #{keycodes.middle}) {
+      //-   select();
+      //- }
+      //- if (e.keyCode == #{keycodes.right}) {
+      //-   next();
+      //- }
+    });
+
+    addEventListener("double", (e) => {
+      if (e.detail.button == "middle") {
+        menu();
+      }
+    });
