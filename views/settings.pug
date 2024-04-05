@@ -3,6 +3,13 @@ extends layout.pug
 block content
   #setlist
     h1 Settings
+    h3 #{error}
+
+  form#select-setlist
+    each setlist, index in setlists
+      input(type='radio', name='setlist', value=index, id=index)
+      label(for=index)
+        small #{setlist}
 
 block footer
   #left.footer-buttons
@@ -22,20 +29,41 @@ block footer
 block scripts
   script.
 
+    var setlist = 0;
+    var total = #{setlists.length};
+
     function menu() {
       document.querySelector("#middle.footer-buttons a.song-button#menu").click();
     }
 
+    function next() {
+      setlist++;
+      if (setlist == total) {
+        setlist = 0;
+      }
+    }
+
+    function prev() {
+      setlist--;
+      if (setlist == -1) {
+        setlist = total - 1;
+      }
+    }
+
+    function select() {
+      document.querySelector("#setlist li.active a").click();
+    }
+
     addEventListener("keydown", (e) => {
-      //- if (e.keyCode == #{keycodes.left}) {
-      //-   prev();
-      //- }
-      //- if (e.keyCode == #{keycodes.middle}) {
-      //-   select();
-      //- }
-      //- if (e.keyCode == #{keycodes.right}) {
-      //-   next();
-      //- }
+      if (e.keyCode == #{keycodes.left}) {
+        prev();
+      }
+      if (e.keyCode == #{keycodes.middle}) {
+        select();
+      }
+      if (e.keyCode == #{keycodes.right}) {
+        next();
+      }
     });
 
     addEventListener("double", (e) => {

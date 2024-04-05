@@ -69,7 +69,7 @@ const config = {
 };
 
 async function getSetlists() {
-  console.log("Load Setlists");
+  console.log("Load setlists...");
 
   let setlists = [];
 
@@ -87,52 +87,49 @@ async function getSetlists() {
   }
 
   console.log(setlists);
+
+  return setlists;
 }
 
+async function getSetlistPath() {
+  const setlistPath = await storage.getItem('setlist');
+  if (!setlistPath) {
+    throw new Error("Missing setlist path");
+  }
+  return setlistPath;
+}
 
-function getSetlist() {
-  return new Promise((resolve, reject) => {
-    const setlistPath = path.join(config.setlistsPath, "setlist.json");
-    fs.readFile(setlistPath, "utf-8", (err, data) => {
-      if (err) {
-        console.error(err);
-        reject("setlist.json can not be opened");
-      } else {
-        resolve(JSON.parse(data));
-      }
-    });
+async function getSetlist() {
+  const setlistPath = await getSetlistPath();
+  fs.readFile(setlistPath, "utf-8", (err, data) => {
+    if (err) {
+      throw new Error("setlist.json can not be opened");
+    }
+    return JSON.parse(data);
   });
 }
 
-function getLyrics(filename) {
-  return new Promise((resolve, reject) => {
-    const songPath = path.join(config.setlistsPath, filename);
-    fs.readFile(songPath, "utf-8", (err, data) => {
-      if (err) {
-        console.error(err);
-        reject(`${filename} can not be opened`);
-      } else {
-        resolve(
-          Converter.makeHtml(
-            data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, "$&<br>\r\n")
-          )
-        );
-      }
-    });
+async function getLyrics(filename) {
+  const setlistPath = await getSetlistPath();
+  const songPath = path.join(setlistPath, filename);
+  fs.readFile(songPath, "utf-8", (err, data) => {
+    if (err) {
+      throw new Error(`${filename} can not be opened`);
+    }
+    return Converter.makeHtml(data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, "$&<br>\r\n"))
   });
 }
 
-function getMetadata(filename) {
-  return new Promise((resolve, reject) => {
-    const songPath = path.join(config.setlistsPath, filename);
-    fs.readFile(songPath, "utf-8", (err, data) => {
-      if (err) {
-        console.error(err);
-        reject(`${filename} can not be opened`);
-      } else {
-        resolve(Converter.getMetadata());
-      }
-    });
+async function getMetadata(filename) {
+  const setlistPath = await getSetlistPath();
+  const songPath = path.join(setlistPath, filename);
+
+  fs.readFile(songPath, "utf-8", (err, _) => {
+    if (err) {
+      throw new Error(`${filename} can not be opened`);
+    }
+
+    return Converter.getMetadata();
   });
 }
 
@@ -141,54 +138,52 @@ function getSongInSetlist(filename, setlist, i) {
   return setlist.songs[index + i];
 }
 
-app.get("/", (req, res) => {
-  getSetlist()
-    .then((setlist) => {
-      res.render("setlist", {
-        setlist: setlist,
-        keycodes: config.keycodes,
-        fontSize: config.fontSize,
-        css: config.css,
-      });
-    })
-    .catch((error) => {
-      res.send(error);
+app.get("/", async(req, res) => {
+  try {
+    let setlistPath = await getSetlist();
+    res.render("setlist", {
+      setlist: setlistPath,
+      keycodes: config.keycodes,
+      fontSize: config.fontSize,
+      css: config.css,
     });
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/settings?error=${error}`);
+  }
 });
 
-app.get("/settings", (req, res) => {
+app.get("/settings", async (req, res) => {
+  const setlists = await getSetlists();
   res.render("settings", {
     keycodes: config.keycodes,
+    error: req.query.error,
+    setlists
   });
 });
 
-app.get("/:filename", (req, res) => {
-  Promise.all([getLyrics(req.params.filename), getSetlist()])
-    .then(([lyrics, setlist]) => {
-      getMetadata(req.params.filename)
-        .then((metadata) => {
-          res.render("song", {
-            lyrics: lyrics,
-            song: getSongInSetlist(req.params.filename, setlist, 0),
-            nextSong: getSongInSetlist(req.params.filename, setlist, 1),
-            prevSong: getSongInSetlist(req.params.filename, setlist, -1),
-            setlist: setlist,
-            keycodes: config.keycodes,
-            fontSize: config.fontSize,
-            flex: metadata.flex === "true",
-            css: config.css,
-          });
-        })
-        .catch((error) => {
-          res.send(error);
-        });
-    })
-    .catch((error) => {
-      res.send(error);
+app.get("/:filename", async (req, res) => {
+  try {
+    const lyrics = await getLyrics(req.params.filename);
+    const setlist = await getSetlist();
+    const metadata = await getMetadata(req.params.filename);
+    res.render("song", {
+      lyrics: lyrics,
+      song: getSongInSetlist(req.params.filename, setlist, 0),
+      nextSong: getSongInSetlist(req.params.filename, setlist, 1),
+      prevSong: getSongInSetlist(req.params.filename, setlist, -1),
+      setlist: setlist,
+      keycodes: config.keycodes,
+      fontSize: config.fontSize,
+      flex: metadata.flex === "true",
+      css: config.css,
     });
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/settings?error=${error}`);
+  }
 });
 
 app.listen(config.port, () => {
-  console.log("Server is up and running on port " + config.port);
-  getSetlists();
+  console.log(`Server is up and running on port ${config.port}`);
 });
