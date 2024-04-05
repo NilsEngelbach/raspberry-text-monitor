@@ -5,11 +5,12 @@ block content
     h1 Settings
     h3 #{error}
 
-  form#select-setlist
+  form(role='form' method='POST')#select-setlist
     each setlist, index in setlists
-      input(type='radio', name='setlist', value=index, id=index)
-      label(for=index)
-        small #{setlist}
+      div
+        input(type='radio', name='setlist', value=index, id=index)
+        label(for=index)
+          small #{setlist}
 
 block footer
   #left.footer-buttons
@@ -41,6 +42,7 @@ block scripts
       if (setlist == total) {
         setlist = 0;
       }
+      document.forms["select-setlist"][setlist].checked=true;
     }
 
     function prev() {
@@ -48,10 +50,11 @@ block scripts
       if (setlist == -1) {
         setlist = total - 1;
       }
+      document.forms["select-setlist"][setlist].checked=true;
     }
 
     function select() {
-      document.querySelector("#setlist li.active a").click();
+      document.forms["select-setlist"].submit();
     }
 
     addEventListener("keydown", (e) => {
@@ -69,5 +72,11 @@ block scripts
     addEventListener("double", (e) => {
       if (e.detail.button == "middle") {
         menu();
+      }
+    });
+
+    addEventListener("load", (e) => {
+      if (#{selectedIndex} >= 0) {
+        document.forms["select-setlist"][#{selectedIndex}].checked=true;
       }
     });

@@ -6,7 +6,7 @@ I glaub i steh auf di
 I sing a liad für die
 Und kaun di sterndal seng
 I hob mi verknoid in di
-~refrain~
+~/refrain~
 
 I hob a engal gseng
 Über di strossn gehn
@@ -32,7 +32,7 @@ I glaub i steh auf di
 I sing a liad für di
 Und kaun di sterndal seng
 I hob mi verknoid in di
-~refrain~
+~/refrain~
 
 Noch dem erstn hallo
 Hods mi ghobt sowiso
@@ -56,14 +56,14 @@ I glaub i steh auf di
 I sing a liad für di
 Und kaun di sterndal seng
 I hob mi verknoid in di
-~refrain~
+~/refrain~
 
 ~bridge~
 Ah uh lalala a so a schena tog
 Uh lalala weil i a engal hob
 Uh lalala a so a schene nocht
 Da himml hod mir a engal brocht
-~bridge~
+~/bridge~
 
 ~refrain~
 [2x]
@@ -74,4 +74,4 @@ I glaub i steh auf di
 I sing a liad für di
 Und kaun di sterndal seng
 I hob mi verknoid in di
-~refrain~
+~/refrain~

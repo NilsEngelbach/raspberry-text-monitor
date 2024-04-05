@@ -14,7 +14,7 @@ That summer seemed to last forever
 And if I had the choice
 Yeah, I'd always wanna be there
 Those were the best days of my life
-~refrain~
+~/refrain~
 
 Ain't no use in complainin'
 When you've got a job to do
@@ -27,7 +27,7 @@ You told me that you'd wait forever
 Oh, and when you held my hand
 I knew that it was now or never
 Those were the best days of my life 
-~refrain~
+~/refrain~
 
 Oh, yeah
 Back in the summer of '69, oh
@@ -49,7 +49,7 @@ You told me that it'd last forever
 Oh, and when you held my hand
 I knew that it was now or never
 Those were the best days of my life
-~refrain~
+~/refrain~
 
 Oh, yeah
 Back in the summer of '69, oh

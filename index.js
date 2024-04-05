@@ -91,8 +91,12 @@ async function getSetlists() {
   return setlists;
 }
 
+async function trygetSetlistPath() {
+  return await storage.getItem('setlist');
+}
+
 async function getSetlistPath() {
-  const setlistPath = await storage.getItem('setlist');
+  const setlistPath = await trygetSetlistPath();
   if (!setlistPath) {
     throw new Error("Missing setlist path");
   }
@@ -101,36 +105,24 @@ async function getSetlistPath() {
 
 async function getSetlist() {
   const setlistPath = await getSetlistPath();
-  fs.readFile(setlistPath, "utf-8", (err, data) => {
-    if (err) {
-      throw new Error("setlist.json can not be opened");
-    }
-    return JSON.parse(data);
-  });
+  const data = fs.readFileSync(setlistPath, "utf-8");
+  return JSON.parse(data);
 }
 
 async function getLyrics(filename) {
   const setlistPath = await getSetlistPath();
-  const songPath = path.join(setlistPath, filename);
-  fs.readFile(songPath, "utf-8", (err, data) => {
-    if (err) {
-      throw new Error(`${filename} can not be opened`);
-    }
-    return Converter.makeHtml(data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, "$&<br>\r\n"))
-  });
+  const dir = path.basename(path.dirname(setlistPath))
+  const songPath = path.join(dir, filename);
+  const data = fs.readFileSync(songPath, "utf-8");
+  return Converter.makeHtml(data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, "$&<br>\r\n"))
 }
 
 async function getMetadata(filename) {
   const setlistPath = await getSetlistPath();
-  const songPath = path.join(setlistPath, filename);
-
-  fs.readFile(songPath, "utf-8", (err, _) => {
-    if (err) {
-      throw new Error(`${filename} can not be opened`);
-    }
-
-    return Converter.getMetadata();
-  });
+  const dir = path.basename(path.dirname(setlistPath))
+  const songPath = path.join(dir, filename);
+  fs.readFileSync(songPath, "utf-8");
+  return Converter.getMetadata();
 }
 
 function getSongInSetlist(filename, setlist, i) {
@@ -140,9 +132,9 @@ function getSongInSetlist(filename, setlist, i) {
 
 app.get("/", async(req, res) => {
   try {
-    let setlistPath = await getSetlist();
+    let setlist = await getSetlist();
     res.render("setlist", {
-      setlist: setlistPath,
+      setlist,
       keycodes: config.keycodes,
       fontSize: config.fontSize,
       css: config.css,
@@ -155,11 +147,24 @@ app.get("/", async(req, res) => {
 
 app.get("/settings", async (req, res) => {
   const setlists = await getSetlists();
+  const setlistPath = await trygetSetlistPath();
+  const selectedIndex = setlists.indexOf(setlistPath);
   res.render("settings", {
     keycodes: config.keycodes,
     error: req.query.error,
-    setlists
+    setlists,
+    selectedIndex
   });
+});
+
+app.post("/settings", async (req, res) => {
+  const setlists = await getSetlists();
+  const setlist = setlists[req.body.setlist];
+  console.log(setlist);
+
+  await storage.setItem('setlist', setlist);
+
+  res.redirect(`/`);
 });
 
 app.get("/:filename", async (req, res) => {

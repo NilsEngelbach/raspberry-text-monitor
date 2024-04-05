@@ -14,7 +14,7 @@ Dann hebt er ab und
 ~refrain~
 Völlig losgelöst Von der Erde
 Schwebt das Raumschiff Völlig schwerelos
-~refrain~
+~/refrain~
 
 Die Erdanziehungskraft ist überwunden
 Alles läuft perfekt, schon seit Stunden
@@ -32,7 +32,7 @@ Er schwebt weiter
 ~refrain~
 Völlig losgelöst Von der Erde
 Schwebt das Raumschiff Völlig schwerelos
-~refrain~
+~/refrain~
 
 Die Erde schimmert blau, sein letzter Funk kommt
 "Grüßt mir meine Frau", und er verstummt
@@ -47,4 +47,4 @@ Mir wird kalt
 [3x]
 Völlig losgelöst Von der Erde
 Schwebt das Raumschiff Schwerelos
-~refrain~
+~/refrain~
