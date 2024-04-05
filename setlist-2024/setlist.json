@@ -2,120 +2,120 @@
     "name": "Musikfest 2024",
     "songs": [
         {
-            "name": "1000 Mal berührt",
-            "filename": "1000-mal-berührt.md"
-        },
-        {
-            "name": "An Tagen wie diesen",
-            "filename": "an-tagen-wie-diesen.md"
-        },
-        {
-            "name": "Angels",
-            "filename": "angels.md"
-        },
-        {
-            "name": "Best of... NENA!",
-            "filename": "nena.md"
-        },
-        {
-            "name": "BON JOVI ROCK MIX",
-            "filename": "bon-jovi-rock-mix.md"
-        },
-        {
-            "name": "Bumsbar",
-            "filename": "bumsbar.md"
-        },
-        {
             "name": "Celebration",
             "filename": "celebration.md"
-        },
-        {
-            "name": "Delfin",
-            "filename": "delfin.md"
-        },
-        {
-            "name": "The lions sleeps tonight",
-            "filename": "the-lion-sleeps-tonight.md"
-        },
-        {
-            "name": "Don't stop believin'",
-            "filename": "dont-stop-believing.md"
-        },
-        {
-            "name": "Er gehört zu mir",
-            "filename": "er-gehoert-zu-mir.md"
-        },
-        {
-            "name": "Herzbeben",
-            "filename": "herzbeben.md"
-        },
-        {
-            "name": "I will survive",
-            "filename": "i-will-survive.md"
-        },
-        {
-            "name": "Ich will keine Schokolade",
-            "filename": "ich-will-keine-schokolade.md"
-        },
-        {
-            "name": "Im Wagen vor mir",
-            "filename": "im-wagen-vor-mir.md"
-        },
-        {
-            "name": "Knallrotes Gummiboot",
-            "filename": "knallrotes-gummiboot.md"
-        },
-        {
-            "name": "Kompliment",
-            "filename": "kompliment.md"
         },
         {
             "name": "Let me entertain you",
             "filename": "let-me-entertain-you.md"
         },
         {
-            "name": "Major Tom",
-            "filename": "major-tom.md"
-        },
-        {
             "name": "Narcotic",
             "filename": "narcotic.md"
         },
         {
-            "name": "Ohne dich",
-            "filename": "ohne-dich.md"
+            "name": "Herzbeben",
+            "filename": "herzbeben.md"
         },
         {
-            "name": "Pur Hit Mix",
-            "filename": "pur-hit-mix.md"
+            "name": "1000 und eine Nacht",
+            "filename": "1000-und-eine-nacht.md"
+        },
+        {
+            "name": "Er gehört zu mir",
+            "filename": "er-gehoert-zu-mir.md"
         },
         {
             "name": "Schwieberdinger Bier",
             "filename": "schwieberdinger-bier.md"
         },
         {
-            "name": "Sierra Madre",
-            "filename": "sierra-madre.md"
+            "name": "Wir trinken noch ein Bier",
+            "filename": "wir-trinken-noch-ein-bier.md"
         },
         {
-            "name": "Skandal im Sperrbezirk",
-            "filename": "skandal.md"
-        },
-        {
-            "name": "Take on me",
-            "filename": "take-on-me.md"
+            "name": "Im Wagen vor mir",
+            "filename": "im-wagen-vor-mir.md"
         },
         {
             "name": "Valerie",
             "filename": "valerie.md"
         },
         {
-            "name": "Wir trinken noch ein Bier",
-            "filename": "wir-trinken-noch-ein-bier.md"
+            "name": "Major Tom",
+            "filename": "major-tom.md"
+        },
+        {
+            "name": "Best of... NENA!",
+            "filename": "nena.md"
+        },
+        {
+            "name": "Skandal im Sperrbezirk",
+            "filename": "skandal.md"
+        },
+        {
+            "name": "The lions sleeps tonight",
+            "filename": "the-lion-sleeps-tonight.md"
+        },
+        {
+            "name": "Take on me",
+            "filename": "take-on-me.md"
+        },
+        {
+            "name": "Knallrotes Gummiboot",
+            "filename": "knallrotes-gummiboot.md"
+        },
+        {
+            "name": "Ich will keine Schokolade",
+            "filename": "ich-will-keine-schokolade.md"
         },
         {
             "name": "Y.M.C.A",
             "filename": "ymca.md"
+        },
+        {
+            "name": "Delfin",
+            "filename": "delfin.md"
+        },
+        {
+            "name": "Bumsbar",
+            "filename": "bumsbar.md"
+        },
+        {
+            "name": "BON JOVI ROCK MIX",
+            "filename": "bon-jovi-rock-mix.md"
+        },
+        {
+            "name": "I will survive",
+            "filename": "i-will-survive.md"
+        },
+        {
+            "name": "Pur Hit Mix",
+            "filename": "pur-hit-mix.md"
+        },
+        {
+            "name": "Ohne dich",
+            "filename": "ohne-dich.md"
+        },
+        {
+            "name": "An Tagen wie diesen",
+            "filename": "an-tagen-wie-diesen.md"
+        },
+        {
+            "name": "Don't stop believin'",
+            "filename": "dont-stop-believing.md"
+        },
+        {
+            "name": "Kompliment",
+            "filename": "kompliment.md"
+        },
+        {
+            "name": "Angels",
+            "filename": "angels.md"
+        },
+        {
+            "name": "Sierra Madre",
+            "filename": "sierra-madre.md"
         }
     ]
 }
