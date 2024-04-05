@@ -42,7 +42,7 @@ block scripts
       if (setlist == total) {
         setlist = 0;
       }
-      document.forms["select-setlist"][setlist].checked=true;
+      document.forms["select-setlist"][setlist].checked = true;
     }
 
     function prev() {
@@ -50,21 +50,21 @@ block scripts
       if (setlist == -1) {
         setlist = total - 1;
       }
-      document.forms["select-setlist"][setlist].checked=true;
+      document.forms["select-setlist"][setlist].checked = true;
     }
 
     function select() {
       document.forms["select-setlist"].submit();
     }
 
-    addEventListener("keydown", (e) => {
-      if (e.keyCode == #{keycodes.left}) {
+    addEventListener("single", (e) => {
+      if (e.detail.button == "left") {
         prev();
       }
-      if (e.keyCode == #{keycodes.middle}) {
+      if (e.detail.button == "middle") {
         select();
       }
-      if (e.keyCode == #{keycodes.right}) {
+      if (e.detail.button == "right") {
         next();
       }
     });
