@@ -7,7 +7,7 @@ footer {
   justify-content: space-between;
 }
 
-.button {
+footer .button {
   background-color: #222222;
   border: 1px solid lightgray;
   padding: 4px;
@@ -16,23 +16,23 @@ footer {
   cursor: pointer;
 }
 
-.button.click.active {
+footer .button.click.active {
   background-color: lightblue;
 }
 
-.button.hold {
+footer .button.hold {
   background: linear-gradient(to left, #222222 50%, lightblue 50%) right;
   background-size: 200%;
   transition: 0.1s ease-out;
 }
 
-.button.hold.active {
+footer .button.hold.active {
   background-position: left;
   transition: 1.250s ease-in;
   transition-delay: .250s;
 }
 
-.text {
+footer .text {
   height: 30px;
   font-weight: bolder;
   font-size: 22px;
@@ -45,26 +45,26 @@ footer {
   display: inline-block;
 }
 
-.left .button .text {
+footer .left .button .text {
   margin-left: 4px;
   display: flex;
   align-items: center;
 }
 
-.middle .button .text {
+footer .middle .button .text {
   margin-top: 4px;
   flex-grow: 1;
   display: flex;
   align-items: center;
 }
 
-.right .button .text {
+footer .right .button .text {
   margin-right: 4px;
   display: flex;
   align-items: center;
 }
 
-.icon {
+footer .icon {
   height: 40px;
   width: 100px; 
   display: inline-block;
@@ -72,55 +72,55 @@ footer {
   background-size: 100px;
 }
 
-.left-click {
+footer .left-click {
   background-position: 0px 0px;
 
 }
 
-.left-hold {
+footer .left-hold {
   background-position: 0px -40px;
 
 }
 
-.middle-click {
+footer .middle-click {
   background-position: 0px -160px;
 }
 
-.middle-hold {
+footer .middle-hold {
   background-position: 0px -120px;
 }
 
 
-.right-click {
+footer .right-click {
   background-position: 0px -80px;
 }
 
-.right-hold {
+footer .right-hold {
   background-position: 0px -200px;
 }
 
-.left {
+footer .left {
   display: flex;
   flex-direction: column;
   justify-content: end;
   gap: 4px;
 }
 
-.middle {
+footer .middle {
   display: flex;
   flex-direction: row;
   gap: 4px;
 }
 
-.middle .button {
+footer .middle .button {
   flex-direction: column;
 }
 
-.right .button {
+footer .right .button {
   flex-direction: row-reverse;
 }
 
-.right {
+footer .right {
   display: flex;
   flex-direction: column;
   justify-content: end;
