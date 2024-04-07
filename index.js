@@ -113,16 +113,14 @@ async function getSetlist() {
 
 async function getLyrics(filename) {
   const setlistPath = await getSetlistPath();
-  const dir = path.basename(path.dirname(setlistPath))
-  const songPath = path.join(dir, filename);
+  const songPath = setlistPath.replace("setlist.json", filename);
   const data = fs.readFileSync(songPath, "utf-8");
   return Converter.makeHtml(data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, "$&<br>\r\n"))
 }
 
 async function getMetadata(filename) {
   const setlistPath = await getSetlistPath();
-  const dir = path.basename(path.dirname(setlistPath))
-  const songPath = path.join(dir, filename);
+  const songPath = setlistPath.replace("setlist.json", filename);
   fs.readFileSync(songPath, "utf-8");
   return Converter.getMetadata();
 }
@@ -172,8 +170,8 @@ app.post("/settings", async (req, res) => {
 
 app.get("/:filename", async (req, res) => {
   try {
-    const lyrics = await getLyrics(req.params.filename);
     const setlist = await getSetlist();
+    const lyrics = await getLyrics(req.params.filename);
     const metadata = await getMetadata(req.params.filename);
     res.render("song", {
       lyrics: lyrics,
