@@ -8,19 +8,26 @@ block content
         a(href='/' + song.filename) #{song.name}
 
 block footer
-  #left.footer-buttons
-    button(onclick='prev()') 
-      span UP
-  #middle.footer-buttons
-    button(onclick='select()')
-      span SELECT
-    a.song-button#settings(href='/settings')
-        span.small 2
-        span.small x
-        span.small SETTINGS
-  #right.footer-buttons
-    button(onclick='next()')
-      span DOWN
+  footer
+    .left
+      .button(onclick='prev()') 
+        .icon-wrapper
+          span.icon.left-click
+        .text UP
+    .middle
+      .button(onclick='select()')
+        .icon-wrapper
+          span.icon.middle-click
+        .text SELECT
+      .button.hold(onclick='settings()')
+        .icon-wrapper
+          span.icon.middle-hold
+        .text SETTINGS
+    .right
+      .button(onclick='next()')
+        .icon-wrapper
+          span.icon.right-click
+        .text DOWN
 
 block scripts
   script.
@@ -31,7 +38,11 @@ block scripts
       let allSongs = document.querySelectorAll("#setlist li");
       allSongs.forEach((s) => s.classList.remove("active"));
       allSongs[i].classList.add("active");
-      allSongs[i].scrollIntoView();
+      allSongs[i].scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+      });
     }
 
     function next() {
@@ -58,7 +69,7 @@ block scripts
       location.href = "/settings";
     }
 
-    addEventListener("single", (e) => {
+    addEventListener("shortPress", (e) => {
       if (e.detail.button == "left") {
         prev();
       }
@@ -70,9 +81,8 @@ block scripts
       }
     });
 
-    addEventListener("double", (e) => {
+    addEventListener("longPress", (e) => {
       if (e.detail.button == "middle") {
-        console.log("TEST")
         settings();
       }
     });

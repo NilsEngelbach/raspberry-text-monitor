@@ -1,0 +1,135 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  padding: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: #222222;
+  border: 1px solid lightgray;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button.click.active {
+  background-color: lightblue;
+}
+
+.button.hold {
+  background: linear-gradient(to left, #222222 50%, lightblue 50%) right;
+  background-size: 200%;
+  transition: 0.1s ease-out;
+}
+
+.button.hold.active {
+  background-position: left;
+  transition: 1.250s ease-in;
+  transition-delay: .250s;
+}
+
+.text {
+  height: 30px;
+  font-weight: bolder;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 250px;
+  display: inline-block;
+}
+
+.left .button .text {
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.middle .button .text {
+  margin-top: 4px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.right .button .text {
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-wrapper {
+  height: 48px;
+  width: 120px;
+  display: inline-block;
+}
+
+.icon {
+  position: relative;
+  top: -16px;
+  left: -40px;
+  height: 80px;
+  width: 200px;
+  display: inline-block;
+  background: url('/public/icon_sprite.png');
+  scale: 0.6;
+}
+
+.left-click {
+  background-position: 0px 0px;
+}
+
+.left-hold {
+  background-position: 0px -80px;
+}
+
+.middle-click {
+  background-position: 0px -160px;
+}
+
+.middle-hold {
+  background-position: 0px -240px;
+}
+
+
+.right-click {
+  background-position: 0px -320px;
+}
+
+.right-hold {
+  background-position: 0px -400px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 4px;
+}
+
+.middle {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.middle .button {
+  flex-direction: column;
+}
+
+.right .button {
+  flex-direction: row-reverse;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 4px;
+}

@@ -7,29 +7,33 @@ block content
 
 
 block footer
-  #left.footer-buttons
-    button(onclick='scrollUp()') 
-      span.small 1
-      span.small x
-      span UP
-    if prevSong
-      a.song-button#prev(href='/' + prevSong.filename)
-        span.small 2
-        span.small x
-        span.song-name #{prevSong.name}
-  #middle.footer-buttons
-    button(onclick='setlist()')
-      span MENU
-  #right.footer-buttons
-    button(onclick='scrollDown()')
-      span.small 1
-      span.small x
-      span DOWN
-    if nextSong
-      a.song-button#next(href='/' + nextSong.filename)
-        span.small 2
-        span.small x
-        span.song-name #{nextSong.name}
+  footer(style="margin-top: 300px;")
+    .left
+      .button.click(onclick='scrollUp()') 
+        .icon-wrapper
+          span.icon.left-click
+        .text UP
+      if prevSong
+        .button.hold(onclick='prev()')
+          .icon-wrapper
+            span.icon.left-hold
+          .text#prev(title=prevSong.filename) #{prevSong.name}
+    .middle
+      .button.click(onclick='setlist()')
+        .icon-wrapper
+          span.icon.middle-click
+        .text SETLIST
+    .right
+      .button.click(onclick='scrollDown()')
+        .icon-wrapper
+          span.icon.right-click
+        .text DOWN
+      if nextSong
+        .button.hold(onclick='next()')
+          .icon-wrapper
+            span.icon.right-hold
+          .text#next(title=nextSong.filename) #{nextSong.name}
+
 
 block scripts
   script.
@@ -38,15 +42,17 @@ block scripts
     }
 
     function prev() {
-      if (document.getElementById('prev')) {
-        location.href = document.getElementById('prev').getAttribute("href");
+      let prevSong = document.getElementById('prev');
+      if (prevSong) {
+        location.href = `/${prevSong.title}`;
       }
     }
 
     function next() {
-      if (document.getElementById('next')) {
-        location.href = document.getElementById('next').getAttribute("href");
-      }
+      let nextSong = document.getElementById('next');
+        if (nextSong) {
+          location.href = `/${nextSong.title}`;
+        }
     }
 
     function scrollDown() {
@@ -58,7 +64,7 @@ block scripts
     }
 
 
-    addEventListener("single", (e) => {
+    addEventListener("shortPress", (e) => {
       if (e.detail.button == "left") {
         scrollUp();
       }
@@ -70,7 +76,7 @@ block scripts
       }
     });
 
-    addEventListener("double", (e) => {
+    addEventListener("longPress", (e) => {
       if (e.detail.button == "left") {
         prev();
       }

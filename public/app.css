@@ -23,7 +23,7 @@ h5 {
 }
 
 #container {
-  padding: 5px 5px 100px 5px;
+  padding: 5px 5px 120px 5px;
   display: block;
   width: 100vw;
   height: 100vh;
@@ -64,72 +64,6 @@ h5 {
 
 .bridge {
   color: var(--bridge-color);
-}
-
-#footer {
-  position: absolute;
-  bottom: 0;
-  padding: 5px;
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-#footer button {
-  font-size: 18px;
-  padding: 5px 10px;
-  background-color: #444;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-}
-
-#footer .small{
-  font-size: 15px;
-  font-weight: bold;
-  margin-right: 2px;
-}
-
-.footer-buttons {
-  display: inline-flex;
-  flex-direction: column;
-}
-
-#left.footer-buttons {
-  align-items: flex-start;
-}
-
-#right.footer-buttons {
-  align-items: flex-end;
-}
-
-#footer .song-button {
-  font-size: 25px;
-  max-width: 250px;
-  margin-top: 5px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  background-color: #444;
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-}
-
-#footer .song-button span.song-name {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 #setlist {

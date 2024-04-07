@@ -86,6 +86,8 @@ async function getSetlists() {
     }
   }
 
+  setlists.sort();
+
   console.log(setlists);
 
   return setlists;
@@ -153,7 +155,8 @@ app.get("/settings", async (req, res) => {
     keycodes: config.keycodes,
     error: req.query.error,
     setlists,
-    selectedIndex
+    selectedIndex,
+    css: config.css,
   });
 });
 

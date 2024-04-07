@@ -9,23 +9,29 @@ block content
     each setlist, index in setlists
       div
         input(type='radio', name='setlist', value=index, id=index)
-        label(for=index)
-          small #{setlist}
+        label(for=index) #{setlist}
 
 block footer
-  #left.footer-buttons
-    button(onclick='prev()') 
-      span UP
-  #middle.footer-buttons
-    button(onclick='select()')
-      span SELECT
-    a.song-button#menu(href='/')
-        span.small 2
-        span.small x
-        span.small MENU
-  #right.footer-buttons
-    button(onclick='next()')
-      span DOWN
+  footer(style="margin-top: 300px;")
+    .left
+      .button.click(onclick='prev()')
+        .icon-wrapper
+          span.icon.left-click
+        .text UP
+    .middle
+      .button.click(onclick='select()')
+        .icon-wrapper
+          span.icon.middle-click
+        .text SELECT
+      .button.hold(onclick='menu()')
+        .icon-wrapper
+          span.icon.middle-hold
+        .text MENU
+    .right
+      .button.click(onclick='next()')
+        .icon-wrapper
+          span.icon.right-click
+        .text DOWN
 
 block scripts
   script.
@@ -57,7 +63,7 @@ block scripts
       document.forms["select-setlist"].submit();
     }
 
-    addEventListener("single", (e) => {
+    addEventListener("shortPress", (e) => {
       if (e.detail.button == "left") {
         prev();
       }
@@ -69,7 +75,7 @@ block scripts
       }
     });
 
-    addEventListener("double", (e) => {
+    addEventListener("longPress", (e) => {
       if (e.detail.button == "middle") {
         menu();
       }
