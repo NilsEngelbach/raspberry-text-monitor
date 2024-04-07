@@ -1,3 +1,6 @@
+h3.highlight {
+  color: var(--highlight-color);
+}
 
 #select-setlist div input {
   appearance: none;

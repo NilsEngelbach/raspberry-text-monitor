@@ -3,7 +3,8 @@ extends layout.pug
 block content
   #setlist
     h1 Settings
-    h3 #{error}
+    if error
+      h3.highlight Setlist auswählen:
 
   form(role='form', method='POST', id='select-setlist')
     each setlist, index in setlists
