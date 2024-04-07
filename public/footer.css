@@ -10,7 +10,7 @@ footer {
 .button {
   background-color: #222222;
   border: 1px solid lightgray;
-  padding: 4px 10px;
+  padding: 4px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -64,29 +64,22 @@ footer {
   align-items: center;
 }
 
-.icon-wrapper {
-  height: 48px;
-  width: 120px;
-  display: inline-block;
-}
-
 .icon {
-  position: relative;
-  top: -16px;
-  left: -40px;
-  height: 80px;
-  width: 200px;
+  height: 40px;
+  width: 100px; 
   display: inline-block;
   background: url('/public/icon_sprite.png');
-  scale: 0.6;
+  background-size: 100px;
 }
 
 .left-click {
   background-position: 0px 0px;
+
 }
 
 .left-hold {
-  background-position: 0px -80px;
+  background-position: 0px -40px;
+
 }
 
 .middle-click {
@@ -94,16 +87,16 @@ footer {
 }
 
 .middle-hold {
-  background-position: 0px -240px;
+  background-position: 0px -120px;
 }
 
 
 .right-click {
-  background-position: 0px -320px;
+  background-position: 0px -80px;
 }
 
 .right-hold {
-  background-position: 0px -400px;
+  background-position: 0px -200px;
 }
 
 .left {

@@ -10,28 +10,23 @@ block footer
   footer(style="margin-top: 300px;")
     .left
       .button.click(onclick='scrollUp()') 
-        .icon-wrapper
-          span.icon.left-click
+        span.icon.left-click
         .text UP
       if prevSong
         .button.hold(onclick='prev()')
-          .icon-wrapper
-            span.icon.left-hold
+          span.icon.left-hold
           .text#prev(title=prevSong.filename) #{prevSong.name}
     .middle
       .button.click(onclick='setlist()')
-        .icon-wrapper
-          span.icon.middle-click
+        span.icon.middle-click
         .text SETLIST
     .right
       .button.click(onclick='scrollDown()')
-        .icon-wrapper
-          span.icon.right-click
+        span.icon.right-click
         .text DOWN
       if nextSong
         .button.hold(onclick='next()')
-          .icon-wrapper
-            span.icon.right-hold
+          span.icon.right-hold
           .text#next(title=nextSong.filename) #{nextSong.name}
 
 

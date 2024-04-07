@@ -72,12 +72,12 @@ point-rpi
 @xset s noblank
 @xset s noexpose
 @xset dpms 0 0 0
-@chromium-browser --incognito --kiosk --disable-translate --disable-features=Translate --noerrdialogs --disable-infobars --no-first-run --start-fullscreen http://localhost:8080/
+@chromium-browser --incognito --kiosk --disable-translate --disable-features=Translate --noerrdialogs --disable-infobars --force-device-scale-factor=1 --no-first-run --start-fullscreen http://localhost:8080/
 
 unclutter -idle 0
 ```
 
-Info: Uncluccter is used to hide the mouse cursor.
+Info: Unclutter is used to hide the mouse cursor.
 
 
 ## ENV
