@@ -8,70 +8,96 @@ block content
         a(href='/' + song.filename) #{song.name}
 
 block footer
-  #left.footer-buttons
-    button(onclick='prev()') 
-      span UP
-  #middle.footer-buttons
-    button(onclick='select()')
-      span SELECT
-  #right.footer-buttons
-    button(onclick='next()')
-      span DOWN
+  footer
+    .left
+      .button(onclick='prev()') 
+        .icon-wrapper
+          span.icon.left-click
+        .text UP
+    .middle
+      .button(onclick='select()')
+        .icon-wrapper
+          span.icon.middle-click
+        .text SELECT
+      .button.hold(onclick='settings()')
+        .icon-wrapper
+          span.icon.middle-hold
+        .text SETTINGS
+    .right
+      .button(onclick='next()')
+        .icon-wrapper
+          span.icon.right-click
+        .text DOWN
 
 block scripts
   script.
-    var choosenSongIndex = 0;
-    var totalSongsCount = #{setlist.songs.length};
-    window.onload = function() {
-      let urlParams = new URLSearchParams(window.location.search)
-      if (urlParams.has('song')) {
-        let allSongs = document.querySelectorAll("#setlist li");
-        allSongs.forEach(function(song, i) {
-          if(song.getAttribute("data-song") == urlParams.get('song')) {
-            choosenSongIndex = i;
-          }
-        });
-      }
-      selectSong(choosenSongIndex);
-    }
+    var song = 0;
+    var total = #{setlist.songs.length};
 
     function selectSong(i) {
       let allSongs = document.querySelectorAll("#setlist li");
-      allSongs.forEach(function(song) {
-        song.classList.remove("active");
-      });
+      allSongs.forEach((s) => s.classList.remove("active"));
       allSongs[i].classList.add("active");
-      allSongs[i].scrollIntoView();
+      allSongs[i].scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+      });
     }
 
     function next() {
-      choosenSongIndex++;
-      if (choosenSongIndex == totalSongsCount) {
-        choosenSongIndex = 0;
+      song++;
+      if (song == total) {
+        song = 0;
       }
-      selectSong(choosenSongIndex);
+      selectSong(song);
     }
 
     function prev() {
-      choosenSongIndex--;
-      if (choosenSongIndex == -1) {
-        choosenSongIndex = totalSongsCount - 1;
+      song--;
+      if (song == -1) {
+        song = total - 1;
       }
-      selectSong(choosenSongIndex);
+      selectSong(song);
     }
 
     function select() {
       document.querySelector("#setlist li.active a").click();
     }
 
-    window.addEventListener("keydown", function(e) {
-      if (e.keyCode == #{keycodes.left}) {
+    function settings() {
+      location.href = "/settings";
+    }
+
+    addEventListener("shortPress", (e) => {
+      if (e.detail.button == "left") {
         prev();
       }
-      if (e.keyCode == #{keycodes.middle}) {
+      if (e.detail.button == "middle") {
         select();
       }
-      if (e.keyCode == #{keycodes.right}) {
+      if (e.detail.button == "right") {
         next();
       }
     });
+
+    addEventListener("longPress", (e) => {
+      if (e.detail.button == "middle") {
+        settings();
+      }
+    });
+
+    addEventListener("load", () => {
+      let urlParams = new URLSearchParams(location.search);
+
+      if (urlParams.has('song')) {
+        let allSongs = document.querySelectorAll("#setlist li");
+        allSongs.forEach((s, i) => {
+          if(s.getAttribute("data-song") == urlParams.get('song')) {
+            song = i;
+          }
+        });
+      }
+
+      selectSong(song);
+    })

@@ -12,8 +12,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
+    "drivelist": "^11.2.2",
     "express": "^4.17.1",
+    "glob": "^10.3.12",
     "nocache": "^2.1.0",
+    "node-persist": "^4.0.1",
     "pug": "^3.0.2",
     "showdown": "^1.9.1"
   },

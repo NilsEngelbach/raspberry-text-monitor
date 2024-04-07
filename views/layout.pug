@@ -5,35 +5,63 @@ html(translate="no")
     title Setlist
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(href='/public/app.css' rel='stylesheet')
+    link(href='/public/footer.css' rel='stylesheet')
+    link(href='/public/settings.css' rel='stylesheet')
     link(href='/public/favicon.ico' rel='icon')
 
   body(style=css)
     #container
       block content
 
-    #footer
-      block footer
+    block footer
 
     script.
-      let pressed;
-      let lastPressed;
-      let isDoublePress;
-      const timeOut = () => setTimeout(() => isDoublePress = false, 500);
-      const keyPress = key => {
-        pressed = key.keyCode;
-        if (isDoublePress && pressed === lastPressed) {
-          isDoublePress = false;
-          window.dispatchEvent(new CustomEvent("doublePress", {
-            detail: {
-              key: key
+      const timeout = 1600; // 1250 + 250 + 100
+
+      function addKeyEventHandler(keyCode, button) {
+        console.log("Add key event handler: ", keyCode, button);
+
+        let pressTimer = undefined;
+        let clickElement = document.querySelector(`.${button} .button.click`);
+        let holdElement = document.querySelector(`.${button} .button.hold`);
+
+        addEventListener('keydown', (event) => {
+          if (event.repeat) { return }
+          if (event.keyCode === keyCode) {
+            if (holdElement) {
+              holdElement.classList.add('active');
             }
-          }));
-        } else {
-          isDoublePress = true;
-          timeOut();
-        }
-        lastPressed = pressed;
+            pressTimer = setTimeout(() => {
+              pressTimer = undefined;
+              holdElement.classList.remove('active');
+              console.log("[longPress]", button);
+              dispatchEvent(new CustomEvent('longPress', { detail: { button }}));
+            }, timeout);
+          }
+        });
+
+        addEventListener('keyup', (event) => {
+          if (event.keyCode === keyCode) {
+            if (pressTimer != undefined) {
+              clearTimeout(pressTimer);
+              if (holdElement) {
+                holdElement.classList.remove('active');
+              }
+              if (clickElement) {
+                clickElement.classList.add('active');
+                setTimeout(() => {
+                  clickElement.classList.remove('active');
+                }, 150);
+              }
+              console.log("[shortPress]", button);
+              dispatchEvent(new CustomEvent('shortPress', { detail: { button }}));
+            }
+          }
+        });
       }
-      window.onkeyup = key => keyPress(key);
+
+      addKeyEventHandler(#{keycodes.left}, "left");
+      addKeyEventHandler(#{keycodes.middle}, "middle");
+      addKeyEventHandler(#{keycodes.right}, "right");
 
     block scripts

@@ -19,7 +19,7 @@ Who said that?
 Baby, how you been?
 You say you don't know
 You won't know until you begin
-~refrain~
+~/refrain~
 
 So can't ya see me standing here
 I got my back against the record machine
@@ -37,6 +37,6 @@ Might as well jump (jump)
 Go ahead and jump
 Get it in, jump (jump)
 Go ahead and jump
-~refrain~
+~/refrain~
 
 Jump [4x]

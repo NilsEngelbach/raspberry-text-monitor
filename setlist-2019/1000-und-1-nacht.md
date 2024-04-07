@@ -11,7 +11,7 @@ Wir waren wie Geschwister in all den Jahren
 ~refrain~
 Tausendmal berührt, tausendmal ist nix passiert
 Tausend und eine Nacht und es hat „Zoom“ gemacht
-~refrain~
+~/refrain~
 
 Erinnerst du dich, wir ha'm Indianer gespielt
 Und uns an Fasching in die Büsche versteckt
@@ -25,7 +25,7 @@ Hatt' ich doch schon tausendmal beim Tanzen berührt
 ~refrain~
 Tausendmal berührt, tausendmal ist nix passiert
 Tausend und eine Nacht und es hat „Zoom“ gemacht
-~refrain~
+~/refrain~
 
 Oh, wie viele Nächte wusst' ich nicht, was gefehlt hat
 Wär' nie drauf gekommen, denn das warst ja du
@@ -41,4 +41,4 @@ Jetzt ist alles neu
 [3x]
 Tausendmal berührt, tausendmal ist nix passiert
 Tausend und eine Nacht und es hat „Zoom“ gemacht
-~refrain~
+~/refrain~

@@ -10,7 +10,7 @@ You're my rock of empathy, my dear
 ~refrain~
 So come on let me entertain you
 Let me entertain you
-~refrain~
+~/refrain~
 
 Life's too short for you to die
 So grab yourself an alibi
@@ -25,7 +25,7 @@ Mon cher
 ~refrain~
 So come on let me entertain you
 Let me entertain you
-~refrain~
+~/refrain~
 
 Look me up in the yellow pages
 I will be your rock of ages
@@ -43,7 +43,7 @@ You're not going to end up like your mum and dad
 So come on let me entertain you
 Let me entertain you
 Let me entertain you
-~refrain~
+~/refrain~
 
 He may be good he may be outta sight
 But he can't be here so come around tonight
@@ -56,10 +56,10 @@ Let me entertain you
 Let me entertain you (let me entertain you)
 So come on let me entertain you (let me entertain you)
 Let me entertain you (let me entertain you)
-~refrain~
+~/refrain~
 
 Come on come on come on come on [6x]
 
 ~refrain~
 Let me entertain you [8x]
-~refrain~
+~/refrain~

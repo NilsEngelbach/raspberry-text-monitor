@@ -3,7 +3,7 @@ Hodi odi ohh di ho di eh
 Hodi odi ohh di ho di eh
 Hodi odi ohh di ho di eh
 Hodi odi ohh di eh
-~refrain~
+~/refrain~
 
 Happy hour, mitten in der Nacht
 Sexy, alles tanzt alles lacht
@@ -17,7 +17,7 @@ Sag mir, wie soll des Gehn?
 
 ~refrain~
 Hodi odi ohh di ho di eh [4x]
-~refrain~
+~/refrain~
 
 ~bridge~
 Du host du gsagt
@@ -26,7 +26,7 @@ wasd nur du mit mir machst
 wenn nur du für mi lachst
 I und du und nur der Mond schaut zu
 Dann sagst du Hulapalu, Hulapalu, Hulapalu
-~bridge~
+~/bridge~
 
 Wo's is denn Hulapalu, sog mir wo kummt des her
 Wie schreibt ma Hulapalu was is des bitte sehr
@@ -35,7 +35,7 @@ Du sogst nur was is schon dabei?
 
 ~refrain~
 Hodi odi ohh di ho di eh [4x]
-~refrain~
+~/refrain~
 
 ~bridge~
 [2x]
@@ -45,8 +45,8 @@ wasd nur du mit mir machst
 wenn nur du für mi lachst
 I und du und nur der Mond schaut zu
 dann sagst du Hulapalu
-~bridge~
+~/bridge~
 
 ~refrain~
 Hodi odi ohh di ho di eh [4x]
-~refrain~
+~/refrain~

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    * {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    footer {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .button {
+      background-color: lightgray;
+      padding: 2px 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .button.hold {
+      background: linear-gradient(to left, lightgray 50%, lightblue 50%) right;
+      background-size: 200%;
+      transition: 0.1s ease-out;
+    }
+
+    .button.hold.active {
+      background-position: left;
+      transition: 1.250s ease-in;
+    }
+
+    .button.hold:hover {
+      background-position: left;
+      transition: 1.250s ease-in;
+    }
+
+    .text {
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .left .button .text {
+      margin-left: 4px;
+    }
+
+    .middle .button .text {
+      margin-top: 4px;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .right .button .text {
+      margin-right: 4px;
+    }
+
+    .icon-wrapper {
+      height: 48px;
+      width: 120px;
+      display: inline-block;
+    }
+
+    .icon {
+      position: relative;
+      top: -16px;
+      left: -40px;
+      height: 80px;
+      width: 200px;
+      display: inline-block;
+      background: url('./assets/icon_sprite.png');
+      scale: 0.6;
+    }
+
+    .left-click {
+      background-position: 0px 0px;
+    }
+
+    .left-hold {
+      background-position: 0px -80px;
+    }
+
+    .middle-click {
+      background-position: 0px -160px;
+    }
+
+    .middle-hold {
+      background-position: 0px -240px;
+    }
+
+    
+    .right-click {
+      background-position: 0px -320px;
+    }
+
+    .right-hold {
+      background-position: 0px -400px;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 4px;
+    }
+
+    .middle {
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+    }
+
+    .middle .button {
+      flex-direction: column;
+    }
+
+    .right .button {
+      flex-direction: row-reverse;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 4px;
+    }
+
+
+  </style>
+</head>
+<body>
+  <footer>
+    <div class="left">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon left-click"></span>
+        </div>
+        <div class="text">SCROLL UP</div>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon middle-click"></span>
+        </div>
+        <div class="text">SCROLL UP</div>
+      </div>
+      <div class="button hold">
+        <div class="icon-wrapper">
+          <span class="icon middle-hold"></span>
+        </div>
+        <div class="text">Angels</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon right-click"></span>
+        </div>
+        <div class="text">SCROLL DOWN</div>
+      </div>
+    </div>
+  </footer>
+
+  <footer style="margin-top: 300px;">
+    <div class="left">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon left-click"></span>
+        </div>
+        <div class="text">SCROLL UP</div>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon middle-click"></span>
+        </div>
+        <div class="text">SCROLL UP</div>
+      </div>
+      <div class="button hold">
+        <div class="icon-wrapper">
+          <span class="icon middle-hold"></span>
+        </div>
+        <div class="text">Angels</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon right-click"></span>
+        </div>
+        <div class="text">SCROLL DOWN</div>
+      </div>
+    </div>
+  </footer>
+
+  <footer style="margin-top: 300px;">
+    <div class="left">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon left-click"></span>
+        </div>
+        <div class="text">SCROLL UP</div>
+      </div>
+      <div class="button hold">
+        <div class="icon-wrapper">
+          <span class="icon left-hold"></span>
+        </div>
+        <div class="text">Angels</div>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon middle-click"></span>
+        </div>
+        <div class="text">SETLIST</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="button">
+        <div class="icon-wrapper">
+          <span class="icon right-click"></span>
+        </div>
+        <div class="text">SCROLL DOWN</div>
+      </div>
+      <div class="button hold">
+        <div class="icon-wrapper">
+          <span class="icon right-hold"></span>
+        </div>
+        <div class="text">An Tagen wie diesen</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

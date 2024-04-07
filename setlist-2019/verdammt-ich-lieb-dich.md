@@ -19,7 +19,7 @@ Ich brauch dich nicht
 Verdammt, ich will dich
 Ich will dich nicht
 Ich will dich nicht verlieren
-~refrain~
+~/refrain~
 
 So langsam fällt mir alles wieder ein
 Ich wollt doch nur ein bisschen freier sein, jetzt bin ich's Oder nicht?
@@ -42,7 +42,7 @@ Ich brauch dich nicht
 Verdammt, ich will dich
 Ich will dich nicht
 Ich will dich nicht verlieren, oh
-~refrain~
+~/refrain~
 
 **Gitarrensolo**
 
@@ -55,4 +55,4 @@ Ich brauch dich nicht
 Verdammt, ich will dich
 Ich will dich nicht
 Ich will dich nicht verlieren, oh
-~refrain~
+~/refrain~
