@@ -78,3 +78,23 @@ unclutter -idle 0
 ```
 
 Info: Uncluccter is used to hide the mouse cursor.
+
+
+## ENV
+
+`.env`
+
+```
+## Customize display
+#FONT_SIZE=
+#REFRAIN_COLOR=
+#BRIDGE_COLOR=
+#HIGHLIGHT_COLOR=
+
+## Use A,B,C Keys as input (foot switch defaults)
+#KEYCODE_LEFT=65
+#KEYCODE_MIDDLE=66
+#KEYCODE_RIGHT=67
+
+#PORT=8080
+```
