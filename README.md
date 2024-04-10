@@ -9,7 +9,7 @@
 
 ![](./docs/preview.jpg)
 
-[More Image and Videso in the Wiki](../../wiki)
+[More Image and Videso in the Wiki](../../wiki/Images-and-Videos)
 
 ## How to install
 
