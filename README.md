@@ -5,8 +5,43 @@
 - Raspberry Pi
 - (Old) Computer Monitor
 - 3x Key Foot Switch
-- Custom built box of wood
+- Old Speaker Casing
 
+![](./docs/image%20(1).JPG)
+
+![](./docs/image%20(2).JPG)
+
+![](./docs/image%20(3).JPG)
+
+![](./docs/image%20(4).JPG)
+
+![](./docs/image%20(5).JPG)
+
+![](./docs/image%20(6).JPG)
+
+![](./docs/image%20(7).JPG)
+
+![](./docs/image%20(8).JPG)
+
+![](./docs/image%20(9).JPG)
+
+![](./docs/image%20(10).JPG)
+
+![](./docs/image%20(11).JPG)
+
+![](./docs/image%20(12).JPG)
+
+![](./docs/image%20(13).JPG)
+
+![](./docs/image%20(14).JPG)
+
+![](./docs/image%20(15).JPG)
+
+![](./docs/image%20(15).JPG)
+
+## Video
+
+<video src="./docs/video.mp4"></video>
 
 ## How to install
 
