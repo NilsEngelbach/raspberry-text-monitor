@@ -1,5 +1,5 @@
 ~bridge~
-8 Takte 
+_[8 Takte]_
 ~/bridge~
 
 I used to rule the world 
@@ -19,7 +19,7 @@ Upon pillars of salt and pillars of sand
 ~/bridge~
 
 ~bridge~
-8 Takte 
+_[8 Takte]_
 ~/bridge~  
 
 ~bridge~
@@ -57,7 +57,7 @@ But that was when I ruled the world
 ~/refrain~
 
 ~bridge~
-8 Takte 
+_[8 Takte]_
 ~/bridge~
 
 5x

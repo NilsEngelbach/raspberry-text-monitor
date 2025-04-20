@@ -7,12 +7,10 @@ And I owe it all to you
 **And I owe it all to you**
 
 I′ve been waiting for so long
-Now I′ve finally found someone
-To stand by me 
+Now I′ve finally found someone to stand by me 
 
 **We saw the writing on the wall 
-As we felt this magical 
-Fantasy**
+As we felt this magical Fantasy**
 
 _Now with passion in our eyes_
 _There's no way we could disguise it secretly_
@@ -26,10 +24,12 @@ I can't get enough of
 **So I′ll tell you something**
 _This could be love because_
 
+~refrain~
 _I've had the time of my life_
 _No, I never felt this way before_ 
 _Yes, I swear it's the truth_ 
 _And I owe it all to you_ 
+~/refrain~
 
 Hey, baby
 
@@ -48,6 +48,7 @@ You're the one thing
 So I'll tell you something 
 _This could be love because_
 
+~refrain~
 _I′ve had the time of my life_
 _No, I never felt this way before_
 _Yes, I swear it's the truth_
@@ -56,6 +57,7 @@ _'Cause I′ve had the time of my life_
 _And I′ve searched through every open door_
 _Till I found the truth_
 _And I owe it all to you_
+~/refrain~
 
 ~bridge~
 **Zwischenspiel**
@@ -66,10 +68,12 @@ No, I never felt this way before
 Yes, I swear it′s the truth
 And I owe it all to you 
 
+~refrain~
 _I've had the time of my life_
-_No, I never felt this way before _
+_No, I never felt this way before_
 _Yes, I swear it′s the truth_
 _And I owe it all to you_
 _'Cause I′ve had the time of my life_
 _And I've searched through every open door_
 _Till I found the truth_
+~/refrain~

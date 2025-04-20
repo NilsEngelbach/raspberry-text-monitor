@@ -119,9 +119,8 @@ Oh, whoa, oh, oh
 Whoa, oh, oh 
 I'll get him hot, show him what I've got 
 
-
-2x
 ~refrain~
+2x
 Can't read my, can't read my 
 No, he can't read my poker face 
 (She's got me like nobody) 

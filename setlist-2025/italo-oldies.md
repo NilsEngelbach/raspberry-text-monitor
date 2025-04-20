@@ -1,4 +1,6 @@
+~bridge~
 **Azzurro**
+~/bridge~
 
 Cerco l'estate tutto l'anno 
 e all'improvviso eccola qua 
@@ -7,9 +9,8 @@ e sono solo quassù in città
 Sento fischiare sopra i tetti 
 un aeroplano che se ne va 
 
-2x
-
 ~refrain~
+2x
 Azzurro, 
 il pomeriggio è troppo azzurro 
 e lungo per me 
@@ -25,7 +26,9 @@ e vengo, vengo da te.
 Ma il treno dei desideri 
 nei miei pensieri all'incontrario va 
 
+~bridge~
 **Mamma Maria** 
+~/bridge~
 
 Un gatto bianco con gli occhi blu 
 Un vecchio vaso sulla tv 
@@ -37,13 +40,14 @@ E una ricetta per l'allegria
 Legge il destino, ma nelle stelle 
 E poi ti dice solo cose belle 
 
-8x
-
 ~refrain~
+8x
 Ma-ma-ma, mamma Maria, ma- 
 ~/refrain~ 
 
+~bridge~
 **L’Italiano** 
+~/bridge~
 
 Buongiorno Italia, gli spaghetti al dente 
 E un partigiano come presidente 
@@ -66,7 +70,9 @@ Sono un italiano
 Un italiano vero
 ~/refrain~
 
+~bridge~
 **Nel blu dipinto di blu (Volare)**
+~/bridge~
 
 Penso che un sogno così non ritorni mai più 
 Mi dipingevo le mani e la faccia di blu 

@@ -53,8 +53,7 @@ Wolln wir heut glücklich sein
 
 Eine neue Liebe ist wie ein neues Leben 
 Nananananana 
-Was einmal war ist vorbei und vergessen und zählt 
-nicht mehr 
+Was einmal war ist vorbei und vergessen und zählt nicht mehr 
 
 Eine neue Liebe ist wie ein neues Leben 
 Nananananana 
@@ -62,8 +61,7 @@ Mir ist als ob ich durch dich neu geboren wär
 
 Heute fängt ein neues Leben an 
 Deine Liebe die ist Schuld daran 
-Alles ist so wunderbar daß man es kaum verstehen 
-kann 
+Alles ist so wunderbar daß man es kaum verstehen kann 
 
 ~bridge~
 **Tanze Samba mit mir**
@@ -113,15 +111,13 @@ Es gibt viel Tequila, der glücklich sein lässt
 Alle Freunde, sie sind hier 
 Feiern noch einmal mit mir 
 Wir machen Fiesta, Fiesta Mexicana 
-Weil ihr dann den Alltag, die Sorgen schnell 
-vergesst 
+Weil ihr dann den Alltag, die Sorgen schnell vergesst 
 
 ~refrain~
 Adio, Adio Mexiko 
 Ich komme wieder zu dir zurück 
 Adio, Adio Mexiko 
-Ich grüß mit meinem Sombrero, te quiero, ich habe 
-dich so lieb 
+Ich grüß mit meinem Sombrero, te quiero, ich habe dich so lieb 
 ~/refrain~
 
 Fiesta, Fiesta Mexicana 

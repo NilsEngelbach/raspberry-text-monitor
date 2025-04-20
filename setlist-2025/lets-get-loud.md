@@ -1,5 +1,5 @@
 ~refrain~
-C'mon, people  
+C'mon, people
 Let's get loud, let′s get loud 
 Turn the music up, let's do it 
 C'mon, people 
@@ -11,27 +11,20 @@ Turn the music up, let's do it
 C'mon, people 
 ~/refrain~
 
-If you wanna live your life  
+If you wanna live your life
 live it all the way and don′t you waste it 
  
 Every feeling, every beat 
 Can be so very sweet, you gotta taste it 
 
 ~bridge~
-You gotta do it  
+2x
+You gotta **do it**
 you gotta do it your way 
-
-You gotta prove it  
-you gotta mean what you say  
-
-You gotta do it  
-you gotta do it your way 
-
-You gotta prove  
-you gotta mean what you say 
+You gotta **prove it**
+you gotta mean what you say
 ~/bridge~
  
-
 Life's a party, make it hot 
 Dance don't ever stop, whatever rhythm 
  
@@ -58,7 +51,6 @@ you′re not hurting anyone nobody loses
 
 Let the music make you free, be what you wanna be 
 Make no excuses 
-
 
 ~bridge~
 You gotta do it ...

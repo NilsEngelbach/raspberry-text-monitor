@@ -36,8 +36,10 @@ Ist doch egal, ...
 La vita è bello, ooh, ooh, ooh 
 La vita è bello, ooh, ooh, ooh 
 
+~bridge~
 Bruschetta und Gnocchi, dazu noch ein Baguetta 
 Ein Glasa Limoncella, ein Teller Tagliatella 
+~/bridge~
 
 ~refrain~
 Ist doch egal, ...
