@@ -23,6 +23,11 @@ showdown.extension("lyrics", function () {
       replace: '<div class="$1" markdown="1">$2</div>',
     },
     {
+      type: "output",
+      regex: /=([\w]+)=(.*?)=\/\1=/gs,
+      replace: '<span style="color: $1" markdown="1">$2</span>',
+    },
+    {
       type: "lang",
       regex: /##\/([\w]+)[^>]*##/gi,
       replace: "</div>",
@@ -32,11 +37,6 @@ showdown.extension("lyrics", function () {
       regex: /##([\w]+)[^>]*##/gi,
       replace: '<div class="$1" markdown="1">',
     },
-    // {
-    //   type: "output",
-    //   regex: /<p>([^]+?)<\/p>/gi,
-    //   replace: '<span class="paragraph">$1</span>'
-    // },
   ];
 });
 
