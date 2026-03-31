@@ -97,3 +97,53 @@ block scripts
 
       selectSong(song);
     })
+
+block socketScript
+  script.
+    if (new URLSearchParams(location.search).has('preview')) { void 0; } else {
+      const socket = io();
+      socket.emit('identify', { role: 'pi' });
+
+      function piScreenState() {
+        return {
+          screenW: window.innerWidth,
+          screenH: window.innerHeight,
+          dpr: window.devicePixelRatio || 1,
+        };
+      }
+
+      const allSongFilenames = Array.from(document.querySelectorAll('#setlist li')).map(li => li.getAttribute('data-song'));
+
+      function emitSetlistState() {
+        socket.emit('pi:state', {
+          view: 'setlist',
+          filename: null,
+          songName: null,
+          scrollPercent: 0,
+          selectedSong: allSongFilenames[song] || null,
+          ...piScreenState(),
+        });
+      }
+
+      // Re-emit whenever the selection changes
+      const _origSelectSong = selectSong;
+      selectSong = function(i) {
+        _origSelectSong(i);
+        socket.emit('pi:state', { selectedSong: allSongFilenames[i] || null });
+      };
+
+      emitSetlistState();
+
+      window.addEventListener('resize', () => {
+        socket.emit('pi:state', piScreenState());
+      });
+
+      socket.on('command:goto', ({ filename }) => {
+        location.href = '/' + filename;
+      });
+      
+      socket.on('command:navigate', ({ direction }) => {
+        if (direction === 'next') next();
+        if (direction === 'prev') prev();
+      });
+    } // end preview guard

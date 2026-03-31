@@ -7,13 +7,58 @@ const showdown = require("showdown"),
   path = require("path"),
   storage = require('node-persist'),
   { glob } = require('glob'),
-  drivelist = require('drivelist');
+  drivelist = require('drivelist'),
+  { createServer } = require('http'),
+  { Server } = require('socket.io');
 
 dotenv.config({ path: path.join(__dirname, ".env") });
 
 storage.init();
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+
+let displayState = {
+  view: 'setlist',
+  filename: null,
+  songName: null,
+  scrollPercent: 0,
+  selectedSong: null,
+  selectedIndex: -1,
+  screenW: 1920,
+  screenH: 1080,
+  dpr: 1,
+};
+
+io.on('connection', (socket) => {
+  socket.emit('state:update', displayState);
+
+  socket.on('identify', ({ role }) => {
+    socket.join(role);
+  });
+
+  socket.on('pi:state', (state) => {
+    displayState = { ...displayState, ...state };
+    socket.to('remote').emit('state:update', displayState);
+  });
+
+  socket.on('remote:navigate', (data) => {
+    io.to('pi').emit('command:navigate', data);
+  });
+
+  socket.on('remote:scroll', (data) => {
+    io.to('pi').emit('command:scroll', data);
+  });
+
+  socket.on('remote:goto', (data) => {
+    io.to('pi').emit('command:goto', data);
+  });
+
+  socket.on('remote:setlist', () => {
+    io.to('pi').emit('command:setlist');
+  });
+});
 
 showdown.extension("lyrics", function () {
   return [
@@ -80,7 +125,6 @@ async function getSetlists() {
 
   for (const drive of drives) {
     if (drive.isSystem == false) {
-      // console.log(drive);
       let files = await glob(`${drive.mountpoints[0].path}/**/setlist.json`)
       files.forEach(f => setlists.push(f));
     }
@@ -130,6 +174,22 @@ function getSongInSetlist(filename, setlist, i) {
   return setlist.songs[index + i];
 }
 
+async function safeSongPath(filename) {
+  if (!filename.endsWith('.md')) {
+    throw new Error('Only .md files allowed');
+  }
+  // Use the same resolution strategy as getLyrics: replace setlist.json with filename
+  const setlistPath = await getSetlistPath();
+  const songPath = path.resolve(setlistPath.replace("setlist.json", filename));
+  const setlistDir = path.resolve(path.dirname(setlistPath));
+  if (!songPath.startsWith(setlistDir + path.sep) && songPath !== setlistDir) {
+    throw new Error('Invalid path');
+  }
+  return songPath;
+}
+
+// --- Pi display routes ---
+
 app.get("/", async(req, res) => {
   try {
     let setlist = await getSetlist();
@@ -168,6 +228,168 @@ app.post("/settings", async (req, res) => {
   res.redirect(`/`);
 });
 
+// --- Remote UI route ---
+
+app.get("/remote", (req, res) => {
+  res.render("remote");
+});
+
+// --- REST API routes ---
+
+app.get("/api/state", (req, res) => {
+  res.json(displayState);
+});
+
+app.get("/api/setlists", async (req, res) => {
+  try {
+    const setlistPaths = await getSetlists();
+    const result = await Promise.all(setlistPaths.map(async (p) => {
+      try {
+        const data = JSON.parse(fs.readFileSync(p, "utf-8"));
+        return { path: p, name: data.name || path.basename(path.dirname(p)) };
+      } catch {
+        return { path: p, name: path.basename(path.dirname(p)) };
+      }
+    }));
+    const selectedPath = await trygetSetlistPath();
+    res.json({ setlists: result, selectedPath });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/setlist/select", async (req, res) => {
+  try {
+    const { path: selectedPath } = req.body;
+    const setlistPaths = await getSetlists();
+    if (!setlistPaths.includes(selectedPath)) {
+      return res.status(400).json({ error: 'Invalid setlist path' });
+    }
+    await storage.setItem('setlist', selectedPath);
+    const setlist = JSON.parse(fs.readFileSync(selectedPath, "utf-8"));
+    io.emit('state:update', { ...displayState, view: 'setlist', filename: null, songName: null });
+    io.to('pi').emit('command:setlist');
+    res.json({ ok: true, name: setlist.name });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/setlist", async (req, res) => {
+  try {
+    const setlist = await getSetlist();
+    const setlistPath = await getSetlistPath();
+    res.json({ ...setlist, path: setlistPath });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/setlist/reorder", async (req, res) => {
+  try {
+    const { songs } = req.body;
+    const setlistPath = await getSetlistPath();
+    const setlist = JSON.parse(fs.readFileSync(setlistPath, "utf-8"));
+    setlist.songs = songs;
+    fs.writeFileSync(setlistPath, JSON.stringify(setlist, null, 2));
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/setlist/song/add", async (req, res) => {
+  try {
+    const { name, filename } = req.body;
+    const setlistPath = await getSetlistPath();
+    const setlist = JSON.parse(fs.readFileSync(setlistPath, "utf-8"));
+    setlist.songs.push({ name, filename });
+    fs.writeFileSync(setlistPath, JSON.stringify(setlist, null, 2));
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/setlist/song/remove", async (req, res) => {
+  try {
+    const { filename } = req.body;
+    const setlistPath = await getSetlistPath();
+    const setlist = JSON.parse(fs.readFileSync(setlistPath, "utf-8"));
+    setlist.songs = setlist.songs.filter(s => s.filename !== filename);
+    fs.writeFileSync(setlistPath, JSON.stringify(setlist, null, 2));
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/song/:filename", async (req, res) => {
+  try {
+    const songPath = await safeSongPath(req.params.filename);
+    const content = fs.readFileSync(songPath, "utf-8");
+    res.json({ content });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+app.post("/api/song/:filename", async (req, res) => {
+  try {
+    const songPath = await safeSongPath(req.params.filename);
+    const { content } = req.body;
+    fs.writeFileSync(songPath, content);
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+app.get("/api/song/:filename/preview", async (req, res) => {
+  try {
+    const html = await getLyrics(req.params.filename);
+    res.json({ html });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+app.post("/api/setlist/create", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const dirPath = path.join(__dirname, `setlist-${slug}`);
+    if (fs.existsSync(dirPath)) {
+      return res.status(400).json({ error: 'Setlist directory already exists' });
+    }
+    fs.mkdirSync(dirPath);
+    fs.writeFileSync(path.join(dirPath, 'setlist.json'), JSON.stringify({ name, songs: [] }, null, 2));
+    res.json({ ok: true, path: path.join(dirPath, 'setlist.json') });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete("/api/setlist", async (req, res) => {
+  try {
+    const { path: targetPath } = req.body;
+    const selectedPath = await trygetSetlistPath();
+    if (targetPath === selectedPath) {
+      return res.status(400).json({ error: 'Cannot delete the currently active setlist' });
+    }
+    const setlistPaths = await getSetlists();
+    if (!setlistPaths.includes(targetPath)) {
+      return res.status(400).json({ error: 'Invalid setlist path' });
+    }
+    const dir = path.dirname(targetPath);
+    fs.rmSync(dir, { recursive: true });
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Must be last — catch-all for song filenames
 app.get("/:filename", async (req, res) => {
   try {
     const setlist = await getSetlist();
@@ -190,6 +412,6 @@ app.get("/:filename", async (req, res) => {
   }
 });
 
-app.listen(config.port, () => {
+httpServer.listen(config.port, () => {
   console.log(`Server is up and running on port ${config.port}`);
 });

@@ -79,7 +79,44 @@ block scripts
     });
 
     addEventListener("load", (e) => {
-      if (#{selectedIndex} >= 0) {
-        document.forms["select-setlist"][#{selectedIndex}].checked=true;
+      let urlParams = new URLSearchParams(location.search);
+      let initialIndex = urlParams.has('selected') ? parseInt(urlParams.get('selected')) : #{selectedIndex};
+      if (initialIndex >= 0) {
+        setlist = initialIndex;
+        document.forms["select-setlist"][initialIndex].checked = true;
       }
     });
+
+block socketScript
+  script.
+    if (new URLSearchParams(location.search).has('preview')) { void 0; } else {
+      const socket = io();
+      socket.emit('identify', { role: 'pi' });
+
+      function emitSettingsState() {
+        socket.emit('pi:state', {
+          view: 'settings',
+          filename: null,
+          songName: null,
+          scrollPercent: 0,
+          selectedIndex: setlist,
+          screenW: window.innerWidth,
+          screenH: window.innerHeight,
+          dpr: window.devicePixelRatio || 1,
+        });
+      }
+
+      emitSettingsState();
+
+      const _origNext = next, _origPrev = prev;
+      next = function() { _origNext(); socket.emit('pi:state', { selectedIndex: setlist }); };
+      prev = function() { _origPrev(); socket.emit('pi:state', { selectedIndex: setlist }); };
+
+      window.addEventListener('resize', () => {
+        socket.emit('pi:state', {
+          screenW: window.innerWidth,
+          screenH: window.innerHeight,
+          dpr: window.devicePixelRatio || 1,
+        });
+      });
+    } // end preview guard

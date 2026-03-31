@@ -79,3 +79,57 @@ block scripts
         next();
       }
     });
+
+block socketScript
+  script.
+    if (new URLSearchParams(location.search).has('preview')) { void 0; } else {
+      const socket = io();
+      socket.emit('identify', { role: 'pi' });
+
+      function piScreenState() {
+        return {
+          screenW: window.innerWidth,
+          screenH: window.innerHeight,
+          dpr: window.devicePixelRatio || 1,
+        };
+      }
+
+      socket.emit('pi:state', {
+        view: 'song',
+        filename: '#{song.filename}',
+        songName: '#{song.name}',
+        scrollPercent: 0,
+        ...piScreenState(),
+      });
+
+      window.addEventListener('resize', () => {
+        socket.emit('pi:state', piScreenState());
+      });
+
+      let scrollTimer;
+      document.getElementById('container').addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const el = document.getElementById('container');
+          const max = el.scrollHeight - el.clientHeight;
+          const pct = max > 0 ? Math.round((el.scrollTop / max) * 100) : 0;
+          socket.emit('pi:state', { scrollPercent: pct });
+        }, 200);
+      });
+
+      socket.on('command:navigate', ({ direction }) => {
+        if (direction === 'next') next();
+        if (direction === 'prev') prev();
+      });
+
+      socket.on('command:scroll', ({ direction }) => {
+        if (direction === 'down') scrollDown();
+        if (direction === 'up') scrollUp();
+      });
+
+      socket.on('command:goto', ({ filename }) => {
+        location.href = '/' + filename;
+      });
+      
+      socket.on('command:setlist', () => setlist());
+    } // end preview guard

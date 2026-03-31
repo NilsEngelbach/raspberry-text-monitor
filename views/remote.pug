@@ -1,0 +1,438 @@
+doctype html
+html(lang="en")
+  head
+    title Remote Control
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(href='/public/remote.css' rel='stylesheet')
+    link(href='/public/favicon.ico' rel='icon')
+
+  body
+    header
+      h1 Remote Control
+      nav.tabs
+        button.tab-btn.active(data-tab='live') Live
+        button.tab-btn(data-tab='setlist') Setlist
+        button.tab-btn(data-tab='editor') Editor
+
+    main
+
+      //- TAB 1: Live Mirror + Remote Control
+      section#tab-live.tab-panel.active
+        .live-layout
+          .status-banner
+            span#status-label Now showing:&nbsp;
+            strong#status-song loading...
+          .preview-frame-wrap
+            iframe#live-preview(frameborder='0' scrolling='no')
+          .remote-controls
+            button#btn-scroll-up(onclick='remoteScroll("up")') ↑ Up
+            button#btn-scroll-down(onclick='remoteScroll("down")') ↓ Down
+            button#btn-prev(onclick='remoteNavigate("prev")') ← Prev
+            button#btn-next(onclick='remoteNavigate("next")') Next →
+            button#btn-setlist(onclick='remoteGotoSetlist()') ☰ Setlist
+          h2 Songs
+          ul#live-song-list.song-list
+
+      //- TAB 2: Setlist Management
+      section#tab-setlist.tab-panel
+        .row
+          label(for='setlist-select') Active setlist:
+          select#setlist-select(onchange='switchSetlist(this.value)')
+        h2#setlist-name Setlist
+        ul#setlist-song-list.song-list.draggable
+        .add-song-form
+          h3 Add song
+          input#add-song-name(type='text' placeholder='Display name')
+          input#add-song-filename(type='text' placeholder='filename.md')
+          button(onclick='addSong()') Add
+
+      //- TAB 3: Lyrics Editor
+      section#tab-editor.tab-panel
+        .row
+          label(for='editor-song-select') Song:
+          select#editor-song-select(onchange='loadSongForEdit(this.value)')
+            option(value='') — select a song —
+        .editor-wrap
+          textarea#editor-textarea(placeholder='Select a song to edit...' spellcheck='false')
+        .editor-actions
+          button(onclick='saveSong()') Save
+          button(onclick='previewSong()') Preview
+        .preview-wrap(style='display:none')
+          h3 Preview
+          #editor-preview
+
+    script(src='/socket.io/socket.io.js')
+    script.
+      // --- Socket setup ---
+      const socket = io();
+      socket.emit('identify', { role: 'remote' });
+
+      let currentState = { view: 'setlist', filename: null, songName: null, scrollPercent: 0 };
+      let currentSetlist = null;
+
+      socket.on('state:update', (state) => {
+        currentState = state;
+        updateLiveTab(state);
+        updatePreviewScale();
+      });
+
+      // --- Tab switching ---
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+          if (btn.dataset.tab === 'live') updatePreviewScale();
+          if (btn.dataset.tab === 'setlist') loadSetlistTab();
+          if (btn.dataset.tab === 'editor') loadEditorTab();
+        });
+      });
+
+      // --- Live tab ---
+      let iframeCurrentSrc = null;
+
+      function syncIframeSelection(iframe, state) {
+        try {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          if (state.view === 'setlist' && state.selectedSong) {
+            const items = doc.querySelectorAll('#setlist li');
+            items.forEach(li => {
+              const active = li.getAttribute('data-song') === state.selectedSong;
+              li.classList.toggle('active', active);
+              if (active) li.scrollIntoView({ behavior: 'auto', block: 'center' });
+            });
+          } else if (state.view === 'settings' && state.selectedIndex != null && state.selectedIndex >= 0) {
+            const radios = doc.forms['select-setlist'];
+            if (radios && radios[state.selectedIndex]) {
+              radios[state.selectedIndex].checked = true;
+            }
+          }
+        } catch (e) {
+          // cross-origin — ignore
+        }
+      }
+
+      function syncIframeScroll(iframe, scrollPercent) {
+        if (scrollPercent == null) return;
+        try {
+          const container = (iframe.contentDocument || iframe.contentWindow.document).getElementById('container');
+          if (container) {
+            const max = container.scrollHeight - container.clientHeight;
+            container.scrollTop = Math.round((scrollPercent / 100) * max);
+          }
+        } catch (e) {
+          // cross-origin — ignore
+        }
+      }
+
+      function updateLiveTab(state) {
+        const label = document.getElementById('status-song');
+        if (state.view === 'song' && state.songName) {
+          label.textContent = state.songName;
+        } else if (state.view === 'setlist') {
+          label.textContent = '(Setlist view)';
+        } else {
+          label.textContent = '(Settings)';
+        }
+
+        // Update iframe to show whatever the Pi is currently displaying
+        const iframe = document.getElementById('live-preview');
+        let targetSrc;
+        if (state.view === 'song' && state.filename) {
+          targetSrc = '/' + state.filename + '?preview=1';
+        } else if (state.view === 'settings') {
+          const sel = state.selectedIndex != null && state.selectedIndex >= 0 ? '&selected=' + state.selectedIndex : '';
+          targetSrc = '/settings?preview=1' + sel;
+        } else {
+          const song = state.selectedSong ? '&song=' + encodeURIComponent(state.selectedSong) : '';
+          targetSrc = '/?preview=1' + song;
+        }
+        const baseTarget = targetSrc.split('?')[0];
+        const iframeBaseSrc = iframeCurrentSrc ? iframeCurrentSrc.split('?')[0] : null;
+        const sameBase = baseTarget === iframeBaseSrc;
+        // For song view: same-page scroll sync. For setlist/settings: reload when
+        // selection changes so the page initialises with the correct highlighted item.
+        const inPlace = sameBase && state.view === 'song';
+
+        if (!inPlace) {
+          if (targetSrc !== iframeCurrentSrc) {
+            iframe.src = targetSrc;
+            iframeCurrentSrc = targetSrc;
+            iframe.onload = () => {
+              syncIframeScroll(iframe, state.scrollPercent);
+              syncIframeSelection(iframe, state);
+            };
+          }
+        } else {
+          // Song page already loaded — sync scroll directly
+          syncIframeScroll(iframe, state.scrollPercent);
+        }
+
+        // Update mini song list active highlight
+        if (currentSetlist && state.filename) {
+          document.querySelectorAll('#live-song-list li').forEach(li => {
+            li.classList.toggle('active', li.dataset.filename === state.filename);
+          });
+        }
+      }
+
+      function remoteNavigate(direction) {
+        socket.emit('remote:navigate', { direction });
+      }
+
+      function remoteScroll(direction) {
+        socket.emit('remote:scroll', { direction });
+      }
+
+      function remoteGotoSetlist() {
+        socket.emit('remote:setlist');
+      }
+
+      function remoteGoto(filename) {
+        socket.emit('remote:goto', { filename });
+      }
+
+      async function loadLiveSongList() {
+        try {
+          const res = await fetch('/api/setlist');
+          if (!res.ok) return;
+          currentSetlist = await res.json();
+          const ul = document.getElementById('live-song-list');
+          ul.innerHTML = '';
+          currentSetlist.songs.forEach(song => {
+            const li = document.createElement('li');
+            li.dataset.filename = song.filename;
+            li.textContent = song.name;
+            li.addEventListener('click', () => remoteGoto(song.filename));
+            ul.appendChild(li);
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      loadLiveSongList();
+
+      // Scale the iframe to match Pi screen dimensions
+      function updatePreviewScale() {
+        const wrap = document.querySelector('.preview-frame-wrap');
+        const iframe = document.getElementById('live-preview');
+        if (!wrap || !iframe) return;
+        const piW = currentState.screenW || 1920;
+        const piH = currentState.screenH || 1080;
+        const scale = wrap.clientWidth / piW;
+        iframe.style.width = piW + 'px';
+        iframe.style.height = piH + 'px';
+        iframe.style.transform = `scale(${scale})`;
+        wrap.style.height = Math.round(piH * scale) + 'px';
+      }
+      window.addEventListener('resize', updatePreviewScale);
+      updatePreviewScale();
+
+      // --- Setlist tab ---
+      async function loadSetlistTab() {
+        try {
+          const [setlistsRes, currentRes] = await Promise.all([
+            fetch('/api/setlists'),
+            fetch('/api/setlist'),
+          ]);
+          const { setlists, selectedPath } = await setlistsRes.json();
+          currentSetlist = await currentRes.json();
+
+          const sel = document.getElementById('setlist-select');
+          sel.innerHTML = '';
+          setlists.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.path;
+            opt.textContent = s.name;
+            if (s.path === selectedPath) opt.selected = true;
+            sel.appendChild(opt);
+          });
+
+          renderSetlistSongs(currentSetlist.songs);
+          document.getElementById('setlist-name').textContent = currentSetlist.name;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function renderSetlistSongs(songs) {
+        const ul = document.getElementById('setlist-song-list');
+        ul.innerHTML = '';
+        songs.forEach((song, i) => {
+          const li = document.createElement('li');
+          li.draggable = true;
+          li.dataset.index = i;
+          li.innerHTML = `<span class="drag-handle">⠿</span><span class="song-name">${song.name}</span><span class="song-file">${song.filename}</span><button class="btn-remove" data-filename="${song.filename}">✕</button>`;
+          li.querySelector('.btn-remove').addEventListener('click', () => removeSong(song.filename));
+          li.addEventListener('dragstart', handleDragStart);
+          li.addEventListener('dragover', handleDragOver);
+          li.addEventListener('drop', handleDrop);
+          li.addEventListener('dragend', handleDragEnd);
+          ul.appendChild(li);
+        });
+      }
+
+      async function switchSetlist(path) {
+        try {
+          const res = await fetch('/api/setlist/select', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path }),
+          });
+          const data = await res.json();
+          if (data.ok) {
+            const currentRes = await fetch('/api/setlist');
+            currentSetlist = await currentRes.json();
+            renderSetlistSongs(currentSetlist.songs);
+            document.getElementById('setlist-name').textContent = currentSetlist.name;
+            await loadLiveSongList();
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async function removeSong(filename) {
+        if (!confirm(`Remove "${filename}" from setlist?`)) return;
+        try {
+          await fetch('/api/setlist/song/remove', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filename }),
+          });
+          const res = await fetch('/api/setlist');
+          currentSetlist = await res.json();
+          renderSetlistSongs(currentSetlist.songs);
+          await loadLiveSongList();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async function addSong() {
+        const name = document.getElementById('add-song-name').value.trim();
+        const filename = document.getElementById('add-song-filename').value.trim();
+        if (!name || !filename) return alert('Name and filename are required');
+        try {
+          await fetch('/api/setlist/song/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, filename }),
+          });
+          document.getElementById('add-song-name').value = '';
+          document.getElementById('add-song-filename').value = '';
+          const res = await fetch('/api/setlist');
+          currentSetlist = await res.json();
+          renderSetlistSongs(currentSetlist.songs);
+          await loadLiveSongList();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      // Drag-and-drop reorder
+      let dragSrcIndex = null;
+
+      function handleDragStart(e) {
+        dragSrcIndex = parseInt(this.dataset.index);
+        this.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      }
+
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        document.querySelectorAll('#setlist-song-list li').forEach(li => li.classList.remove('drag-over'));
+        this.classList.add('drag-over');
+        return false;
+      }
+
+      function handleDrop(e) {
+        e.stopPropagation();
+        const targetIndex = parseInt(this.dataset.index);
+        if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
+          const songs = [...currentSetlist.songs];
+          const [moved] = songs.splice(dragSrcIndex, 1);
+          songs.splice(targetIndex, 0, moved);
+          currentSetlist.songs = songs;
+          renderSetlistSongs(songs);
+          fetch('/api/setlist/reorder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ songs }),
+          }).then(() => loadLiveSongList()).catch(console.error);
+        }
+        return false;
+      }
+
+      function handleDragEnd() {
+        document.querySelectorAll('#setlist-song-list li').forEach(li => {
+          li.classList.remove('dragging', 'drag-over');
+        });
+        dragSrcIndex = null;
+      }
+
+      // --- Editor tab ---
+      let editingFilename = null;
+
+      async function loadEditorTab() {
+        try {
+          const res = await fetch('/api/setlist');
+          const setlist = await res.json();
+          const sel = document.getElementById('editor-song-select');
+          sel.innerHTML = '<option value="">— select a song —</option>';
+          setlist.songs.forEach(song => {
+            const opt = document.createElement('option');
+            opt.value = song.filename;
+            opt.textContent = song.name;
+            sel.appendChild(opt);
+          });
+          if (editingFilename) sel.value = editingFilename;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async function loadSongForEdit(filename) {
+        if (!filename) return;
+        editingFilename = filename;
+        try {
+          const res = await fetch(`/api/song/${encodeURIComponent(filename)}`);
+          const { content } = await res.json();
+          document.getElementById('editor-textarea').value = content;
+          document.querySelector('.preview-wrap').style.display = 'none';
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async function saveSong() {
+        if (!editingFilename) return alert('No song selected');
+        const content = document.getElementById('editor-textarea').value;
+        try {
+          const res = await fetch(`/api/song/${encodeURIComponent(editingFilename)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content }),
+          });
+          const data = await res.json();
+          if (data.ok) alert('Saved!');
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async function previewSong() {
+        if (!editingFilename) return alert('No song selected');
+        try {
+          const res = await fetch(`/api/song/${encodeURIComponent(editingFilename)}/preview`);
+          const { html } = await res.json();
+          const wrap = document.querySelector('.preview-wrap');
+          document.getElementById('editor-preview').innerHTML = html;
+          wrap.style.display = 'block';
+        } catch (e) {
+          console.error(e);
+        }
+      }
