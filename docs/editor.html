@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyrics Editor — raspberry-text-monitor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #4a9eff;
+      --bg-chrome: #1e1e1e;
+      --bg-panel: #252525;
+      --bg-input: #1a1a1a;
+      --border: #333;
+      --text: #d4d4d4;
+      --text-dim: #888;
+      --toolbar-h: 48px;
+      --statusbar-h: 28px;
+
+      /* Preview monitor colors (match app defaults) */
+      --refrain-color: yellow;
+      --bridge-color: orange;
+      --highlight-color: yellow;
+      --font-size: 24px;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-chrome);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Toolbar ──────────────────────────────────────────────────── */
+    #toolbar {
+      height: var(--toolbar-h);
+      background: #2d2d2d;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 12px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    #toolbar .logo {
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      margin-right: 12px;
+      white-space: nowrap;
+    }
+    #toolbar .logo span { color: var(--accent); }
+
+    .sep {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+      margin: 0 6px;
+    }
+
+    .tb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: #333;
+      color: var(--text);
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .tb-btn:hover { background: #444; }
+    .tb-btn.primary { background: #1a4a7a; border-color: var(--accent); color: #fff; }
+    .tb-btn.primary:hover { background: #235a9a; }
+    .tb-btn .icon { font-style: normal; }
+
+    .tb-group { display: flex; gap: 3px; align-items: center; }
+    .tb-label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+
+    /* ─── Main split layout ─────────────────────────────────────────── */
+    #main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* ─── Editor pane ───────────────────────────────────────────────── */
+    #editor-pane {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      border-right: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    .pane-header {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: #2a2a2a;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .pane-header strong { color: var(--text); font-weight: 600; }
+
+    #editor {
+      flex: 1;
+      background: var(--bg-input);
+      color: #d4d4d4;
+      border: none;
+      outline: none;
+      resize: none;
+      padding: 16px;
+      font-family: "Cascadia Code", "Fira Code", "Consolas", "Monaco", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      tab-size: 2;
+      min-height: 0;
+    }
+    #editor::placeholder { color: #555; }
+
+    /* ─── Preview pane ──────────────────────────────────────────────── */
+    #preview-pane {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      min-width: 0;
+    }
+
+    #preview-header {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: #2a2a2a;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    #preview-wrap {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    /* The actual "monitor" preview — matches app.css */
+    #preview {
+      flex: 1;
+      background-color: #111;
+      color: #eee;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: var(--font-size);
+      overflow-y: auto;
+      padding: 12px 16px 40px;
+      line-height: 1.3;
+      min-height: 0;
+    }
+
+    /* Scrollbar for preview */
+    #preview::-webkit-scrollbar { width: 6px; }
+    #preview::-webkit-scrollbar-track { background: #1a1a1a; }
+    #preview::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+    /* mirror app.css preview styles */
+    #preview .refrain { color: var(--refrain-color); }
+    #preview .bridge  { color: var(--bridge-color);  }
+
+    #preview p, #preview span.paragraph {
+      display: block;
+      margin: 12px 0;
+      line-height: 1.3;
+    }
+
+    #preview strong { font-weight: bold; }
+
+    /* When flex mode is active, #preview gets display:flex via JS (mirrors server #lyrics.flex) */
+    #preview > div { flex: 1; min-width: 0; }
+
+    /* ─── Preview settings bar ──────────────────────────────────────── */
+    #preview-settings {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 5px 12px;
+      background: #2a2a2a;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    #preview-settings label { display: flex; align-items: center; gap: 5px; }
+
+    #preview-settings input[type=range] {
+      width: 80px;
+      accent-color: var(--accent);
+    }
+
+    #preview-settings input[type=color] {
+      width: 28px;
+      height: 20px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: none;
+      cursor: pointer;
+      padding: 1px;
+    }
+
+    /* ─── Status bar ─────────────────────────────────────────────────── */
+    #statusbar {
+      height: var(--statusbar-h);
+      background: #007acc;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11px;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    #statusbar span { opacity: 0.85; }
+    #status-msg { font-weight: 600; opacity: 1 !important; }
+
+    /* ─── File picker modal ─────────────────────────────────────────────── */
+    #file-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #file-modal.open { display: flex; }
+
+    #fp-song-list::-webkit-scrollbar { width: 5px; }
+    #fp-song-list::-webkit-scrollbar-track { background: #111; }
+    #fp-song-list::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+    .fp-song-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 4px;
+      background: #1e1e1e;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 13px;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .fp-song-item:hover { background: #333; border-color: var(--accent); }
+    .fp-song-item .fp-name { flex: 1; }
+    .fp-song-item .fp-file { font-size: 10px; color: var(--text-dim); font-family: monospace; }
+
+    /* ─── Snippet modal ──────────────────────────────────────────────── */
+    #snippet-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #snippet-modal.open { display: flex; }
+
+    .modal-box {
+      background: #2d2d2d;
+      border: 1px solid #555;
+      border-radius: 8px;
+      width: 340px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .modal-box h3 { font-size: 14px; margin-bottom: 12px; }
+    .modal-box p  { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; line-height: 1.5; }
+    .modal-close {
+      display: block;
+      margin-top: 12px;
+      text-align: right;
+      font-size: 12px;
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .snippet-list { display: flex; flex-direction: column; gap: 6px; }
+    .snippet-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      background: #1e1e1e;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .snippet-item:hover { background: #333; border-color: var(--accent); }
+    .snippet-item .snip-icon { font-size: 18px; }
+    .snippet-item .snip-info { flex: 1; }
+    .snippet-item .snip-name { font-size: 13px; font-weight: 600; }
+    .snippet-item .snip-desc { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+    .snippet-item .snip-preview {
+      font-family: monospace;
+      font-size: 10px;
+      color: #888;
+      background: #111;
+      padding: 3px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ─── Spec / help panel ──────────────────────────────────────────── */
+    #spec-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #spec-panel.open { display: flex; }
+
+    .spec-box {
+      background: #1e1e1e;
+      border: 1px solid #555;
+      border-radius: 8px;
+      width: min(760px, 95vw);
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 28px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    }
+    .spec-box h2 { font-size: 18px; margin-bottom: 4px; }
+    .spec-box .spec-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+    .spec-box h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin: 20px 0 8px; }
+    .spec-box p  { font-size: 13px; color: #bbb; line-height: 1.6; margin-bottom: 8px; }
+    .spec-box table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
+    .spec-box th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); text-align: left; padding: 4px 10px 6px; border-bottom: 1px solid #333; }
+    .spec-box td { font-size: 12px; padding: 6px 10px; border-bottom: 1px solid #2a2a2a; vertical-align: top; }
+    .spec-box td:first-child { font-family: monospace; color: #ce9178; white-space: nowrap; }
+    .spec-box td code { background: #111; padding: 2px 5px; border-radius: 3px; font-family: monospace; font-size: 11px; }
+    .spec-close {
+      float: right;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text-dim);
+      line-height: 1;
+    }
+    .spec-close:hover { color: #fff; }
+
+    /* ─── Copy feedback ──────────────────────────────────────────────── */
+    #copy-toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #333;
+      color: #fff;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 200;
+    }
+    #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ─── Toolbar ───────────────────────────────────────────────────────── -->
+<div id="toolbar">
+  <span class="logo">🎵 Lyrics <span>Editor</span></span>
+  <div class="sep"></div>
+
+  <div class="tb-group">
+    <span class="tb-label">Insert:</span>
+    <button class="tb-btn" title="Insert Refrain/Chorus block" onclick="insertSnippet('refrain')">🔴 Refrain</button>
+    <button class="tb-btn" title="Insert Bridge block" onclick="insertSnippet('bridge')">🟠 Bridge</button>
+    <button class="tb-btn" title="Insert custom color span" onclick="showSnippetModal()"><em class="icon">🎨</em> Snippet…</button>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="tb-group">
+    <span class="tb-label">Format:</span>
+    <button class="tb-btn" title="Wrap selection in bold" onclick="wrapSelection('**','**')"><strong>B</strong></button>
+    <button class="tb-btn" title="Insert 2-column layout (adds flex front matter + ##left##/##right## columns)" onclick="insertTwoColumn()">⬛⬛ 2-col layout</button>
+  </div>
+
+  <div class="sep"></div>
+
+  <button class="tb-btn" onclick="openFilePicker()" title="Open a song from a setlist folder">📂 Open…</button>
+  <button class="tb-btn primary" onclick="copyToClipboard()" title="Copy raw lyrics to clipboard">📋 Copy</button>
+  <button class="tb-btn" onclick="showSpec()" title="Show format specification">📖 Format Spec</button>
+</div>
+
+<!-- ─── Main ─────────────────────────────────────────────────────────── -->
+<div id="main">
+
+  <!-- Editor -->
+  <div id="editor-pane">
+    <div class="pane-header">
+      <strong>Editor</strong>
+      <span style="margin-left:auto" id="line-col">Ln 1, Col 1</span>
+    </div>
+    <textarea id="editor" spellcheck="false" placeholder="Paste or type your lyrics here…
+
+Example:
+
+Verse 1 line one
+Verse 1 line two
+
+~refrain~
+Chorus line one
+Chorus line two
+~/refrain~
+
+~bridge~
+Bridge section
+~/bridge~"></textarea>
+  </div>
+
+  <!-- Preview -->
+  <div id="preview-pane">
+    <div id="preview-header">
+      <strong>Preview</strong>
+      <span style="opacity:.5">— as displayed on monitor</span>
+    </div>
+    <div id="preview-wrap">
+      <div id="preview"></div>
+    </div>
+    <div id="preview-settings">
+      <label>
+        Font size
+        <input type="range" id="font-slider" min="12" max="48" value="24" oninput="updateFontSize(this.value)">
+        <span id="font-val">24px</span>
+      </label>
+      <div class="sep" style="height:16px"></div>
+      <label>
+        Refrain
+        <input type="color" id="refrain-color" value="#ffff00" oninput="updateColor('refrain-color', this.value)">
+      </label>
+      <label>
+        Bridge
+        <input type="color" id="bridge-color" value="#ffa500" oninput="updateColor('bridge-color', this.value)">
+      </label>
+      <div class="sep" style="height:16px"></div>
+      <label title="Match colors used in frozen.md etc.">
+        <input type="checkbox" id="dark-preview" checked onchange="updateTheme()"> Dark bg
+      </label>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── Status bar ────────────────────────────────────────────────────── -->
+<div id="statusbar">
+  <span id="status-msg">Ready</span>
+  <span id="word-count">0 lines</span>
+  <span style="margin-left:auto">raspberry-text-monitor · Song Format v1</span>
+</div>
+
+<!-- ─── File picker modal ────────────────────────────────────────────────── -->
+<div id="file-modal" onclick="closeFilePicker(event)">
+  <div class="modal-box" style="width:440px">
+    <h3>Open Song</h3>
+    <div id="file-picker-body">
+      <div id="fp-setlist-row" style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+        <label style="font-size:12px;white-space:nowrap">Setlist</label>
+        <select id="fp-setlist" style="flex:1;background:#1a1a1a;color:#d4d4d4;border:1px solid #444;border-radius:4px;padding:4px 6px;font-size:12px" onchange="loadSongList()">
+          <option value="">— loading… —</option>
+        </select>
+      </div>
+      <div id="fp-song-list" style="display:flex;flex-direction:column;gap:4px;max-height:320px;overflow-y:auto"></div>
+      <div id="fp-error" style="color:#f88;font-size:12px;margin-top:8px;display:none"></div>
+    </div>
+    <span class="modal-close" onclick="closeFilePicker()">Close</span>
+  </div>
+</div>
+
+<!-- ─── Snippet modal ─────────────────────────────────────────────────── -->
+<div id="snippet-modal" onclick="closeSnippetModal(event)">
+  <div class="modal-box">
+    <h3>Insert Snippet</h3>
+    <p>Choose a format element to insert at the cursor position.</p>
+    <div class="snippet-list" id="snippet-list"></div>
+    <span class="modal-close" onclick="closeSnippetModal()">Close</span>
+  </div>
+</div>
+
+<!-- ─── Format Spec panel ─────────────────────────────────────────────── -->
+<div id="spec-panel" onclick="closeSpec(event)">
+  <div class="spec-box">
+    <span class="spec-close" onclick="closeSpec()">✕</span>
+    <h2>Song Lyrics Format</h2>
+    <p class="spec-sub">Specification for the <code>.md</code> lyric files used by raspberry-text-monitor</p>
+
+    <h3>Overview</h3>
+    <p>
+      Files are standard Markdown with several custom extensions processed by Showdown.js.
+      Each non-empty lyric line automatically gets a <code>&lt;br&gt;</code> appended, so single
+      line-breaks in the source render as line-breaks on screen (no need for trailing spaces).
+      Blank lines create paragraph spacing.
+    </p>
+
+    <h3>Section Tags</h3>
+    <table>
+      <tr><th>Syntax</th><th>Renders as</th><th>Default color</th></tr>
+      <tr>
+        <td>~refrain~…~/refrain~</td>
+        <td>Block with CSS class <code>.refrain</code></td>
+        <td>yellow</td>
+      </tr>
+      <tr>
+        <td>~bridge~…~/bridge~</td>
+        <td>Block with CSS class <code>.bridge</code></td>
+        <td>orange</td>
+      </tr>
+      <tr>
+        <td>~anything~…~/anything~</td>
+        <td>Block with CSS class <code>.anything</code></td>
+        <td>(inherits text color — add custom CSS)</td>
+      </tr>
+    </table>
+    <p>The tag name becomes the CSS class, so you can style any named section via the server's CSS.</p>
+
+    <h3>Inline Color Spans</h3>
+    <table>
+      <tr><th>Syntax</th><th>Renders as</th><th>Notes</th></tr>
+      <tr>
+        <td>=gold=…=/gold=</td>
+        <td><code>style="color: gold"</code></td>
+        <td>Any valid CSS color name works</td>
+      </tr>
+      <tr>
+        <td>=red=…=/red=</td>
+        <td><code>style="color: red"</code></td>
+        <td>Can span multiple lines</td>
+      </tr>
+      <tr>
+        <td>=colorname=…=/colorname=</td>
+        <td><code>style="color: colorname"</code></td>
+        <td>Named colors only (no hex)</td>
+      </tr>
+    </table>
+
+    <h3>Multi-Column Layout</h3>
+    <p>
+      Use the <strong>⬛⬛ 2-col layout</strong> toolbar button to insert a two-column layout.
+      It adds a <code>flex: true</code> YAML front matter block (which switches the lyrics
+      container to <code>display: flex</code>) together with <code>##left##</code> and
+      <code>##right##</code> column dividers. These two features only make sense together.
+    </p>
+    <table>
+      <tr><th>Syntax</th><th>Renders as</th></tr>
+      <tr><td>##left##…##/left##</td><td>Div with class <code>.left</code> — first column</td></tr>
+      <tr><td>##right##…##/right##</td><td>Div with class <code>.right</code> — second column</td></tr>
+      <tr><td>##anything##…##/anything##</td><td>Div with class <code>.anything</code></td></tr>
+    </table>
+    <p>The YAML front matter (<code>---\nflex: true\n---</code>) must appear at the very top of the file.</p>
+
+    <h3>Standard Markdown</h3>
+    <p>
+      All standard Markdown is supported: <code>**bold**</code>, <code>*italic*</code>,
+      headings, etc. In practice, <strong>bold</strong> is the most commonly used formatting within lyrics.
+    </p>
+
+    <h3>Annotations / Stage Notes</h3>
+    <p>
+      Square brackets are used for stage notes and repetition markers. They render as plain text
+      (no special styling), but by convention are used for notes like <code>[REFRAIN]</code>,
+      <code>[2x]</code>, <code>[8 Takte]</code>, <code>[6x]</code>.
+    </p>
+
+    <h3>Example File</h3>
+    <table>
+      <tr><th>Raw source</th><th>What you get</th></tr>
+      <tr>
+        <td><pre style="font-size:11px;color:#ce9178;white-space:pre-wrap">---
+flex: false
+---
+Verse line one
+Verse line two
+
+~refrain~
+Chorus line A
+Chorus line B
+~/refrain~
+
+~bridge~
+Bridge section
+~/bridge~
+
+=gold=solo A=/gold= =red=solo B=/red=
+
+**Outro line** [4x]</pre></td>
+        <td style="vertical-align:top"><pre style="font-size:11px;color:#bbb;white-space:pre-wrap">Verse line one
+Verse line two
+(blank line)
+[YELLOW] Chorus line A
+[YELLOW] Chorus line B
+(blank line)
+[ORANGE] Bridge section
+(blank line)
+[gold] solo A  [red] solo B
+(blank line)
+<b>Outro line</b> [4x]</pre></td>
+      </tr>
+    </table>
+
+    <span class="spec-close" onclick="closeSpec()" style="float:none;display:block;margin-top:16px;cursor:pointer;color:var(--accent)">Close</span>
+  </div>
+</div>
+
+<!-- ─── Copy toast ─────────────────────────────────────────────────────── -->
+<div id="copy-toast">Copied to clipboard!</div>
+
+<script>
+// ─── Showdown setup ──────────────────────────────────────────────────────
+showdown.extension('lyrics', function () {
+  return [
+    {
+      type: 'output',
+      regex: /~([\w]+)[^>]*~([^]+?)~\/\1~/gi,
+      replace: '<div class="$1" markdown="1">$2</div>',
+    },
+    {
+      type: 'output',
+      regex: /=([\w]+)=(.*?)=\/\1=/gs,
+      replace: '<span style="color: $1" markdown="1">$2</span>',
+    },
+    {
+      type: 'lang',
+      regex: /##\/([\w]+)[^\n#]*##/gi,
+      replace: '</div>',
+    },
+    {
+      type: 'lang',
+      regex: /##([\w]+)[^\n#]*##/gi,
+      replace: '<div class="$1" markdown="1">',
+    },
+  ];
+});
+
+const converter = new showdown.Converter({
+  extensions: ['lyrics'],
+  metadata: true,
+  noHeaderId: true,
+  ghCompatibleHeaderId: false,
+});
+
+// ─── Auto line-break injection (mirrors server-side regex exactly) ──────────
+// Server: data.replace(/^[^~.+\r?\n].*.+\r?\n/gm, "$&<br>\r\n")
+// We replicate this by appending two trailing spaces (Markdown <br>) instead of
+// a literal <br>, so Showdown handles it cleanly.
+function injectLineBreaks(src) {
+  return src.replace(/^[^~.+\r?\n].*.+\r?\n/gm, (m) => m.trimEnd() + '  \n');
+}
+
+// ─── Preview rendering ───────────────────────────────────────────────────
+const editor   = document.getElementById('editor');
+const preview  = document.getElementById('preview');
+
+let renderTimer = null;
+
+function render() {
+  const raw = editor.value;
+
+  // Strip YAML front matter for rendering, detect flex flag
+  let src = raw;
+  let isFlex = false;
+  const fmMatch = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+  if (fmMatch) {
+    if (/flex\s*:\s*true/.test(fmMatch[1])) isFlex = true;
+    src = raw.slice(fmMatch[0].length);
+  }
+
+  const processed = injectLineBreaks(src);
+  let html = converter.makeHtml(processed);
+
+  preview.innerHTML = html;
+
+  // Apply flex layout: mirrors the server adding class="flex" to #lyrics
+  if (isFlex) {
+    preview.style.display = 'flex';
+    preview.style.gap = '0.5rem';
+    preview.style.alignItems = 'flex-start';
+  } else {
+    preview.style.display = '';
+    preview.style.gap = '';
+    preview.style.alignItems = '';
+  }
+
+  updateWordCount(raw);
+}
+
+function scheduleRender() {
+  if (renderTimer) clearTimeout(renderTimer);
+  renderTimer = setTimeout(render, 120);
+}
+
+editor.addEventListener('input', scheduleRender);
+
+// ─── Cursor position ────────────────────────────────────────────────────
+editor.addEventListener('keyup', updateCursor);
+editor.addEventListener('click', updateCursor);
+editor.addEventListener('selectionchange', updateCursor);
+
+function updateCursor() {
+  const val = editor.value.substring(0, editor.selectionStart);
+  const lines = val.split('\n');
+  const ln = lines.length;
+  const col = lines[lines.length - 1].length + 1;
+  document.getElementById('line-col').textContent = `Ln ${ln}, Col ${col}`;
+}
+
+function updateWordCount(val) {
+  const lines = val.split('\n').filter(l => l.trim().length > 0).length;
+  document.getElementById('word-count').textContent = `${lines} lines`;
+}
+
+// ─── Insert helpers ──────────────────────────────────────────────────────
+function insertAtCursor(before, after) {
+  const start = editor.selectionStart;
+  const end   = editor.selectionEnd;
+  const sel   = editor.value.substring(start, end);
+  const replacement = before + sel + after;
+  editor.setRangeText(replacement, start, end, 'end');
+  // Place cursor inside the inserted block if nothing was selected
+  if (start === end) {
+    const newPos = start + before.length;
+    editor.selectionStart = newPos;
+    editor.selectionEnd   = newPos;
+  }
+  editor.focus();
+  scheduleRender();
+  document.getElementById('status-msg').textContent = 'Inserted';
+}
+
+function wrapSelection(before, after) {
+  insertAtCursor(before, after);
+}
+
+function insertSnippet(type) {
+  const snippets = {
+    refrain:    ['~refrain~\n', '\n~/refrain~'],
+    bridge:     ['~bridge~\n', '\n~/bridge~'],
+    color_gold: ['=gold=', '=/gold='],
+    color_red:  ['=red=', '=/red='],
+    bold:       ['**', '**'],
+    annotation: ['[', ']'],
+  };
+  if (snippets[type]) {
+    insertAtCursor(snippets[type][0], snippets[type][1]);
+  }
+  closeSnippetModal();
+}
+
+function insertTwoColumn() {
+  let current = editor.value;
+  // Ensure flex: true front matter is present
+  const hasFm = /^---\s*\n/.test(current);
+  if (!hasFm) {
+    current = '---\nflex: true\n---\n\n' + current;
+    editor.value = current;
+  } else if (!/flex\s*:\s*true/.test(current)) {
+    // Front matter exists but flex is not set — add it
+    current = current.replace(/^---\s*\n/, '---\nflex: true\n');
+    editor.value = current;
+  }
+  // Insert column scaffold at end
+  const insert = '\n##left##\n\n##/left##\n\n##right##\n\n##/right##\n';
+  const pos = editor.value.length;
+  editor.setRangeText(insert, pos, pos, 'end');
+  // Place cursor inside ##left##
+  const leftPos = editor.value.indexOf('##left##\n') + '##left##\n'.length;
+  editor.selectionStart = editor.selectionEnd = leftPos;
+  editor.focus();
+  scheduleRender();
+  document.getElementById('status-msg').textContent = '2-column layout inserted';
+}
+
+// ─── Snippet modal ───────────────────────────────────────────────────────
+const SNIPPETS = [
+  { id: 'refrain',    icon: '🔴', name: 'Refrain / Chorus', desc: 'Yellow highlighted block', preview: '~refrain~…~/refrain~' },
+  { id: 'bridge',     icon: '🟠', name: 'Bridge',            desc: 'Orange highlighted block', preview: '~bridge~…~/bridge~'   },
+  { id: 'color_gold', icon: '🟡', name: 'Color: gold',       desc: 'Inline gold text',          preview: '=gold=…=/gold='       },
+  { id: 'color_red',  icon: '🔴', name: 'Color: red',        desc: 'Inline red text',           preview: '=red=…=/red='         },
+  { id: 'bold',       icon: '𝐁',  name: 'Bold',              desc: 'Bold Markdown text',        preview: '**…**'                },
+  { id: 'annotation', icon: '📝', name: 'Annotation / note', desc: 'Stage note or repetition',  preview: '[2x] or [CHORUS]'     },
+];
+
+function showSnippetModal() {
+  const list = document.getElementById('snippet-list');
+  list.innerHTML = '';
+  SNIPPETS.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'snippet-item';
+    el.innerHTML = `
+      <span class="snip-icon">${s.icon}</span>
+      <span class="snip-info">
+        <div class="snip-name">${s.name}</div>
+        <div class="snip-desc">${s.desc}</div>
+      </span>
+      <span class="snip-preview">${s.preview}</span>
+    `;
+    el.addEventListener('click', () => insertSnippet(s.id));
+    list.appendChild(el);
+  });
+  document.getElementById('snippet-modal').classList.add('open');
+}
+
+function closeSnippetModal(e) {
+  if (!e || e.target === document.getElementById('snippet-modal')) {
+    document.getElementById('snippet-modal').classList.remove('open');
+  }
+}
+
+// ─── Spec panel ──────────────────────────────────────────────────────────
+function showSpec() {
+  document.getElementById('spec-panel').classList.add('open');
+}
+function closeSpec(e) {
+  if (!e || e.target === document.getElementById('spec-panel')) {
+    document.getElementById('spec-panel').classList.remove('open');
+  }
+}
+
+// ─── Copy to clipboard ───────────────────────────────────────────────────
+function copyToClipboard() {
+  navigator.clipboard.writeText(editor.value).then(() => {
+    const toast = document.getElementById('copy-toast');
+    toast.classList.add('show');
+    document.getElementById('status-msg').textContent = 'Copied to clipboard';
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  });
+}
+
+// ─── Preview settings ────────────────────────────────────────────────────
+function updateFontSize(val) {
+  document.getElementById('preview').style.fontSize = val + 'px';
+  document.getElementById('font-val').textContent = val + 'px';
+}
+
+function updateColor(varName, val) {
+  document.documentElement.style.setProperty('--' + varName, val);
+  render();
+}
+
+function updateTheme() {
+  const dark = document.getElementById('dark-preview').checked;
+  preview.style.backgroundColor = dark ? '#111' : '#f5f5f5';
+  preview.style.color = dark ? '#eee' : '#111';
+}
+
+// ─── Keyboard shortcuts ──────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  // Ctrl+B — bold
+  if (e.ctrlKey && e.key === 'b') {
+    e.preventDefault();
+    wrapSelection('**', '**');
+  }
+  // Escape — close modals
+  if (e.key === 'Escape') {
+    closeSnippetModal();
+    closeSpec();
+  }
+  // Tab in editor → insert spaces
+  if (e.target === editor && e.key === 'Tab') {
+    e.preventDefault();
+    insertAtCursor('  ', '');
+  }
+});
+
+let currentSetlistPath = null; // used when saving back via local server
+
+async function openFilePicker() {
+  document.getElementById('file-modal').classList.add('open');
+  document.getElementById('fp-error').style.display = 'none';
+
+  const sel = document.getElementById('fp-setlist');
+  if (sel.options.length === 1 && sel.options[0].value === '') {
+    await loadSetlists();
+  }
+}
+
+function closeFilePicker(e) {
+  if (!e || e.target === document.getElementById('file-modal')) {
+    document.getElementById('file-modal').classList.remove('open');
+  }
+}
+
+async function loadSetlists() {
+  const sel = document.getElementById('fp-setlist');
+  try {
+    let setlists;
+    const r = await fetch('../setlists.json');
+    setlists = await r.json(); // [{ slug, name }]
+
+    sel.innerHTML = '';
+    setlists.forEach((s, i) => {
+      const opt = document.createElement('option');
+      opt.value = s.slug;
+      opt.textContent = s.name;
+      sel.appendChild(opt);
+    });
+
+    if (setlists.length > 0) loadSongList();
+  } catch (err) {
+    showFpError('Could not load setlists: ' + err.message);
+  }
+}
+
+async function loadSongList() {
+  const sel = document.getElementById('fp-setlist');
+  const value = sel.value;
+  const list = document.getElementById('fp-song-list');
+  list.innerHTML = '<div style="font-size:12px;color:#888;padding:8px">Loading…</div>';
+
+  try {
+    let songs;
+    const r = await fetch('../' + value + '/setlist.json');
+    const manifest = await r.json();
+    songs = manifest.songs; // [{ name, filename }]
+
+    list.innerHTML = '';
+    songs.forEach(song => {
+      const el = document.createElement('div');
+      el.className = 'fp-song-item';
+      el.innerHTML = `<span class="fp-name">${song.name}</span><span class="fp-file">${song.filename}</span>`;
+      el.addEventListener('click', () => loadSong(value, song));
+      list.appendChild(el);
+    });
+  } catch (err) {
+    showFpError('Could not load songs: ' + err.message);
+  }
+}
+
+async function loadSong(setlistValue, song) {
+  try {
+    let content;
+    const r = await fetch('../' + setlistValue + '/' + song.filename);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    content = await r.text();
+    currentSetlistPath = null;
+
+    editor.value = content;
+    document.getElementById('status-msg').textContent = song.name;
+    scheduleRender();
+    closeFilePicker();
+  } catch (err) {
+    showFpError('Could not load file: ' + err.message);
+  }
+}
+
+function showFpError(msg) {
+  const el = document.getElementById('fp-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// ─── Initial render with example content ────────────────────────────────
+editor.value = `Hell is gone and heaven's here
+There's nothing left for you to fear
+Shake your arse come over here
+Now scream
+
+I'm a burning effigy
+Of everything I used to be
+You're my rock of empathy, my dear
+
+~refrain~
+So come on let me entertain you
+Let me entertain you
+~/refrain~
+
+Life's too short for you to die
+So grab yourself an alibi
+Heaven knows your mother lied
+Mon cher
+
+~refrain~
+So come on let me entertain you
+Let me entertain you
+~/refrain~
+
+~bridge~
+Instrumental break
+~/bridge~
+
+=gold=Come on come on come on come on=/gold= [6x]
+
+~refrain~
+**Let me entertain you** [8x]
+~/refrain~`;
+
+render();
+</script>
+</body>
+</html>

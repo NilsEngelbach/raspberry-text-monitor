@@ -74,12 +74,12 @@ showdown.extension("lyrics", function () {
     },
     {
       type: "lang",
-      regex: /##\/([\w]+)[^>]*##/gi,
+      regex: /##\/([\w]+)[^\n#]*##/gi,
       replace: "</div>",
     },
     {
       type: "lang",
-      regex: /##([\w]+)[^>]*##/gi,
+      regex: /##([\w]+)[^\n#]*##/gi,
       replace: '<div class="$1" markdown="1">',
     },
   ];
