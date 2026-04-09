@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/DEV/raspberry-text-monitor//**)",
+      "Bash(grep -r \"socket\\\\|websocket\\\\|WebSocket\\\\|ws\\\\|io\\\\|emit\\\\|on\\(\" /c/DEV/raspberry-text-monitor --include=*.js --include=*.pug)",
+      "Bash(node:*)",
+      "Bash(curl:*)",
+      "Bash(find /c/DEV/raspberry-text-monitor/setlist-* -type f -name \"*.md\")",
+      "Bash(grep -E \"\\\\.\\(js|pug\\)$\")",
+      "Bash(head:*)",
+      "mcp__playwright__browser_navigate",
+      "Bash(ls C:/DEV/raspberry-text-monitor/docs/setlist-*)",
+      "Bash(cd:*)",
+      "Bash(for d:*)",
+      "Bash(do unlink:*)",
+      "Bash(rmdir \"$d\")",
+      "Bash(done)",
+      "Bash(mkdir -p /c/DEV/raspberry-text-monitor/setlist-2026)",
+      "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/let-me-entertain-you.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
+      "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/expresso-und-tschianti.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
+      "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/schwieberdinger-bier.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
+      "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/wir-trinken-noch-ein-bier.md /c/DEV/raspberry-text-monitor/setlist-2026/)"
+    ]
+  }
+}
