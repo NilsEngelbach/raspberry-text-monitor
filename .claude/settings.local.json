@@ -19,7 +19,9 @@
       "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/let-me-entertain-you.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
       "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/expresso-und-tschianti.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
       "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/schwieberdinger-bier.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
-      "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/wir-trinken-noch-ein-bier.md /c/DEV/raspberry-text-monitor/setlist-2026/)"
+      "Bash(cp /c/DEV/raspberry-text-monitor/setlist-2025/wir-trinken-noch-ein-bier.md /c/DEV/raspberry-text-monitor/setlist-2026/)",
+      "Bash(python3 -c ':*)",
+      "Bash(python -c ':*)"
     ]
   }
 }
