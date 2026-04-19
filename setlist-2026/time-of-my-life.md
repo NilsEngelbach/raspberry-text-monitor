@@ -76,4 +76,5 @@ _And I owe it all to you_
 _'Cause I′ve had the time of my life_
 _And I've searched through every open door_
 _Till I found the truth_
+_And I owe it all to you_
 ~/refrain~
